@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Bowlby+One&display=swap');
+@import './styles/animation.css';
+
+@import './styles/navbar.css';
+@import './styles/footer.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  width: 100vw;
+  min-height: 100vh;
+  background: #111;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  overflow-x: hidden;
+  margin: 8px 0;
+  font-family: 'Bowlby One', sans-serif;
+}
+
+/* Estilos base para contenedores */
+.container-wrapper {
+  max-width: 1920px;
+  margin: 0 auto;
+  padding: 0 0.5rem;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .container-wrapper {
+    padding: 0 0.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-wrapper {
+    padding: 0 1rem;
+  }
+}

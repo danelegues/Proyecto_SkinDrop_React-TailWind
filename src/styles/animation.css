@@ -1,0 +1,225 @@
+@keyframes glowAndDrop {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes bounceInRotate {
+  0% {
+    transform: translateX(100%) scale(3) rotate(45deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0) scale(1) rotate(20deg);
+    opacity: 1;
+  }
+}
+
+.animate-glow-drop {
+  animation: glowAndDrop 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.animate-bounce-rotate {
+  animation: bounceInRotate 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Animaciones para los regalos flotantes */
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0) rotate(0deg); 
+  }
+  50% { 
+    transform: translateY(-20px) rotate(10deg); 
+  }
+}
+
+.floating-gift {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Animación de brillo para títulos */
+@keyframes glow {
+  0%, 100% {
+    text-shadow: 0 0 10px rgba(249, 115, 22, 0.5),
+                 0 0 20px rgba(249, 115, 22, 0.3);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(249, 115, 22, 0.7),
+                 0 0 30px rgba(249, 115, 22, 0.5);
+  }
+}
+
+.animate-glow {
+  animation: glow 3s ease-in-out infinite;
+}
+
+/* Animación para hover de botones */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-pulse-hover:hover {
+  animation: pulse 1s ease-in-out infinite;
+}
+
+/* Animación para cargas */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, 
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,0.1) 50%,
+    rgba(255,255,255,0) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Animación para transiciones de página */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-transition {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Importar FontAwesome */
+@import url("https://use.fontawesome.com/releases/v6.4.2/css/all.css");
+
+/* Animación de flotación para regalos */
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0) rotate(0deg); 
+  }
+  50% { 
+    transform: translateY(-20px) rotate(10deg); 
+  }
+}
+
+.floating-gift {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24' fill='none' stroke='rgba(249, 115, 22, 0.2)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 12v10H4V12'/%3E%3Cpath d='M2 7h20v5H2z'/%3E%3Cpath d='M12 22V7'/%3E%3Cpath d='M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z'/%3E%3Cpath d='M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z'/%3E%3C/svg%3E") no-repeat center;
+  animation: float 3s ease-in-out infinite;
+  z-index: 1;
+  opacity: 0.5;
+}
+
+/* Animación de brillo para textos */
+@keyframes glow-drop {
+  0%, 100% {
+    text-shadow: 
+      0 0 10px rgba(255, 140, 0, 0.3),
+      0 0 20px rgba(255, 140, 0, 0.3),
+      0 0 30px rgba(255, 140, 0, 0.3);
+  }
+  50% {
+    text-shadow: 
+      0 0 20px rgba(255, 140, 0, 0.5),
+      0 0 30px rgba(255, 140, 0, 0.5),
+      0 0 40px rgba(255, 140, 0, 0.5);
+  }
+}
+
+.animate-glow-drop {
+  animation: glow-drop 3s ease-in-out infinite;
+}
+
+/* Animación de rebote y rotación para la imagen principal */
+@keyframes bounce-rotate {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(2deg);
+  }
+}
+
+.animate-bounce-rotate {
+  animation: bounce-rotate 6s ease-in-out infinite;
+}
+
+/* Animación de expansión con brillo */
+@keyframes expand-glow {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-expand-glow {
+  animation: expand-glow 0.5s ease-out forwards;
+}
+
+/* Animación para hover de cajas */
+@keyframes pulse-border {
+  0% {
+    box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(249, 115, 22, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(249, 115, 22, 0);
+  }
+}
+
+.box-hover:hover {
+  animation: pulse-border 1.5s infinite;
+}
+
+/* Estilos globales */
+:root {
+  --primary-color: #ff8c00;
+  --background-dark: #141414;
+  --text-gray: #888;
+}
+
+/* Z-index fixes */
+.fixed {
+  z-index: 9999 !important;
+}
+
+/* Transiciones suaves globales */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+#imagenFrontal {
+  transform: rotate(-15deg);  /* Puedes ajustar los grados según necesites */
+}

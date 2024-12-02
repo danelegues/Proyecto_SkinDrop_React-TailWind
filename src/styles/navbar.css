@@ -1,0 +1,45 @@
+/* Marker Styles */
+.fa-solid {
+  pointer-events: none;
+  opacity: 0.25;
+  transition: 0.25s;
+  z-index: 1;
+}
+
+.menu-items {
+  position: relative;
+  z-index: 2;
+}
+
+.marker {
+  position: absolute;
+  top: 45px;
+  transition: 0.5s;
+  z-index: 1;
+  width: 30px;
+  pointer-events: none;
+}
+
+.marker::before {
+  --c: orange;
+  content: '';
+  width: 35px;
+  height: 8px;
+  position: absolute;
+  background: var(--c);
+  top: 0;
+  left: 50%;
+  transform: translate(-50%);
+  border-radius: 8px;
+  box-shadow: 0 0 15px var(--c), 0 0 30px var(--c), 0 0 45px var(--c), 0 0 60px var(--c);
+}
+
+.active .fa-solid {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .marker {
+    display: none;
+  }
+}

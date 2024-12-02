@@ -1,0 +1,102 @@
+/* Animaciones para las tarjetas de historial */
+.history-item {
+  position: relative;
+  overflow: hidden;
+}
+
+.history-item::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.05),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+.history-item:hover::after {
+  left: 100%;
+}
+
+/* Animación para las tarjetas de promoción */
+.promo-card {
+  position: relative;
+}
+
+.promo-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 0.5rem;
+  padding: 2px;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(249, 115, 22, 0.3),
+    transparent
+  );
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.promo-card:hover::before {
+  opacity: 1;
+}
+
+/* Animación para el botón de copiar */
+@keyframes copySuccess {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.copy-success {
+  animation: copySuccess 0.3s ease-in-out;
+}
+
+/* Efecto de brillo para promociones destacadas */
+.featured-promo {
+  position: relative;
+  overflow: hidden;
+}
+
+.featured-promo::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(249, 115, 22, 0.1) 0%,
+    transparent 70%
+  );
+  animation: rotatePulse 10s linear infinite;
+}
+
+@keyframes rotatePulse {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
