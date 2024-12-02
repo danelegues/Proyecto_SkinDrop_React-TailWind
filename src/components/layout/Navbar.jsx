@@ -58,8 +58,8 @@ const Navbar = () => {
             {/* Menu Items Desktop */}
             <div className="menu-items hidden md:flex items-center space-x-5">
               <div className="marker"></div>
-              <NavItem href="/paginaInicio.html" icon="fa-house-chimney" active />
-              <NavItem href="#" icon="fa-shop" />
+              <NavItem href="/" icon="fa-house-chimney" active />
+              <NavItem href="/tienda" icon="fa-shop" />
               <NavItem href="#" icon="fa-arrow-right-arrow-left" />
               <NavItem href="#" icon="fa-crosshairs" />
               <NavItem href="#" icon="fa-box-open" />
