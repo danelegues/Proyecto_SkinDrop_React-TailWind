@@ -8,16 +8,24 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  width: 100vw;
+#root {
+  width: 100%;
   min-height: 100vh;
-  background: #111;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #222;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
   overflow-x: hidden;
-  margin: 8px 0;
   font-family: 'Bowlby One', sans-serif;
 }
 
