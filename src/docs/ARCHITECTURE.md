@@ -60,3 +60,5 @@ src/
 - Los datos de skins son mockup y se reemplazarán
 - La autenticación será necesaria para pujar/comprar
 
+-añado rama carlos
+
