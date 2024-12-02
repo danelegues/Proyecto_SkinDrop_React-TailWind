@@ -1,0 +1,43 @@
+[33mcommit 261d95fc4e39374046d32b64fa861ea0aff93fcc[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Merge: 97609cf 7a9c2ef
+Author: DW32 TALDEA <ik012982i10@H012982.NET>
+Date:   Mon Dec 2 19:36:09 2024 +0100
+
+    avances en tienda
+
+[33mcommit 97609cf6468334c2c6a7e517ff01a57123b21554[m
+Author: DW32 TALDEA <ik012982i10@H012982.NET>
+Date:   Mon Dec 2 13:40:17 2024 +0100
+
+    añadir componente de tienda (ProductGrid)
+
+[33mcommit 7a9c2ef25eca8142dbdee85e4b873aa83e26817a[m
+Merge: 75f78ca 76ff4f7
+Author: TresorRiber <cmiguelri23dw@ikzubirimanteo.com>
+Date:   Mon Dec 2 10:04:49 2024 +0100
+
+    Merge branch 'main' of https://github.com/danelegues/Proyecto_SkinDrop_React-TailWind
+
+[33mcommit 76ff4f701069ac0aecec1f01df3159ec9c264bdd[m[33m ([m[1;32mdanel[m[33m)[m
+Author: DW32 TALDEA <ik012982i10@H012982.NET>
+Date:   Mon Dec 2 09:41:16 2024 +0100
+
+    componente de objeto en tienda
+
+[33mcommit 75f78ca268c316e80bb411ddd870489406a10483[m[33m ([m[1;31morigin/carlos[m[33m)[m
+Author: TresorRiber <cmiguelri23dw@ikzubirimanteo.com>
+Date:   Mon Dec 2 09:38:57 2024 +0100
+
+    añado rama carlos
+
+[33mcommit 0e2b7c4fb4c597dd2ce38beb67fb73a6218f3157[m
+Author: DW32 TALDEA <ik012982i10@H012982.NET>
+Date:   Mon Dec 2 09:09:22 2024 +0100
+
+    Reestructuracion del proyecto, y documentacion implementada a futuro
+
+[33mcommit e508ed108210df55c0319107f3ba1df8b3f6378b[m
+Author: DW32 TALDEA <ik012982i10@H012982.NET>
+Date:   Mon Dec 2 08:06:01 2024 +0100
+
+    antes de comenzar con las paginas restantes
