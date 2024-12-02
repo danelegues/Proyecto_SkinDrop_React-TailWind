@@ -1,0 +1,47 @@
+.shop-page {
+  @apply bg-gray-900 min-h-screen;
+}
+
+.shop-content {
+  @apply pt-20 px-4 max-w-7xl mx-auto;
+}
+
+.shop-subnav {
+  @apply flex justify-between items-center bg-gray-800 p-4 rounded-lg mb-6;
+}
+
+.sort-button {
+  @apply bg-gray-700 text-white px-4 py-2 rounded mr-4;
+}
+
+.search-container input {
+  @apply bg-gray-700 text-white px-4 py-2 rounded;
+}
+
+.products-grid {
+  @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-4;
+}
+
+.product-card {
+  @apply bg-gray-800 rounded-lg overflow-hidden;
+}
+
+.product-info {
+  @apply p-3;
+}
+
+.price {
+  @apply text-green-500 font-bold block;
+}
+
+.buy-button {
+  @apply bg-orange-500 text-white px-4 py-1 rounded-full mt-2 w-full;
+}
+
+.user-info {
+  @apply border-t border-gray-700 p-2 flex items-center justify-center;
+}
+
+.pagination {
+  @apply flex justify-center gap-4 mt-6 text-white;
+}
