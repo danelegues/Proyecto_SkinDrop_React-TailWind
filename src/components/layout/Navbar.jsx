@@ -4,6 +4,7 @@ import LanguageSelector from '../shared/LanguageSelector';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState('/');
 
   useEffect(() => {
     // Inicializar el marker
@@ -35,6 +36,26 @@ const Navbar = () => {
     }
   };
 
+  const handleMouseEnter = (element) => {
+    const marker = document.querySelector('.marker');
+    if (marker && element) {
+      marker.style.left = `${element.offsetLeft}px`;
+      marker.style.width = `${element.offsetWidth}px`;
+    }
+  };
+
+  const handleMouseLeave = () => {
+    const activeItem = document.querySelector('.menu-items a.active');
+    if (activeItem) {
+      moveMarker(activeItem);
+    }
+  };
+
+  const handleNavClick = (href, element) => {
+    setActiveTab(href);
+    moveMarker(element);
+  };
+
   return (
     <div className="fixed top-0 w-full bg-[#141414] shadow-md z-50">
       <ul className="menu-list">
@@ -56,14 +77,51 @@ const Navbar = () => {
             </button>
 
             {/* Menu Items Desktop */}
-            <div className="menu-items hidden md:flex items-center space-x-5">
+            <div className="menu-items hidden md:flex items-center space-x-5"
+                 onMouseLeave={handleMouseLeave}>
               <div className="marker"></div>
-              <NavItem href="/" icon="fa-house-chimney" active />
-              <NavItem href="/tienda" icon="fa-shop" />
-              <NavItem href="#" icon="fa-arrow-right-arrow-left" />
-              <NavItem href="#" icon="fa-crosshairs" />
-              <NavItem href="#" icon="fa-box-open" />
-              <NavItem href="#" icon="fa-user" />
+              <NavItem 
+                href="/" 
+                icon="fa-house-chimney" 
+                active={activeTab === '/'} 
+                onClick={(e) => handleNavClick('/', e.currentTarget)}
+                onMouseEnter={(e) => handleMouseEnter(e.currentTarget)}
+              />
+              <NavItem 
+                href="/tienda" 
+                icon="fa-shop" 
+                active={activeTab === '/tienda'}
+                onClick={(e) => handleNavClick('/tienda', e.currentTarget)}
+                onMouseEnter={(e) => handleMouseEnter(e.currentTarget)}
+              />
+              <NavItem 
+                href="/intercambios" 
+                icon="fa-arrow-right-arrow-left" 
+                active={activeTab === '/intercambios'}
+                onClick={(e) => handleNavClick('/intercambios', e.currentTarget)}
+                onMouseEnter={(e) => handleMouseEnter(e.currentTarget)}
+              />
+              <NavItem 
+                href="/objetivos" 
+                icon="fa-crosshairs" 
+                active={activeTab === '/objetivos'}
+                onClick={(e) => handleNavClick('/objetivos', e.currentTarget)}
+                onMouseEnter={(e) => handleMouseEnter(e.currentTarget)}
+              />
+              <NavItem 
+                href="/cajas" 
+                icon="fa-box-open" 
+                active={activeTab === '/cajas'}
+                onClick={(e) => handleNavClick('/cajas', e.currentTarget)}
+                onMouseEnter={(e) => handleMouseEnter(e.currentTarget)}
+              />
+              <NavItem 
+                href="/perfil" 
+                icon="fa-user" 
+                active={activeTab === '/perfil'}
+                onClick={(e) => handleNavClick('/perfil', e.currentTarget)}
+                onMouseEnter={(e) => handleMouseEnter(e.currentTarget)}
+              />
               <LanguageSelector />
             </div>
           </div>
@@ -83,10 +141,12 @@ const Navbar = () => {
   );
 };
 
-const NavItem = ({ href, icon, active }) => (
+const NavItem = ({ href, icon, active, onClick, onMouseEnter }) => (
   <Link 
     to={href} 
     className={`p-[10px_20px] text-white cursor-pointer ${active ? 'active' : ''}`}
+    onClick={onClick}
+    onMouseEnter={onMouseEnter}
   >
     <i className={`fa-solid ${icon}`}></i>
   </Link>
