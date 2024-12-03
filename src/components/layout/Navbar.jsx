@@ -1,32 +1,57 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import LanguageSelector from '../shared/LanguageSelector';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState('/');
+  const location = useLocation();
+  const [activeTab, setActiveTab] = useState(location.pathname);
 
   useEffect(() => {
-    // Inicializar el marker
-    const inicioItem = document.querySelector('.menu-items a[href="/paginaInicio.html"]');
-    if (inicioItem) {
-      moveMarker(inicioItem);
+    setActiveTab(location.pathname);
+    const activeItem = document.querySelector(`.menu-items a[href="${location.pathname}"]`);
+    if (activeItem) {
+      moveMarker(activeItem);
     }
+  }, [location.pathname]);
 
-    // Event listeners para el marker
+  useEffect(() => {
     const menuItems = document.querySelectorAll('.menu-items a');
     menuItems.forEach(item => {
       item.addEventListener('mouseenter', (e) => moveMarker(e.currentTarget));
     });
 
     const menuList = document.querySelector('.menu-items');
-    menuList.addEventListener('mouseleave', () => {
-      const activeItem = document.querySelector('.menu-items a.active');
+    if (menuList) {
+      menuList.addEventListener('mouseleave', () => {
+        const activeItem = document.querySelector(`.menu-items a[href="${activeTab}"]`);
+        if (activeItem) {
+          moveMarker(activeItem);
+        }
+      });
+    }
+
+    setTimeout(() => {
+      const activeItem = document.querySelector(`.menu-items a[href="${activeTab}"]`);
       if (activeItem) {
         moveMarker(activeItem);
       }
-    });
-  }, []);
+    }, 100);
+
+    return () => {
+      menuItems.forEach(item => {
+        item.removeEventListener('mouseenter', (e) => moveMarker(e.currentTarget));
+      });
+      if (menuList) {
+        menuList.removeEventListener('mouseleave', () => {
+          const activeItem = document.querySelector(`.menu-items a[href="${activeTab}"]`);
+          if (activeItem) {
+            moveMarker(activeItem);
+          }
+        });
+      }
+    };
+  }, [activeTab]);
 
   const moveMarker = (element) => {
     const marker = document.querySelector('.marker');
