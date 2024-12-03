@@ -109,10 +109,10 @@ const Navbar = () => {
                 onMouseEnter={(e) => handleMouseEnter(e.currentTarget)}
               />
               <NavItem 
-                href="/cajas" 
+                href="/inventory" 
                 icon="fa-box-open" 
-                active={activeTab === '/cajas'}
-                onClick={(e) => handleNavClick('/cajas', e.currentTarget)}
+                active={activeTab === '/inventory'}
+                onClick={(e) => handleNavClick('/inventory', e.currentTarget)}
                 onMouseEnter={(e) => handleMouseEnter(e.currentTarget)}
               />
               <NavItem 
@@ -158,7 +158,7 @@ const MobileMenu = ({ onClose }) => (
     <MobileMenuItem href="#" icon="fa-shop" text="Tienda" onClick={onClose} />
     <MobileMenuItem href="#" icon="fa-arrow-right-arrow-left" text="Intercambios" onClick={onClose} />
     <MobileMenuItem href="#" icon="fa-crosshairs" text="Objetivos" onClick={onClose} />
-    <MobileMenuItem href="#" icon="fa-box-open" text="Cajas" onClick={onClose} />
+    <MobileMenuItem href="/inventory" icon="fa-box-open" text="Cajas" onClick={onClose} />
     <MobileMenuItem href="#" icon="fa-user" text="Perfil" onClick={onClose} />
     
     {/* Selector de idioma móvil */}

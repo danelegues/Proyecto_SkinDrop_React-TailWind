@@ -7,7 +7,7 @@ const MobileMenu = ({ isOpen, onClose }) => {
     { icon: 'fa-shop', text: 'Tienda', href: '#' },
     { icon: 'fa-arrow-right-arrow-left', text: 'Intercambios', href: '#' },
     { icon: 'fa-crosshairs', text: 'Objetivos', href: '#' },
-    { icon: 'fa-box-open', text: 'Cajas', href: '#' },
+    { icon: 'fa-box-open', text: 'Inventario', href: '/inventory' },
     { icon: 'fa-user', text: 'Perfil', href: '#' }
   ];
 

@@ -1,0 +1,44 @@
+.inventory-container {
+  @apply bg-[#141414] min-h-screen;
+}
+  
+.inventory-item {
+  @apply bg-[#1a1a1a] rounded-lg p-4 transition-all duration-200 border border-[#2a2a2a];
+}
+  
+.inventory-item:hover {
+  @apply transform -translate-y-1 border-orange-500;
+  box-shadow: 0 4px 20px rgba(234, 88, 12, 0.2);
+}
+  
+.status-badge {
+  @apply absolute top-2 right-2 px-2 py-1 rounded text-xs font-medium;
+}
+  
+.wear-badge {
+  @apply text-xs px-2 py-1 rounded-full font-medium;
+}
+  
+.wear-fn { @apply bg-blue-500 text-white; }
+.wear-mw { @apply bg-green-500 text-white; }
+.wear-ft { @apply bg-yellow-500 text-white; }
+.wear-ww { @apply bg-orange-500 text-white; }
+.wear-bs { @apply bg-red-500 text-white; }
+  
+.inventory-button {
+  @apply bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg 
+         transition-all duration-200 font-medium;
+}
+  
+.inventory-button:disabled {
+  @apply bg-gray-600 cursor-not-allowed;
+}
+  
+.empty-state {
+  @apply text-center py-20 text-gray-400;
+}
+  
+.inventory-select {
+  @apply bg-[#1a1a1a] text-white border border-[#2a2a2a] rounded-lg px-4 py-2
+         focus:border-orange-500 focus:outline-none;
+}

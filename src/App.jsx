@@ -7,6 +7,7 @@ import Footer from './components/layout/Footer';
 import LeftPanel from './components/home/LeftPanel';
 import RightPanel from './components/home/RightPanel';
 import Shop from './Pestañas/Tienda';
+import Inventory from './Pestañas/Inventario';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
           } />
           
           <Route path="/tienda" element={<Shop />} />
+          <Route path="/inventory" element={<Inventory />} />
         </Routes>
         
         <Footer />
