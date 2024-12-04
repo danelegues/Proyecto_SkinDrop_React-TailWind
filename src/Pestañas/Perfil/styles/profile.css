@@ -1,0 +1,18 @@
+/* Pestañas/Perfil/styles/profile.css */
+
+.profile-container {
+  @apply bg-[#141414] min-h-screen mt-16;
+}
+
+.profile-button {
+  @apply w-full bg-[#2a2a2a] hover:bg-[#3a3a3a] text-white p-4 rounded-lg 
+         text-left flex items-center gap-3 transition-colors;
+}
+
+.profile-button i {
+  @apply text-[#ff6b00];
+}
+
+.profile-avatar {
+  @apply w-20 h-20 bg-[#2a2a2a] rounded-full flex items-center justify-center;
+}
