@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export const useInventoryActions = () => {
+const useInventoryActions = () => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [isSellingModalOpen, setIsSellingModalOpen] = useState(false);
 
@@ -16,6 +16,7 @@ export const useInventoryActions = () => {
 
   const handleConfirmSell = async (price) => {
     try {
+      // Aquí iría la lógica para poner el item en venta
       console.log(`Vendiendo item ${selectedItem.id} por $${price}`);
       setIsSellingModalOpen(false);
       setSelectedItem(null);
@@ -26,17 +27,13 @@ export const useInventoryActions = () => {
     }
   };
 
-  const handleSort = (e) => {
-    const sortValue = e.target.value;
-    console.log('Ordenando por:', sortValue);
-  };
-
   return {
     selectedItem,
     isSellingModalOpen,
     handleSellItem,
     handleCancelSell,
-    handleConfirmSell,
-    handleSort
+    handleConfirmSell
   };
 };
+
+export default useInventoryActions;

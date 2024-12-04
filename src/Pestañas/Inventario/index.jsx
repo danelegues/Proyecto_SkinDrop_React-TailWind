@@ -1,58 +1,68 @@
-import React, { useState } from 'react';
+import React from 'react';
 import InventoryHeader from './components/InventoryHeader';
 import InventoryGrid from './components/InventoryGrid';
-import FiltersModal from './components/FiltersModal';
-import SellModal from './components/SellModal';
-import { useInventoryFilter } from './hooks/useInventoryFilter';
-import { useInventoryActions } from './hooks/useInventoryActions';
+import useInventoryFilter from './hooks/useInventoryFilter';
+import useInventoryActions from './hooks/useInventoryActions';
+import './styles/index.css';
 
-const Inventario = () => {
-  const [isFiltersModalOpen, setIsFiltersModalOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(null);
-  const [isSellModalOpen, setIsSellModalOpen] = useState(false);
-
+const Inventory = () => {
+  const initialItems = [
+    {
+      id: 1,
+      name: "AK-47 | Asiimov",
+      wear: "Factory New",
+      price: 150.50,
+      image: "",
+      status: "available"
+    },
+    {
+      id: 2,
+      name: "M4A4 | Neo-Noir",
+      wear: "Minimal Wear",
+      price: 89.99,
+      image: "",
+      status: "available"
+    },
+    {
+      id: 3,
+      name: "AWP | Dragon Lore",
+      wear: "Field-Tested",
+      price: 1500.00,
+      image: "",
+      status: "on_sale"
+    }
+  ];
+  
   const {
-    items,
+    sortBy,
+    setSortBy,
     filters,
     setFilters,
+    currentPage,
+    setCurrentPage,
+    totalItems,
     sortedAndFilteredItems,
-    totalItems
-  } = useInventoryFilter();
+    ITEMS_PER_PAGE
+  } = useInventoryFilter(initialItems);
 
-  const { handleSort } = useInventoryActions();
-
-  const handleSellClick = (item) => {
-    setSelectedItem(item);
-    setIsSellModalOpen(true);
-  };
+  const {
+    selectedItem,
+    isSellingModalOpen,
+    handleSellItem,
+    handleCancelSell,
+    handleConfirmSell
+  } = useInventoryActions();
 
   return (
-    <div className="container mx-auto px-4 pt-24 pb-8">
+    <div className="container mx-auto px-4 py-8">
       <InventoryHeader 
         totalItems={totalItems}
-        onSort={handleSort}
-        onFilter={() => setIsFiltersModalOpen(true)}
+        onSort={(e) => setSortBy(e.target.value)}
+        onFilter={() => {/* lógica de filtros */}}
       />
-      
-      <InventoryGrid 
-        items={sortedAndFilteredItems}
-        onSellClick={handleSellClick}
-      />
-
-      <FiltersModal 
-        isOpen={isFiltersModalOpen}
-        onClose={() => setIsFiltersModalOpen(false)}
-        filters={filters}
-        onApplyFilters={setFilters}
-      />
-
-      <SellModal 
-        isOpen={isSellModalOpen}
-        onClose={() => setIsSellModalOpen(false)}
-        item={selectedItem}
-      />
+      <InventoryGrid items={sortedAndFilteredItems} />
     </div>
   );
 };
 
-export default Inventario; 
+export default Inventory; 
