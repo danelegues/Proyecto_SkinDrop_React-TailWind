@@ -1,20 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import LanguageSelector from '../shared/LanguageSelector';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false); // Estado para manejar el menú desplegable de usuario
   const [activeTab, setActiveTab] = useState('/');
 
-  useEffect(() => {
-    setActiveTab(location.pathname);
-    const activeItem = document.querySelector(`.menu-items a[href="${location.pathname}"]`);
-    if (activeItem) {
-      moveMarker(activeItem);
-    }
-  }, [location.pathname]);
+  const userMenuRef = useRef(null);  // Referencia para el menú de usuario
+  const profileButtonRef = useRef(null); // Referencia para el botón de perfil
 
   useEffect(() => {
+    // Inicializar el marker
+    const inicioItem = document.querySelector('.menu-items a[href="/paginaInicio.html"]');
+    if (inicioItem) {
+      moveMarker(inicioItem);
+    }
+
+    // Event listeners para el marker
     const menuItems = document.querySelectorAll('.menu-items a');
     menuItems.forEach(item => {
       item.addEventListener('mouseenter', (e) => moveMarker(e.currentTarget));
@@ -27,6 +30,22 @@ const Navbar = () => {
         moveMarker(activeItem);
       }
     });
+
+    // Cerrar el menú de usuario si se hace clic fuera de él
+    const handleClickOutside = (event) => {
+      if (
+        userMenuRef.current && !userMenuRef.current.contains(event.target) && 
+        !profileButtonRef.current.contains(event.target)
+      ) {
+        setIsUserMenuOpen(false); // Cerrar el menú si se hizo clic fuera
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, []);
 
   const moveMarker = (element) => {
