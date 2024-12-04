@@ -31,7 +31,7 @@ body {
 }
 
 .product-card {
-  @apply bg-[#1E2328] rounded-lg overflow-hidden;
+  @apply bg-[#1e1e1e] rounded-lg overflow-hidden;
   min-width: 180px;
   height: 100%;
 }
@@ -61,9 +61,9 @@ body {
 }
 
 .filter-select {
-  @apply bg-[#2a2a2a] text-white px-4 py-2 rounded-lg  min-w-[150px] flex-shrink-0;
+  @apply bg-[#1e1e1e] text-white px-4 py-2 rounded-lg min-w-[150px] flex-shrink-0;
 }
 
 .search-input {
-  @apply bg-[#2a2a2a] text-white w-full px-4 py-2 rounded-lg  flex-shrink-0;
+  @apply bg-[#1e1e1e] text-white w-full px-4 py-2 rounded-lg flex-shrink-0;
 }

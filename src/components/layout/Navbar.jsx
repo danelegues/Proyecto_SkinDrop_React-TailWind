@@ -1,32 +1,57 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import LanguageSelector from '../shared/LanguageSelector';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState('/');
+  const location = useLocation();
+  const [activeTab, setActiveTab] = useState(location.pathname);
 
   useEffect(() => {
-    // Inicializar el marker
-    const inicioItem = document.querySelector('.menu-items a[href="/paginaInicio.html"]');
-    if (inicioItem) {
-      moveMarker(inicioItem);
+    setActiveTab(location.pathname);
+    const activeItem = document.querySelector(`.menu-items a[href="${location.pathname}"]`);
+    if (activeItem) {
+      moveMarker(activeItem);
     }
+  }, [location.pathname]);
 
-    // Event listeners para el marker
+  useEffect(() => {
     const menuItems = document.querySelectorAll('.menu-items a');
     menuItems.forEach(item => {
       item.addEventListener('mouseenter', (e) => moveMarker(e.currentTarget));
     });
 
     const menuList = document.querySelector('.menu-items');
-    menuList.addEventListener('mouseleave', () => {
-      const activeItem = document.querySelector('.menu-items a.active');
+    if (menuList) {
+      menuList.addEventListener('mouseleave', () => {
+        const activeItem = document.querySelector(`.menu-items a[href="${activeTab}"]`);
+        if (activeItem) {
+          moveMarker(activeItem);
+        }
+      });
+    }
+
+    setTimeout(() => {
+      const activeItem = document.querySelector(`.menu-items a[href="${activeTab}"]`);
       if (activeItem) {
         moveMarker(activeItem);
       }
-    });
-  }, []);
+    }, 100);
+
+    return () => {
+      menuItems.forEach(item => {
+        item.removeEventListener('mouseenter', (e) => moveMarker(e.currentTarget));
+      });
+      if (menuList) {
+        menuList.removeEventListener('mouseleave', () => {
+          const activeItem = document.querySelector(`.menu-items a[href="${activeTab}"]`);
+          if (activeItem) {
+            moveMarker(activeItem);
+          }
+        });
+      }
+    };
+  }, [activeTab]);
 
   const moveMarker = (element) => {
     const marker = document.querySelector('.marker');
@@ -55,6 +80,14 @@ const Navbar = () => {
     setActiveTab(href);
     moveMarker(element);
   };
+
+  const menuItems = [
+    { path: '/', icon: 'home', label: 'Inicio' },
+    { path: '/tienda', icon: 'store', label: 'Tienda' },
+    { path: '/intercambio', icon: 'swap_horiz', label: 'Intercambios' },
+    { path: '/inventario', icon: 'inventory_2', label: 'Inventario' },
+    { path: '/perfil', icon: 'person', label: 'Perfil' },
+  ];
 
   return (
     <div className="fixed top-0 w-full bg-[#141414] shadow-md z-50">
@@ -95,24 +128,17 @@ const Navbar = () => {
                 onMouseEnter={(e) => handleMouseEnter(e.currentTarget)}
               />
               <NavItem 
-                href="/intercambios" 
+                href="/intercambio" 
                 icon="fa-arrow-right-arrow-left" 
-                active={activeTab === '/intercambios'}
-                onClick={(e) => handleNavClick('/intercambios', e.currentTarget)}
+                active={activeTab === '/intercambio'}
+                onClick={(e) => handleNavClick('/intercambio', e.currentTarget)}
                 onMouseEnter={(e) => handleMouseEnter(e.currentTarget)}
               />
               <NavItem 
-                href="/objetivos" 
-                icon="fa-crosshairs" 
-                active={activeTab === '/objetivos'}
-                onClick={(e) => handleNavClick('/objetivos', e.currentTarget)}
-                onMouseEnter={(e) => handleMouseEnter(e.currentTarget)}
-              />
-              <NavItem 
-                href="/inventory" 
+                href="/inventario" 
                 icon="fa-box-open" 
-                active={activeTab === '/inventory'}
-                onClick={(e) => handleNavClick('/inventory', e.currentTarget)}
+                active={activeTab === '/inventario'}
+                onClick={(e) => handleNavClick('/inventario', e.currentTarget)}
                 onMouseEnter={(e) => handleMouseEnter(e.currentTarget)}
               />
               <NavItem 
@@ -157,8 +183,7 @@ const MobileMenu = ({ onClose }) => (
     <MobileMenuItem href="/paginaInicio.html" icon="fa-house-chimney" text="Inicio" onClick={onClose} />
     <MobileMenuItem href="#" icon="fa-shop" text="Tienda" onClick={onClose} />
     <MobileMenuItem href="#" icon="fa-arrow-right-arrow-left" text="Intercambios" onClick={onClose} />
-    <MobileMenuItem href="#" icon="fa-crosshairs" text="Objetivos" onClick={onClose} />
-    <MobileMenuItem href="/inventory" icon="fa-box-open" text="Cajas" onClick={onClose} />
+    <MobileMenuItem href="/inventario" icon="fa-box-open" text="Inventario" onClick={onClose} />
     <MobileMenuItem href="#" icon="fa-user" text="Perfil" onClick={onClose} />
     
     {/* Selector de idioma móvil */}
