@@ -1,6 +1,6 @@
 import React from 'react';
 
-const InventoryItem = ({ item }) => {
+const InventoryItem = ({ item, onSellClick }) => {
   const { name, wear, price, image, status } = item;
 
   const getWearColor = (wear) => {
@@ -23,7 +23,7 @@ const InventoryItem = ({ item }) => {
       <div className="relative">
         <div className="bg-[#141414] p-4 aspect-[4/3] flex items-center justify-center overflow-hidden">
           <img 
-            src={image} 
+            src={`/img/${image}`} 
             alt={name}
             onError={handleImageError}
             className="max-w-full max-h-full object-contain group-hover:scale-110 group-hover:rotate-1"
@@ -60,6 +60,7 @@ const InventoryItem = ({ item }) => {
               ? 'bg-gray-700/50 text-gray-400 cursor-not-allowed' 
               : 'bg-gradient-to-r from-[#ff6b00] to-[#ff8533] text-white hover:shadow-lg hover:shadow-[#ff6b00]/25 hover:scale-[1.02] active:scale-95'}`}
           disabled={status === 'locked' || status === 'on_sale'}
+          onClick={() => onSellClick(item)}
         >
           {status === 'locked' ? 'Bloqueado' : status === 'on_sale' ? 'En venta' : 'Vender'}
         </button>
