@@ -3,25 +3,23 @@ import InventoryHeader from './components/InventoryHeader';
 import InventoryGrid from './components/InventoryGrid';
 import FiltersModal from './components/FiltersModal';
 import SellModal from './components/SellModal';
-import useInventoryFilter from './hooks/useInventoryFilter';
-import { INVENTORY_ITEMS } from './constants/inventory';
+import { useInventoryFilter } from './hooks/useInventoryFilter';
+import { useInventoryActions } from './hooks/useInventoryActions';
 
-const Inventory = () => {
+const Inventario = () => {
   const [isFiltersModalOpen, setIsFiltersModalOpen] = useState(false);
-  const [isSellModalOpen, setIsSellModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [isSellModalOpen, setIsSellModalOpen] = useState(false);
 
   const {
+    items,
     filters,
     setFilters,
-    setSortBy,
-    totalItems,
-    sortedAndFilteredItems
-  } = useInventoryFilter(INVENTORY_ITEMS);
+    sortedAndFilteredItems,
+    totalItems
+  } = useInventoryFilter();
 
-  const handleSort = (e) => {
-    setSortBy(e.target.value);
-  };
+  const { handleSort } = useInventoryActions();
 
   const handleSellClick = (item) => {
     setSelectedItem(item);
@@ -40,7 +38,7 @@ const Inventory = () => {
         items={sortedAndFilteredItems}
         onSellClick={handleSellClick}
       />
-      
+
       <FiltersModal 
         isOpen={isFiltersModalOpen}
         onClose={() => setIsFiltersModalOpen(false)}
@@ -48,7 +46,7 @@ const Inventory = () => {
         onApplyFilters={setFilters}
       />
 
-      <SellModal
+      <SellModal 
         isOpen={isSellModalOpen}
         onClose={() => setIsSellModalOpen(false)}
         item={selectedItem}
@@ -57,4 +55,4 @@ const Inventory = () => {
   );
 };
 
-export default Inventory; 
+export default Inventario; 

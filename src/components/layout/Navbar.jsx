@@ -81,6 +81,14 @@ const Navbar = () => {
     moveMarker(element);
   };
 
+  const menuItems = [
+    { path: '/', icon: 'home', label: 'Inicio' },
+    { path: '/tienda', icon: 'store', label: 'Tienda' },
+    { path: '/intercambio', icon: 'swap_horiz', label: 'Intercambios' },
+    { path: '/inventario', icon: 'inventory_2', label: 'Inventario' },
+    { path: '/perfil', icon: 'person', label: 'Perfil' },
+  ];
+
   return (
     <div className="fixed top-0 w-full bg-[#141414] shadow-md z-50">
       <ul className="menu-list">
@@ -120,10 +128,10 @@ const Navbar = () => {
                 onMouseEnter={(e) => handleMouseEnter(e.currentTarget)}
               />
               <NavItem 
-                href="/intercambios" 
+                href="/intercambio" 
                 icon="fa-arrow-right-arrow-left" 
-                active={activeTab === '/intercambios'}
-                onClick={(e) => handleNavClick('/intercambios', e.currentTarget)}
+                active={activeTab === '/intercambio'}
+                onClick={(e) => handleNavClick('/intercambio', e.currentTarget)}
                 onMouseEnter={(e) => handleMouseEnter(e.currentTarget)}
               />
               <NavItem 
@@ -134,10 +142,10 @@ const Navbar = () => {
                 onMouseEnter={(e) => handleMouseEnter(e.currentTarget)}
               />
               <NavItem 
-                href="/inventory" 
+                href="/inventario" 
                 icon="fa-box-open" 
-                active={activeTab === '/inventory'}
-                onClick={(e) => handleNavClick('/inventory', e.currentTarget)}
+                active={activeTab === '/inventario'}
+                onClick={(e) => handleNavClick('/inventario', e.currentTarget)}
                 onMouseEnter={(e) => handleMouseEnter(e.currentTarget)}
               />
               <NavItem 
@@ -183,7 +191,7 @@ const MobileMenu = ({ onClose }) => (
     <MobileMenuItem href="#" icon="fa-shop" text="Tienda" onClick={onClose} />
     <MobileMenuItem href="#" icon="fa-arrow-right-arrow-left" text="Intercambios" onClick={onClose} />
     <MobileMenuItem href="#" icon="fa-crosshairs" text="Objetivos" onClick={onClose} />
-    <MobileMenuItem href="/inventory" icon="fa-box-open" text="Cajas" onClick={onClose} />
+    <MobileMenuItem href="/inventario" icon="fa-box-open" text="Inventario" onClick={onClose} />
     <MobileMenuItem href="#" icon="fa-user" text="Perfil" onClick={onClose} />
     
     {/* Selector de idioma móvil */}
