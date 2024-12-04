@@ -3,12 +3,12 @@ import LanguageSelector from './LanguageSelector';
 
 const MobileMenu = ({ isOpen, onClose }) => {
   const menuItems = [
-    { icon: 'fa-house-chimney', text: 'Inicio', href: '/paginaInicio.html' },
-    { icon: 'fa-shop', text: 'Tienda', href: '#' },
-    { icon: 'fa-arrow-right-arrow-left', text: 'Intercambios', href: '#' },
+    { icon: 'fa-house-chimney', text: 'Inicio', href: '/' },
+    { icon: 'fa-shop', text: 'Tienda', href: '/tienda' },
+    { icon: 'fa-arrow-right-arrow-left', text: 'Intercambios', href: '/intercambio' },
     { icon: 'fa-crosshairs', text: 'Objetivos', href: '#' },
-    { icon: 'fa-box-open', text: 'Inventario', href: '/inventory' },
-    { icon: 'fa-user', text: 'Perfil', href: '#' }
+    { icon: 'fa-box-open', text: 'Inventario', href: '/inventario' },
+    { icon: 'fa-user', text: 'Perfil', href: '/perfil' }
   ];
 
   return (

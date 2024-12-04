@@ -1,109 +1,46 @@
 # Documentación de Componentes
 
-## ShopNav
-**Ubicación**: `src/Pestañas/Tienda/components/ShopNav/index.jsx`
+## Componentes Principales
 
-### Propósito
-Barra de navegación interna que permite cambiar entre diferentes secciones de la tienda.
+### Layout
+- **Navbar**: Barra de navegación principal
+- **Footer**: Pie de página global
+- **Layout**: Contenedor principal con estructura común
+- **MobileMenu**: Menú responsive para dispositivos móviles
 
-### Props
-- `currentTab`: String - Tab actual ('market', 'skindrop', 'sales')
-- `onTabChange`: Function - Manejador para cambios de tab
+### Home
+- **Hero**: Banner principal con animaciones
+- **MainContent**: Contenido principal de la página
+- **LeftPanel**: Panel izquierdo con información
+- **RightPanel**: Panel derecho con balance y drops
+- **FilterPanel**: Panel de filtros
+- **PopularBoxes**: Muestra de cajas populares
+- **RecentDrops**: Últimos drops realizados
 
-### Funcionalidades
-- Navegación entre secciones
-- Indicador visual de sección activa
-- Diseño responsivo
-- Iconos personalizados por sección
+### Shared
+- **BoxCard**: Tarjeta reutilizable para cajas
+- **UserBalance**: Componente de balance de usuario
+- **LanguageSelector**: Selector de idioma
+- **VideoPreview**: Reproductor de video con preview
 
-## SearchBar
-**Ubicación**: `src/Pestañas/Tienda/components/SearchBar/index.jsx`
+## Módulos
 
-### Propósito
-Barra de búsqueda y filtros para la tienda.
+### Tienda
+- **ProductGrid**: Cuadrícula de productos
+- **ProductCard**: Tarjeta individual de producto
+- **SearchBar**: Barra de búsqueda y filtros
+- **Pagination**: Paginación de resultados
+- **ShopNav**: Navegación interna de la tienda
+- **YourSales**: Gestión de ventas personales
 
-### Props
-- `searchQuery`: String - Texto de búsqueda
-- `onSearchChange`: Function - Manejador de cambios en la búsqueda
-- `sortByPrice`: Boolean - Estado de ordenamiento
-- `onSortToggle`: Function - Toggle de ordenamiento
-- `minPrice/maxPrice`: Number - Rango de precios
-- `onMinPriceChange/onMaxPriceChange`: Function - Manejadores de cambio de precio
+### Inventario
+- **InventoryGrid**: Cuadrícula de inventario
+- **InventoryItem**: Item individual del inventario
+- **FiltersModal**: Modal de filtros
+- **SellModal**: Modal para vender items
 
-### Funcionalidades
-- Búsqueda por texto
-- Ordenamiento por precio
-- Filtros de rango de precio
-- Diseño responsivo
-
-## YourSales
-**Ubicación**: `src/Pestañas/Tienda/components/YourSales/index.jsx`
-
-### Propósito
-Gestión de ventas del usuario.
-
-### Componentes Internos
-- Lista de ventas activas
-- Botón de nueva venta
-- Modal de creación de venta
-
-### Funcionalidades
-- Visualización de ventas activas
-- Creación de nuevas ventas
-- Eliminación de ventas
-- Gestión de estado local
-
-
-
-
-# Documentación de Hooks
-
-## useShopNavigation
-**Ubicación**: `src/Pestañas/Tienda/hooks/useShopNavigation.js`
-
-### Propósito
-Maneja la navegación entre las diferentes secciones de la tienda.
-
-### Estado
-javascript
-const [currentTab, setCurrentTab] = useState('market');
-
-### Retorno
-- `currentTab`: String - Tab actual
-- `setCurrentTab`: Function - Función para cambiar de tab
-
-### Uso
-javascript
-const { currentTab, setCurrentTab } = useShopNavigation();
-
-
-## useSkinsFilter
-**Ubicación**: `src/Pestañas/Tienda/hooks/useSkinsFilter.js`
-
-### Propósito
-Maneja toda la lógica de filtrado y búsqueda de skins.
-
-### Estado
-javascript
-const [searchQuery, setSearchQuery] = useState('');
-const [sortByPrice, setSortByPrice] = useState(false);
-const [typeFilter, setTypeFilter] = useState('all');
-const [rarityFilter, setRarityFilter] = useState('all');
-const [minPrice, setMinPrice] = useState(0);
-const [maxPrice, setMaxPrice] = useState(Infinity);
-
-
-### Retorno
-- Estados y setters para cada filtro
-- `filteredSkins`: Array - Lista filtrada de skins
-
-### Uso
-javascript
-const {
-searchQuery,
-setSearchQuery,
-sortByPrice,
-setSortByPrice,
-// ... otros estados
-filteredSkins
-} = useSkinsFilter();
+### Intercambio
+- **TradeOffer**: Componente de oferta de intercambio
+- **UsersList**: Lista de usuarios para intercambio
+- **SearchUsers**: Búsqueda de usuarios
+- **UserInventory**: Inventario de usuario para intercambio
