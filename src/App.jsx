@@ -8,7 +8,6 @@ import LeftPanel from './components/home/LeftPanel';
 import RightPanel from './components/home/RightPanel';
 import Shop from './Pestañas/Tienda';
 import Inventory from './Pestañas/Inventario';
-import Intercambio from './Pestañas/Intercambio';
 
 function App() {
   return (
@@ -37,8 +36,7 @@ function App() {
           } />
           
           <Route path="/tienda" element={<Shop />} />
-          <Route path="/intercambio" element={<Intercambio />} />
-          <Route path="/inventario" element={<Inventory />} />
+          <Route path="/inventory" element={<Inventory />} />
         </Routes>
         
         <Footer />

@@ -18,26 +18,25 @@ function Shop() {
     rarityFilter,
     setRarityFilter,
     currentPage,
-    handlePageChange,
+    setCurrentPage,
     totalPages,
     minPrice,
     setMinPrice,
     maxPrice,
     setMaxPrice,
-    paginatedSkins,
-    totalItems
+    filteredSkins
   } = useSkinsFilter();
 
   const { currentTab, setCurrentTab } = useShopNavigation();
 
   return (
     <div className="w-full min-h-screen bg-[#222]">
-      <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-12 pt-20">
+      <div className="w-full max-w-[1600px] mx-auto px-12 pt-20">
         <ShopNav currentTab={currentTab} onTabChange={setCurrentTab} />
         
         {currentTab === 'market' && (
-          <div className="bg-[#131313] rounded-lg p-3 sm:p-4 lg:p-6 mt-8 transition-all duration-300">
-            <div className="mb-4 sm:mb-6">
+          <>
+            <div className="mt-12">
               <SearchBar 
                 searchQuery={searchQuery}
                 onSearchChange={setSearchQuery}
@@ -53,20 +52,20 @@ function Shop() {
                 onMaxPriceChange={setMaxPrice}
               />
             </div>
-            <div>
-              <ProductGrid skins={paginatedSkins} />
+            <div className="mt-8">
+              <ProductGrid skins={filteredSkins} />
               <Pagination 
                 currentPage={currentPage}
                 totalPages={totalPages}
-                onPageChange={handlePageChange}
-                totalItems={totalItems}
+                onPageChange={setCurrentPage}
               />
             </div>
-          </div>
+          </>
         )}
 
         {currentTab === 'sales' && <YourSales />}
         
+        {/* Implementar vista de SkinDrop cuando sea necesario */}
         {currentTab === 'skindrop' && (
           <div className="mt-12 text-white">
             Contenido de SkinDrop (por implementar)
