@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import LanguageSelector from '../shared/LanguageSelector';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false); // Estado para manejar el menú desplegable de usuario
   const [activeTab, setActiveTab] = useState('/');
+
+  const userMenuRef = useRef(null);  // Referencia para el menú de usuario
+  const profileButtonRef = useRef(null); // Referencia para el botón de perfil
 
   useEffect(() => {
     // Inicializar el marker
@@ -26,6 +30,22 @@ const Navbar = () => {
         moveMarker(activeItem);
       }
     });
+
+    // Cerrar el menú de usuario si se hace clic fuera de él
+    const handleClickOutside = (event) => {
+      if (
+        userMenuRef.current && !userMenuRef.current.contains(event.target) && 
+        !profileButtonRef.current.contains(event.target)
+      ) {
+        setIsUserMenuOpen(false); // Cerrar el menú si se hizo clic fuera
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, []);
 
   const moveMarker = (element) => {
@@ -36,24 +56,20 @@ const Navbar = () => {
     }
   };
 
-  const handleMouseEnter = (element) => {
-    const marker = document.querySelector('.marker');
-    if (marker && element) {
-      marker.style.left = `${element.offsetLeft}px`;
-      marker.style.width = `${element.offsetWidth}px`;
-    }
-  };
-
-  const handleMouseLeave = () => {
-    const activeItem = document.querySelector('.menu-items a.active');
-    if (activeItem) {
-      moveMarker(activeItem);
-    }
-  };
-
   const handleNavClick = (href, element) => {
     setActiveTab(href);
     moveMarker(element);
+  };
+
+  const toggleUserMenu = () => {
+    setIsUserMenuOpen(!isUserMenuOpen); // Alternar el estado del menú desplegable
+  };
+
+  // Nueva función para manejar el clic en el perfil
+  const handleProfileClick = (e) => {
+    setActiveTab('/perfil');
+    moveMarker(e.currentTarget);  // Mueve el marker cuando se hace clic en perfil
+    toggleUserMenu();  // Alterna el menú desplegable
   };
 
   return (
@@ -77,51 +93,107 @@ const Navbar = () => {
             </button>
 
             {/* Menu Items Desktop */}
-            <div className="menu-items hidden md:flex items-center space-x-5"
-                 onMouseLeave={handleMouseLeave}>
+            <div className="menu-items hidden md:flex items-center space-x-5 relative">
               <div className="marker"></div>
               <NavItem 
                 href="/" 
                 icon="fa-house-chimney" 
                 active={activeTab === '/'} 
                 onClick={(e) => handleNavClick('/', e.currentTarget)}
-                onMouseEnter={(e) => handleMouseEnter(e.currentTarget)}
+                onMouseEnter={(e) => moveMarker(e.currentTarget)} // Añadimos el onMouseEnter aquí
               />
               <NavItem 
                 href="/tienda" 
                 icon="fa-shop" 
                 active={activeTab === '/tienda'}
                 onClick={(e) => handleNavClick('/tienda', e.currentTarget)}
-                onMouseEnter={(e) => handleMouseEnter(e.currentTarget)}
+                onMouseEnter={(e) => moveMarker(e.currentTarget)} // Añadimos el onMouseEnter aquí
               />
               <NavItem 
                 href="/intercambios" 
                 icon="fa-arrow-right-arrow-left" 
                 active={activeTab === '/intercambios'}
                 onClick={(e) => handleNavClick('/intercambios', e.currentTarget)}
-                onMouseEnter={(e) => handleMouseEnter(e.currentTarget)}
+                onMouseEnter={(e) => moveMarker(e.currentTarget)} // Añadimos el onMouseEnter aquí
               />
               <NavItem 
                 href="/objetivos" 
                 icon="fa-crosshairs" 
                 active={activeTab === '/objetivos'}
                 onClick={(e) => handleNavClick('/objetivos', e.currentTarget)}
-                onMouseEnter={(e) => handleMouseEnter(e.currentTarget)}
+                onMouseEnter={(e) => moveMarker(e.currentTarget)} // Añadimos el onMouseEnter aquí
               />
               <NavItem 
-                href="/inventory" 
+                href="/cajas" 
                 icon="fa-box-open" 
-                active={activeTab === '/inventory'}
-                onClick={(e) => handleNavClick('/inventory', e.currentTarget)}
-                onMouseEnter={(e) => handleMouseEnter(e.currentTarget)}
+                active={activeTab === '/cajas'}
+                onClick={(e) => handleNavClick('/cajas', e.currentTarget)}
+                onMouseEnter={(e) => moveMarker(e.currentTarget)} // Añadimos el onMouseEnter aquí
               />
-              <NavItem 
-                href="/perfil" 
-                icon="fa-user" 
-                active={activeTab === '/perfil'}
-                onClick={(e) => handleNavClick('/perfil', e.currentTarget)}
-                onMouseEnter={(e) => handleMouseEnter(e.currentTarget)}
-              />
+
+              {/* Ícono de perfil */}
+              <div 
+                className="relative"
+                ref={profileButtonRef} // Asignamos la referencia al botón de perfil
+                onClick={handleProfileClick} // Al hacer clic, se mueve el marker
+              >
+                <NavItem 
+                  href="/perfil" 
+                  icon="fa-user" 
+                  active={activeTab === '/perfil'}
+                  onClick={(e) => handleNavClick('/perfil', e.currentTarget)}
+                  onMouseEnter={(e) => moveMarker(e.currentTarget)} // Añadimos el onMouseEnter aquí
+                />
+                {isUserMenuOpen && (
+                  <div
+                    ref={userMenuRef} // Asignamos referencia al menú desplegable
+                    className="absolute right-0 mt-2 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
+                  >
+                    <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
+                      <div>Bonnie Green</div>
+                      <div className="font-medium truncate">name@flowbite.com</div>
+                    </div>
+                    <ul
+                      className="py-2 text-sm text-gray-700 dark:text-gray-200"
+                      aria-labelledby="dropdownUserAvatarButton"
+                    >
+                      <li>
+                        <a
+                          href="#"
+                          className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        >
+                          Dashboard
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="#"
+                          className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        >
+                          Settings
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="#"
+                          className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        >
+                          Earnings
+                        </a>
+                      </li>
+                    </ul>
+                    <div className="py-2">
+                      <a
+                        href="#"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                      >
+                        Sign out
+                      </a>
+                    </div>
+                  </div>
+                )}
+              </div>
+              
               <LanguageSelector />
             </div>
           </div>
@@ -131,8 +203,7 @@ const Navbar = () => {
         <div 
           className={`transform transition-transform duration-300 ease-in-out
             ${isMenuOpen ? 'translate-y-0' : '-translate-y-full'} 
-            ${isMenuOpen ? '' : 'hidden'}
-          `}
+            ${isMenuOpen ? '' : 'hidden'}`}
         >
           <MobileMenu onClose={() => setIsMenuOpen(false)} />
         </div>
@@ -158,13 +229,8 @@ const MobileMenu = ({ onClose }) => (
     <MobileMenuItem href="#" icon="fa-shop" text="Tienda" onClick={onClose} />
     <MobileMenuItem href="#" icon="fa-arrow-right-arrow-left" text="Intercambios" onClick={onClose} />
     <MobileMenuItem href="#" icon="fa-crosshairs" text="Objetivos" onClick={onClose} />
-    <MobileMenuItem href="/inventory" icon="fa-box-open" text="Cajas" onClick={onClose} />
-    <MobileMenuItem href="#" icon="fa-user" text="Perfil" onClick={onClose} />
-    
-    {/* Selector de idioma móvil */}
-    <div className="p-3">
-      <LanguageSelector isMobile={true} />
-    </div>
+    <MobileMenuItem href="#" icon="fa-box-open" text="Cajas" onClick={onClose} />
+    <MobileMenuItem href="/perfil" icon="fa-user" text="Perfil" onClick={onClose} />
   </div>
 );
 
