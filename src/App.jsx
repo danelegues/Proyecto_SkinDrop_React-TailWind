@@ -9,6 +9,7 @@ import RightPanel from './components/home/RightPanel';
 import Shop from './Pestañas/Tienda';
 import Inventory from './Pestañas/Inventario';
 import Intercambio from './Pestañas/Intercambio';
+import TestApi from './components/TestApi';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
                   </div>
                 </div>
               </div>
+              <TestApi />
             </>
           } />
           
