@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {
+  const navigate = useNavigate();
+
   useEffect(() => {
     createFloatingGifts();
   }, []);
@@ -36,6 +39,7 @@ const Hero = () => {
         </h1>
       </div>
       {/* Imagen principal */}
+
       <div className="rotate-[15deg] mt-[-35px] sm:mt-[-40px] md:mt-[-45px] lg:mt-[-50px] relative z-[999] w-full flex justify-center transition-all duration-300">
         <img 
           className="w-[620px] sm:w-[650px] md:w-[650px] lg:w-[650px] xl:w-[650px] h-auto transition-all duration-300 " 
@@ -52,7 +56,8 @@ const Hero = () => {
         </div>
         <div className="w-full md:w-1/2 text-[15px] sm:text-[16px] md:text-[16px] font-bowlby p-2 text-black transition-all duration-300 animate-expand-glow" style={{animationDelay: '0.8s'}}>
           <p>Aprovecha ahora las ofertas de navidades de hasta el 40%, y abre cajas como un loco!</p>
-          <button className="mt-[15px] sm:mt-[20px] md:mt-[25px] bg-[#111] text-white w-[150px] sm:w-[160px] md:w-[170px] h-[35px] sm:h-[38px] md:h-[40px] p-[5px] rounded-[3px] border-none text-base sm:text-lg transition-all duration-300 hover:bg-[#222] hover:scale-105 hover:shadow-lg z-[1000]">
+          <button className="mt-[15px] sm:mt-[20px] md:mt-[25px] bg-[#111] text-white w-[150px] sm:w-[160px] md:w-[170px] h-[35px] sm:h-[38px] md:h-[40px] p-[5px] rounded-[3px] border-none text-base sm:text-lg transition-all duration-300 hover:bg-[#222] hover:scale-105 hover:shadow-lg z-[1000]"> 
+           onClick={() => navigate('/registro')}
             Registrarse
           </button>
         </div>
