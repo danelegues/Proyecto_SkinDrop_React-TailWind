@@ -36,15 +36,15 @@ const UsersList = ({ users, isLoading }) => {
                   <p className="text-gray-400">{user.totalItems} items en inventario</p>
                 </div>
               </div>
-              <div className="flex gap-3">
+              <div className="flex gap-1">
                 <button 
-                  className="bg-[#2a2a2a] text-white px-6 py-3 rounded-lg hover:bg-[#3a3a3a] transition-all"
+                  className="bg-[#2a2a2a] text-white px-3 sm:px-5 py-1.5 sm:py-2 rounded-lg hover:bg-[#3a3a3a] transition-all text-sm sm:text-base"
                   onClick={() => setSelectedUser(user)}
                 >
                   Ver Inventario
                 </button>
                 <button 
-                  className="bg-[#ff6b00] text-white px-6 py-3 rounded-lg hover:bg-[#ff8533] transition-all"
+                  className="bg-[#ff6b00] text-white px-3 sm:px-5 py-1.5 sm:py-2 rounded-lg hover:bg-[#ff8533] transition-all text-sm sm:text-base"
                   onClick={() => {
                     setSelectedUser(user);
                     setShowTradeOffer(true);
