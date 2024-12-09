@@ -11,6 +11,7 @@ import Inventory from './Pestañas/Inventario';
 import Intercambio from './Pestañas/Intercambio';
 import TestApi from './components/TestApi';
 import Register from './Pestañas/Register';
+import Login from './Pestañas/Login';
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
           <Route path="/intercambio" element={<Intercambio />} />
           <Route path="/inventario" element={<Inventory />} />
           <Route path="/registro" element={<Register />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
         
         <Footer />
