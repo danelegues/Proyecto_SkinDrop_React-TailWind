@@ -10,6 +10,7 @@ import Shop from './Pestañas/Tienda';
 import Inventory from './Pestañas/Inventario';
 import Intercambio from './Pestañas/Intercambio';
 import TestApi from './components/TestApi';
+import Register from './Pestañas/Register';
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
           <Route path="/tienda" element={<Shop />} />
           <Route path="/intercambio" element={<Intercambio />} />
           <Route path="/inventario" element={<Inventory />} />
+          <Route path="/registro" element={<Register />} />
         </Routes>
         
         <Footer />
