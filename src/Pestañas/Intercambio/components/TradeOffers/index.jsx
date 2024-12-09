@@ -31,19 +31,19 @@ const MOCK_OFFERS = [
 
 const TradeOffers = ({ onBack }) => {
   return (
-    <div className="max-w-5xl mx-auto">
-      <div className="flex justify-between items-center mb-8">
-        <h2 className="text-3xl font-bold text-white">Ofertas Pendientes</h2>
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 lg:mt-14 mb-6 sm:mb-8 mt-20">
+        <h2 className="text-2xl sm:text-3xl font-bold text-white">Ofertas Pendientes</h2>
         <button
           onClick={onBack}
-          className="bg-[#2a2a2a] text-white px-6 py-3 rounded-lg hover:bg-[#3a3a3a] transition-all flex items-center gap-2"
+          className="bg-[#2a2a2a] text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-[#3a3a3a] transition-all flex items-center gap-2 text-sm sm:text-base"
         >
           <i className="fas fa-arrow-left"></i>
           Volver a búsqueda
         </button>
       </div>
       
-      <div className="space-y-4">
+      <div className="space-y-4 sm:space-y-6">
         {MOCK_OFFERS.map((offer) => {
           const theirTotal = offer.theirItems.reduce((sum, item) => sum + item.price, 0);
           const yourTotal = offer.yourItems.reduce((sum, item) => sum + item.price, 0);
@@ -52,35 +52,35 @@ const TradeOffers = ({ onBack }) => {
           return (
             <div 
               key={offer.id}
-              className="bg-[#1a1a1a] rounded-lg p-6"
+              className="bg-[#1a1a1a] rounded-lg p-4 sm:p-6"
             >
-              <div className="flex justify-between items-start mb-6">
+              <div className="flex flex-col sm:flex-row justify-between items-start gap-4 sm:gap-0 mb-4 sm:mb-6">
                 <div>
-                  <h3 className="text-white text-xl font-bold mb-1">
+                  <h3 className="text-lg sm:text-xl font-bold text-white mb-1">
                     Oferta de {offer.from}
                   </h3>
-                  <p className="text-gray-400">
+                  <p className="text-gray-400 text-sm sm:text-base">
                     {new Date(offer.timestamp).toLocaleString()}
                   </p>
                 </div>
-                <div className="flex gap-2">
-                  <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-all">
+                <div className="flex gap-2 w-full sm:w-auto">
+                  <button className="flex-1 sm:flex-none bg-green-600 text-white px-3 sm:px-4 py-2 rounded text-sm sm:text-base hover:bg-green-700 transition-all">
                     Aceptar
                   </button>
-                  <button className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition-all">
+                  <button className="flex-1 sm:flex-none bg-red-600 text-white px-3 sm:px-4 py-2 rounded text-sm sm:text-base hover:bg-red-700 transition-all">
                     Rechazar
                   </button>
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                 <div>
-                  <h4 className="text-white font-medium mb-3">Sus items:</h4>
+                  <h4 className="text-white font-medium mb-2 sm:mb-3 text-sm sm:text-base">Sus items:</h4>
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                     {offer.theirItems.map((item) => (
                       <div 
                         key={item.id}
-                        className="bg-[#2a2a2a] aspect-[3/4] rounded-lg p-4 flex flex-col"
+                        className="bg-[#2a2a2a] aspect-[3/4] rounded-lg p-2 sm:p-4 flex flex-col"
                       >
                         <div className="flex-1 flex items-center justify-center">
                           <img 
@@ -90,8 +90,8 @@ const TradeOffers = ({ onBack }) => {
                           />
                         </div>
                         <div>
-                          <h5 className="text-white text-sm font-medium truncate">{item.name}</h5>
-                          <p className="text-[#ff6b00] text-sm">${item.price.toFixed(2)}</p>
+                          <h5 className="text-white text-xs sm:text-sm font-medium truncate">{item.name}</h5>
+                          <p className="text-[#ff6b00] text-xs sm:text-sm">${item.price.toFixed(2)}</p>
                         </div>
                       </div>
                     ))}
@@ -99,12 +99,12 @@ const TradeOffers = ({ onBack }) => {
                 </div>
 
                 <div>
-                  <h4 className="text-white font-medium mb-3">Tus items:</h4>
+                  <h4 className="text-white font-medium mb-2 sm:mb-3 text-sm sm:text-base">Tus items:</h4>
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                     {offer.yourItems.map((item) => (
                       <div 
                         key={item.id}
-                        className="bg-[#2a2a2a] aspect-[3/4] rounded-lg p-4 flex flex-col"
+                        className="bg-[#2a2a2a] aspect-[3/4] rounded-lg p-2 sm:p-4 flex flex-col"
                       >
                         <div className="flex-1 flex items-center justify-center">
                           <img 
@@ -114,8 +114,8 @@ const TradeOffers = ({ onBack }) => {
                           />
                         </div>
                         <div>
-                          <h5 className="text-white text-sm font-medium truncate">{item.name}</h5>
-                          <p className="text-[#ff6b00] text-sm">${item.price.toFixed(2)}</p>
+                          <h5 className="text-white text-xs sm:text-sm font-medium truncate">{item.name}</h5>
+                          <p className="text-[#ff6b00] text-xs sm:text-sm">${item.price.toFixed(2)}</p>
                         </div>
                       </div>
                     ))}
@@ -123,7 +123,7 @@ const TradeOffers = ({ onBack }) => {
                 </div>
               </div>
 
-              <div className="mt-4 text-white">
+              <div className="mt-4 text-white text-sm sm:text-base">
                 <p>Total de sus items: ${theirTotal.toFixed(2)}</p>
                 <p>Total de tus items: ${yourTotal.toFixed(2)}</p>
                 <p className={difference > 0 ? 'text-green-500' : 'text-red-500'}>

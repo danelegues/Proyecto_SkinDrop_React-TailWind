@@ -22,24 +22,24 @@ const Intercambio = () => {
 
   return (
     <div className="min-h-[calc(100vh-64px)] bg-[#222]">
-      <div className="container mx-auto px-4 py-24">
+      <div className="container mx-auto px-4 py-8 sm:py-12 md:py-16 lg:py-24">
         {showOffers ? (
           <TradeOffers onBack={() => setShowOffers(false)} />
         ) : (
           <>
-            <div className="max-w-2xl mx-auto space-y-1">
+            <div className="w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-2xl mx-auto space-y-2 sm:space-y-3">
               <SearchUsers onSearch={handleSearch} />
               
               <button
                 onClick={() => setShowOffers(true)}
-                className="bg-[#2a2a2a] text-white px-6 py-3 rounded-lg hover:bg-[#3a3a3a] transition-all flex items-center gap-2 mx-auto -mt-2"
+                className="w-full sm:w-auto bg-[#2a2a2a] text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-[#3a3a3a] transition-all flex items-center justify-center gap-2 mx-auto -mt-2 text-sm sm:text-base"
               >
                 <i className="fas fa-exchange-alt"></i>
-                Ver ofertas pendientes
+                <span className="whitespace-nowrap">Ver ofertas pendientes</span>
               </button>
             </div>
 
-            <div className="mt-8">
+            <div className="mt-4 sm:mt-6 md:mt-8">
               <UsersList 
                 users={searchResults} 
                 isLoading={isLoading}
