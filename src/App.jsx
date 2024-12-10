@@ -9,7 +9,6 @@ import RightPanel from './components/home/RightPanel';
 import Shop from './Pestañas/Tienda';
 import Inventory from './Pestañas/Inventario';
 import Intercambio from './Pestañas/Intercambio';
-import TestApi from './components/TestApi';
 import Register from './Pestañas/Register';
 import Login from './Pestañas/Login';
 
@@ -23,20 +22,19 @@ function App() {
           <Route path="/" element={
             <>
               <Hero />
-              <div className="container mx-auto px-2 py-8">
-                <div className="flex flex-col lg:flex-row gap-4 min-h-[800px]">
-                  <div className="lg:w-[300px] xl:w-[350px] h-full">
+              <div className="ml-2 mr-2 py-8">
+                <div className="flex flex-col lg:flex-row gap-2 min-h-[900px]">
+                  <div className="lg:w-[250px] xl:w-[300px] h-full">
                     <LeftPanel />
                   </div>
                   <div className="flex-1">
                     <MainContent />
                   </div>
-                  <div className="lg:w-[300px] xl:w-[350px] h-full">
+                  <div className="lg:w-[250px] xl:w-[300px] h-full">
                     <RightPanel />
                   </div>
                 </div>
               </div>
-              <TestApi />
             </>
           } />
           

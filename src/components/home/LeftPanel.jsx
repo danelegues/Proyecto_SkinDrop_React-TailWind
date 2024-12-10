@@ -32,7 +32,7 @@ const LeftPanel = () => {
   ];
 
   return (
-    <div className="h-full flex flex-col space-y-4">
+    <div className="h-full flex flex-col space-y-4 mt-16">
       {/* Video Tutorial */}
       <VideoPreview />
 
