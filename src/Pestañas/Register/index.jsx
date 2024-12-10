@@ -59,18 +59,53 @@ function Register() {
           password_confirmation: formData.confirmPassword
         });
 
-        localStorage.setItem('token', response.data.token);
-        console.log('Registro exitoso', response.data);
-        navigate('/');
+        if (response.data) {
+          setFormData({
+            username: '',
+            email: '',
+            password: '',
+            confirmPassword: ''
+          });
+          
+          alert('¡Registro exitoso! Por favor, revisa tu email para verificar tu cuenta.');
+          
+          setTimeout(() => {
+            navigate('/login');
+          }, 1500);
+        }
         
       } catch (error) {
-        if (error.response) {
-          const serverErrors = error.response.data.errors;
-          setErrors(serverErrors);
+        console.error('Error completo:', error);
+        
+        if (error.name === 'NetworkError' || error.message === 'Network Error') {
+          setErrors({ 
+            general: 'Error de conexión. El registro fue exitoso, pero hubo un problema al enviar el email de verificación.' 
+          });
+          
+          setTimeout(() => {
+            navigate('/login');
+          }, 3000);
+          
+        } else if (error.response) {
+          if (error.response.status === 422) {
+            const serverErrors = error.response.data.errors;
+            const formattedErrors = {};
+            
+            Object.keys(serverErrors).forEach(key => {
+              formattedErrors[key] = serverErrors[key][0];
+            });
+            
+            setErrors(formattedErrors);
+          } else {
+            setErrors({ 
+              general: 'Hubo un error en el registro. Por favor, inténtalo de nuevo.' 
+            });
+          }
         } else {
-          setErrors({ general: 'Error al conectar con el servidor' });
+          setErrors({ 
+            general: 'Error de conexión. Por favor, verifica tu conexión a internet.' 
+          });
         }
-        console.error('Error en el registro:', error);
       }
     } else {
       setErrors(validationErrors);
