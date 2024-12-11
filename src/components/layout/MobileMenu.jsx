@@ -1,14 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import LanguageSelector from './LanguageSelector';
 
 const MobileMenu = ({ isOpen, onClose }) => {
   const menuItems = [
-    { icon: 'fa-house-chimney', text: 'Inicio', href: '/paginaInicio.html' },
-    { icon: 'fa-shop', text: 'Tienda', href: '#' },
-    { icon: 'fa-arrow-right-arrow-left', text: 'Intercambios', href: '#' },
-    { icon: 'fa-crosshairs', text: 'Objetivos', href: '#' },
-    { icon: 'fa-box-open', text: 'Inventario', href: '/inventory' },
-    { icon: 'fa-user', text: 'Perfil', href: '#' }
+    { icon: 'fa-house-chimney', text: 'Inicio', to: '/' },
+    { icon: 'fa-shop', text: 'Tienda', to: '/tienda' },
+    { icon: 'fa-arrow-right-arrow-left', text: 'Intercambios', to: '/intercambio' },
+    { icon: 'fa-crosshairs', text: 'Objetivos', to: '#' },
+    { icon: 'fa-box-open', text: 'Inventario', to: '/inventario' },
+    { icon: 'fa-user', text: 'Perfil', to: '/registro' }
   ];
 
   return (
@@ -20,15 +21,15 @@ const MobileMenu = ({ isOpen, onClose }) => {
     >
       <div className="bg-[#141414] text-white py-4 px-5 space-y-4">
         {menuItems.map((item, index) => (
-          <a 
+          <Link 
             key={index}
-            href={item.href}
+            to={item.to}
             className="block p-3 hover:bg-gray-700 rounded-lg transition-colors"
             onClick={onClose}
           >
             <i className={`fa-solid ${item.icon} mr-3 opacity-100`}></i>
             {item.text}
-          </a>
+          </Link>
         ))}
         
         {/* Selector de idioma móvil */}

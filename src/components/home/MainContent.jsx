@@ -64,10 +64,10 @@ const MainContent = () => {
             <img 
               src={box.image} 
               alt={box.name} 
-              className="w-full h-48 object-contain mb-4 hover:scale-105 transition-transform duration-300"
+              className="w-full h-48 object-contain hover:scale-105 transition-transform duration-300"
             />
             <div className="text-center">
-              <h3 className="text-white text-xl mb-2">{box.name}</h3>
+              <p className="text-white text-xl mb-2">{box.name}</p>
               <p className="text-orange-500 text-2xl font-bold">{box.price}€</p>
             </div>
           </div>

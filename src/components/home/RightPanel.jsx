@@ -31,7 +31,7 @@ const RightPanel = () => {
   ];
 
   return (
-    <div className="h-full flex flex-col space-y-4">
+    <div className="h-full flex flex-col space-y-4 mt-16">
       {/* Balance del Usuario */}
       <UserBalance />
 
