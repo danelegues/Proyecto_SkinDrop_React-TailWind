@@ -1,6 +1,9 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 const UserInventory = ({ user, onClose }) => {
+  const { t } = useTranslation();
+
   if (!user) return null;
 
   return (
@@ -16,12 +19,15 @@ const UserInventory = ({ user, onClose }) => {
             />
             <div>
               <h3 className="text-white text-xl font-bold">{user.username}</h3>
-              <p className="text-gray-400">{user.totalItems} items</p>
+              <p className="text-gray-400">
+                {user.totalItems} {t('trade.inventory.items')}
+              </p>
             </div>
           </div>
           <button 
             onClick={onClose}
             className="text-gray-400 hover:text-white transition-colors"
+            aria-label={t('trade.inventory.close')}
           >
             <span className="material-icons">close</span>
           </button>

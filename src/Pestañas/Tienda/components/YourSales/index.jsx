@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import SalesList from './SalesList';
 import NewSaleModal from './NewSaleModal';
 
 function YourSales() {
+  const { t } = useTranslation();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState('active'); // 'active' o 'history'
+  const [activeTab, setActiveTab] = useState('active');
 
   const activeSales = [
     {
@@ -12,7 +14,7 @@ function YourSales() {
       name: 'Karambit | Blue Gem',
       imageUrl: '/img/karambitbluegem.png',
       price: '1.5M€',
-      listedTime: 'Listado hace 2 días',
+      listedTime: t('store.sales.listedTime', { time: '2 días' }),
       onDelete: (id) => console.log('Eliminar venta:', id)
     }
   ];
@@ -23,10 +25,9 @@ function YourSales() {
       name: 'AK-47 | Vulcan',
       imageUrl: '/img/ak47vulcan.png',
       price: '250€',
-      soldTime: 'Vendido hace 5 días',
+      soldTime: t('store.sales.soldTime', { time: '5 días' }),
       soldTo: 'user8374'
     }
-    // ... más ventas completadas
   ];
 
   return (
@@ -42,7 +43,7 @@ function YourSales() {
                   : 'text-gray-400 hover:text-white'
               }`}
             >
-              Ventas Activas
+              {t('store.sales.activeSales')}
             </button>
             <button 
               onClick={() => setActiveTab('history')}
@@ -52,7 +53,7 @@ function YourSales() {
                   : 'text-gray-400 hover:text-white'
               }`}
             >
-              Historial de Ventas
+              {t('store.sales.salesHistory')}
             </button>
           </div>
           {activeTab === 'active' && (
@@ -60,7 +61,7 @@ function YourSales() {
               onClick={() => setIsModalOpen(true)}
               className="bg-[#ff6b00] text-white px-6 py-2 rounded-lg hover:bg-[#ff8533]"
             >
-              Nueva Venta
+              {t('store.sales.newSale')}
             </button>
           )}
         </div>
@@ -83,7 +84,7 @@ function YourSales() {
                   <div>
                     <h3 className="text-white font-bold">{sale.name}</h3>
                     <p className="text-gray-400">{sale.soldTime}</p>
-                    <p className="text-gray-400">Vendido a: {sale.soldTo}</p>
+                    <p className="text-gray-400">{t('store.sales.soldTo')} {sale.soldTo}</p>
                   </div>
                 </div>
                 <span className="text-green-500 text-xl font-bold">{sale.price}</span>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import TradeInventory from './TradeInventory';
 import SelectedItems from './SelectedItems';
 import TradeAction from './TradeAction';
@@ -18,11 +19,11 @@ const MY_INVENTORY = [
     wear: "Minimal Wear",
     price: 1200.00,
     image: "m4howl.png"
-  },
-  // Puedes agregar más items aquí
+  }
 ];
 
 const TradeOffer = ({ user, onClose }) => {
+  const { t } = useTranslation();
   const [mySelectedItems, setMySelectedItems] = useState([]);
   const [theirSelectedItems, setTheirSelectedItems] = useState([]);
 
@@ -35,7 +36,9 @@ const TradeOffer = ({ user, onClose }) => {
             <div className="w-8 h-8 sm:w-12 sm:h-12 rounded-full bg-[#2a2a2a] flex items-center justify-center">
               <i className="fas fa-user text-gray-600 text-sm sm:text-base"></i>
             </div>
-            <h2 className="text-white text-base sm:text-xl font-bold truncate">Intercambio con {user.username}</h2>
+            <h2 className="text-white text-base sm:text-xl font-bold truncate">
+              {t('trade.tradeOffer.title')} {user.username}
+            </h2>
           </div>
           <button 
             onClick={onClose}
@@ -51,7 +54,9 @@ const TradeOffer = ({ user, onClose }) => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 sm:p-6">
             {/* Left Side - Your Items */}
             <div>
-              <h3 className="text-white text-base sm:text-lg font-medium mb-4">Tus items</h3>
+              <h3 className="text-white text-base sm:text-lg font-medium mb-4">
+                {t('trade.tradeOffer.yourItems')}
+              </h3>
               <TradeInventory 
                 items={MY_INVENTORY}
                 selectedItems={mySelectedItems}
@@ -61,7 +66,9 @@ const TradeOffer = ({ user, onClose }) => {
 
             {/* Right Side - Their Items */}
             <div>
-              <h3 className="text-white text-base sm:text-lg font-medium mb-4">Items de {user.username}</h3>
+              <h3 className="text-white text-base sm:text-lg font-medium mb-4">
+                {t('trade.tradeOffer.theirItems')} {user.username}
+              </h3>
               <TradeInventory 
                 items={user.inventory}
                 selectedItems={theirSelectedItems}

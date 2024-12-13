@@ -1,6 +1,9 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 const RecentDrops = () => {
+  const { t } = useTranslation();
+  
   // Datos de ejemplo para los últimos drops
   const drops = [
     {
@@ -31,7 +34,9 @@ const RecentDrops = () => {
 
   return (
     <div className="bg-[#141414] rounded-lg p-4 sm:p-6">
-      <p className="text-white text-lg sm:text-xl mb-3 sm:mb-4">Últimos Drops</p>
+      <p className="text-white text-lg sm:text-xl mb-3 sm:mb-4">
+        {t('home.recentDrops.title')}
+      </p>
       <div className="space-y-3 sm:space-y-4">
         {drops.map((drop) => (
           <DropItem key={drop.id} drop={drop} />
@@ -42,6 +47,8 @@ const RecentDrops = () => {
 };
 
 const DropItem = ({ drop }) => {
+  const { t } = useTranslation();
+  
   return (
     <div className="flex items-center bg-white bg-opacity-5 rounded-lg p-2 sm:p-3 hover:bg-opacity-10 transition-all duration-300">
       <img 

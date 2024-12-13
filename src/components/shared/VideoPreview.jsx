@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const VideoPreview = () => {
+  const { t } = useTranslation();
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
   return (
     <div className="bg-[#141414] rounded-lg overflow-hidden">
-      {/* Preview del video */}
       <div className="relative aspect-video">
         <img 
           src="/img/video-preview.jpg" 
-          alt="Tutorial preview" 
+          alt={t('home.tutorial.title')} 
           className="w-full h-full object-cover"
         />
         <button 
@@ -20,13 +21,11 @@ const VideoPreview = () => {
         </button>
       </div>
 
-      {/* Información del video */}
       <div className="p-4">
-        <h3 className="text-white text-lg mb-2">¿Cómo funciona?</h3>
-        <p className="text-gray-400 text-sm">Mira este breve tutorial sobre cómo usar SkinDrop</p>
+        <h3 className="text-white text-lg mb-2">{t('home.tutorial.title')}</h3>
+        <p className="text-gray-400 text-sm">{t('home.tutorial.description')}</p>
       </div>
 
-      {/* Modal del video */}
       {isVideoPlaying && (
         <VideoModal onClose={() => setIsVideoPlaying(false)} />
       )}

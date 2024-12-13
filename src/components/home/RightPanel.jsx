@@ -1,8 +1,11 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import UserBalance from '../shared/UserBalance';
 import '../../styles/RightPanel.css';
 
 const RightPanel = () => {
+  const { t } = useTranslation();
+
   const recentDrops = [
     {
       id: 1,
@@ -37,31 +40,31 @@ const RightPanel = () => {
 
       {/* Filtros */}
       <div className="bg-[#141414] rounded-lg p-4">
-        <h3 className="text-white text-lg font-medium mb-4">Filtros</h3>
+        <h3 className="text-white text-lg font-medium mb-4">{t('filters.title')}</h3>
         
         {/* Nombre de la caja */}
         <div className="mb-4">
-          <label className="text-gray-400 text-sm block mb-2">Nombre de la caja</label>
+          <label className="text-gray-400 text-sm block mb-2">{t('filters.boxName')}</label>
           <input 
             type="text" 
-            placeholder="Buscar caja..." 
+            placeholder={t('filters.searchBox')}
             className="w-full bg-[#1a1a1a] text-white rounded-lg p-2 text-sm"
           />
         </div>
 
         {/* Rango de precio */}
         <div className="mb-4">
-          <label className="text-gray-400 text-sm block mb-2">Rango de precio</label>
+          <label className="text-gray-400 text-sm block mb-2">{t('filters.priceRange')}</label>
           <div className="flex gap-2 items-center">
             <input 
               type="number" 
-              placeholder="Min" 
+              placeholder={t('filters.min')}
               className="w-1/2 bg-[#1a1a1a] text-white rounded-lg p-2 text-sm"
             />
             <span className="text-gray-400">-</span>
             <input 
               type="number" 
-              placeholder="Max" 
+              placeholder={t('filters.max')}
               className="w-1/2 bg-[#1a1a1a] text-white rounded-lg p-2 text-sm"
             />
           </div>
@@ -70,7 +73,7 @@ const RightPanel = () => {
         {/* Botón de aplicar filtros */}
         <button className="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-lg text-sm transition-colors flex items-center justify-center gap-2">
           <i className="fas fa-filter"></i>
-          Aplicar Filtros
+          {t('filters.apply')}
         </button>
       </div>
 

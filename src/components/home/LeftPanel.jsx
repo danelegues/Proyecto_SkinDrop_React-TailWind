@@ -1,8 +1,11 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import VideoPreview from '../shared/VideoPreview';
 import '../../styles/LeftPanel.css';
 
 const LeftPanel = () => {
+  const { t } = useTranslation();
+
   // Datos de ejemplo para los jugadores
   const recentWinners = [
     {
@@ -39,9 +42,9 @@ const LeftPanel = () => {
       {/* Últimos Ganadores */}
       <div className="bg-[#141414] rounded-lg p-4">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-white text-lg font-medium">Últimos Ganadores</h3>
+          <h3 className="text-white text-lg font-medium">{t('home.recentWinners.title')}</h3>
           <button className="text-orange-500 hover:text-orange-400 text-sm transition-colors">
-            Ver todos
+            {t('common.viewAll')}
           </button>
         </div>
 
@@ -55,11 +58,11 @@ const LeftPanel = () => {
 
       {/* Estadísticas */}
       <div className="bg-[#141414] rounded-lg p-4">
-        <h3 className="text-white text-lg font-medium mb-4">Estadísticas</h3>
+        <h3 className="text-white text-lg font-medium mb-4">{t('home.stats.title')}</h3>
         <div className="space-y-3">
-          <StatItem label="Cajas abiertas hoy" value="1,234" />
-          <StatItem label="Mejor drop" value="$4,500.00" />
-          <StatItem label="Usuarios online" value="789" isOnline />
+          <StatItem label={t('home.stats.casesOpenedToday')} value="1,234" />
+          <StatItem label={t('home.stats.bestDrop')} value="$4,500.00" />
+          <StatItem label={t('home.stats.onlineUsers')} value="789" isOnline />
         </div>
       </div>
     </div>

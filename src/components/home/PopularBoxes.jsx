@@ -1,67 +1,56 @@
-import React from 'react';
+import { useTranslation } from 'react-i18next';
 import BoxCard from '../shared/BoxCard';
 
 const PopularBoxes = () => {
-  // Datos de ejemplo para las cajas
-  const boxes = [
+  const { t } = useTranslation();
+
+  // Datos de ejemplo - Esto debería venir de tu API
+  const popularBoxes = [
     {
       id: 1,
-      name: "Caja Premium",
+      name: t('home.popularBoxes.boxNames.premium'),
       price: 4.99,
-      image: "/img/CAJA 4_preview_rev_1.png"
+      image: "/img/CAJA 4_preview_rev_1.png",
+      discount: 15,
+      rating: 4.5,
+      openCount: 12500
     },
     {
       id: 2,
-      name: "Caja Premium",
+      name: t('home.popularBoxes.boxNames.premium'),
       price: 4.99,
-      image: "/img/descarga (3)-fotor-bg-remover-202410031336.png"
+      image: "/img/descarga (3)-fotor-bg-remover-202410031336.png",
+      discount: 20,
+      rating: 4.8,
+      openCount: 8300
     },
-    {
-      id: 3,
-      name: "Caja Premium",
-      price: 4.99,
-      image: "/img/descarga-fotor-bg-remover-2024100313334.png"
-    }
+    // Añade más cajas según necesites
   ];
 
   return (
-    <div className="flex-1 min-h-0 px-4 lg:px-6">
-      {/* Filtros superiores */}
-      <div className="flex flex-wrap gap-4 mb-6">
-        <FilterButton active>Todos</FilterButton>
-        <FilterButton>Populares</FilterButton>
-        <FilterButton>Nuevos</FilterButton>
-        <FilterButton>Premium</FilterButton>
+    <section className="py-12 bg-gradient-to-b from-gray-900 to-gray-800">
+      <div className="container mx-auto px-4">
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-2xl font-bold text-white">
+            {t('home.popularBoxes.title')}
+          </h2>
+          <button className="text-orange-500 hover:text-orange-400 transition-colors">
+            {t('home.popularBoxes.viewAll')} →
+          </button>
+        </div>
+        
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {popularBoxes.map((box) => (
+            <BoxCard 
+              key={box.id}
+              box={box}
+              className="transform hover:-translate-y-1 transition-transform duration-300"
+            />
+          ))}
+        </div>
       </div>
-
-      {/* Separador con título */}
-      <div className="col-span-full flex items-center justify-center my-4">
-        <div className="h-[2px] bg-gradient-to-r from-transparent via-orange-500 to-transparent flex-1 max-w-[100px] opacity-60"></div>
-        <h2 className="text-orange-500 text-xl uppercase font-bold mx-3">Cajas mas vendidas</h2>
-        <div className="h-[2px] bg-gradient-to-r from-transparent via-orange-500 to-transparent flex-1 max-w-[100px] opacity-60"></div>
-      </div>
-
-      {/* Grid de cajas */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {boxes.map((box) => (
-          <BoxCard key={box.id} box={box} />
-        ))}
-      </div>
-    </div>
+    </section>
   );
 };
-
-const FilterButton = ({ children, active }) => (
-  <button
-    className={`
-      px-4 py-2 rounded-lg text-sm transition-all duration-300
-      ${active 
-        ? 'bg-orange-500 text-white' 
-        : 'bg-[#1a1a1a] text-gray-400 hover:bg-[#252525]'}
-    `}
-  >
-    {children}
-  </button>
-);
 
 export default PopularBoxes;

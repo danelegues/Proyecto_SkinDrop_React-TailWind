@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import UserInventory from '../UserInventory';
 import TradeOffer from '../TradeOffer';
 
 const UsersList = ({ users, isLoading }) => {
+  const { t } = useTranslation();
   const [selectedUser, setSelectedUser] = useState(null);
   const [showTradeOffer, setShowTradeOffer] = useState(false);
 
@@ -15,7 +17,7 @@ const UsersList = ({ users, isLoading }) => {
     return (
       <div className="text-center text-gray-400 py-12">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#ff6b00] mx-auto mb-4"></div>
-        Buscando usuarios...
+        {t('trade.search.loading')}
       </div>
     );
   }
@@ -33,7 +35,9 @@ const UsersList = ({ users, isLoading }) => {
                 </div>
                 <div>
                   <h3 className="text-white text-xl font-bold">{user.username}</h3>
-                  <p className="text-gray-400">{user.totalItems} items en inventario</p>
+                  <p className="text-gray-400">
+                    {user.totalItems} {t('trade.userList.items')}
+                  </p>
                 </div>
               </div>
               <div className="flex gap-1">
@@ -41,7 +45,7 @@ const UsersList = ({ users, isLoading }) => {
                   className="bg-[#2a2a2a] text-white px-3 sm:px-5 py-1.5 sm:py-2 rounded-lg hover:bg-[#3a3a3a] transition-all text-sm sm:text-base"
                   onClick={() => setSelectedUser(user)}
                 >
-                  Ver Inventario
+                  {t('trade.userList.viewInventory')}
                 </button>
                 <button 
                   className="bg-[#ff6b00] text-white px-3 sm:px-5 py-1.5 sm:py-2 rounded-lg hover:bg-[#ff8533] transition-all text-sm sm:text-base"
@@ -50,7 +54,7 @@ const UsersList = ({ users, isLoading }) => {
                     setShowTradeOffer(true);
                   }}
                 >
-                  Hacer Oferta
+                  {t('trade.userList.makeOffer')}
                 </button>
               </div>
             </div>

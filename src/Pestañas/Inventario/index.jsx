@@ -5,8 +5,10 @@ import FiltersModal from './components/FiltersModal';
 import SellModal from './components/SellModal';
 import { useInventoryFilter } from './hooks/useInventoryFilter';
 import { useInventoryActions } from './hooks/useInventoryActions';
+import { useTranslation } from 'react-i18next';
 
 const Inventario = () => {
+  const { t } = useTranslation();
   const [isFiltersModalOpen, setIsFiltersModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [isSellModalOpen, setIsSellModalOpen] = useState(false);

@@ -1,6 +1,9 @@
 import { memo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const Pagination = memo(function Pagination({ currentPage, totalPages, onPageChange, totalItems }) {
+  const { t } = useTranslation();
+
   const getPageNumbers = () => {
     const delta = 2;
     const range = [];
@@ -43,7 +46,7 @@ const Pagination = memo(function Pagination({ currentPage, totalPages, onPageCha
               : 'bg-[#2a2a2a] text-white hover:bg-[#3a3a3a]'
           }`}
         >
-          Anterior
+          {t('store.pagination.previous')}
         </button>
 
         {getPageNumbers().map((pageNum, index) => (
@@ -71,11 +74,14 @@ const Pagination = memo(function Pagination({ currentPage, totalPages, onPageCha
               : 'bg-[#2a2a2a] text-white hover:bg-[#3a3a3a]'
           }`}
         >
-          Siguiente
+          {t('store.pagination.next')}
         </button>
       </div>
       <div className="text-gray-400 text-sm">
-        Mostrando {Math.min(currentPage * 14, totalItems)} de {totalItems} items
+        {t('store.pagination.showing', {
+          shown: Math.min(currentPage * 14, totalItems),
+          total: totalItems
+        })}
       </div>
     </div>
   );

@@ -1,4 +1,8 @@
+import { useTranslation } from 'react-i18next';
+
 function ProductCard({ name, price, image, user }) {
+  const { t } = useTranslation();
+
   return (
     <div className="product-card bg-gray-800 rounded overflow-hidden flex flex-col h-full transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl">
       <div className="relative">
@@ -27,7 +31,7 @@ function ProductCard({ name, price, image, user }) {
         </span>
         <div className="flex-grow"></div>
         <button className="bg-orange-500 hover:bg-orange-600 text-white w-full py-1 px-2 sm:px-4 rounded-full text-xs sm:text-sm font-medium transition-all duration-300">
-          PUJAR
+          {t('store.product.bid')}
         </button>
       </div>
       

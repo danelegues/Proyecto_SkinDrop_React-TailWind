@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import LanguageSelector from '../shared/LanguageSelector';
+import { useTranslation } from 'react-i18next';
 
 const Navbar = () => {
+  const { t } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
   const [activeTab, setActiveTab] = useState(location.pathname);
@@ -82,11 +84,11 @@ const Navbar = () => {
   };
 
   const menuItems = [
-    { path: '/', icon: 'home', label: 'Inicio' },
-    { path: '/tienda', icon: 'store', label: 'Tienda' },
-    { path: '/intercambio', icon: 'swap_horiz', label: 'Intercambios' },
-    { path: '/inventario', icon: 'inventory_2', label: 'Inventario' },
-    { path: '/perfil', icon: 'person', label: 'Perfil' },
+    { path: '/', icon: 'home', label: t('navbar.home') },
+    { path: '/tienda', icon: 'store', label: t('navbar.store') },
+    { path: '/intercambio', icon: 'swap_horiz', label: t('navbar.trade') },
+    { path: '/inventario', icon: 'inventory_2', label: t('navbar.inventory') },
+    { path: '/perfil', icon: 'person', label: t('navbar.login') },
   ];
 
   return (

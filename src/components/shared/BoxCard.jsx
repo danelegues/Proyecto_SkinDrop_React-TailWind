@@ -1,24 +1,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import '../../styles/BoxCard.css';
+import { useTranslation } from 'react-i18next';
 
-const BoxCard = ({ box }) => {
+const BoxCard = ({ box, className = '' }) => {
+  const { t } = useTranslation();
+
   return (
-    <div className="bg-[#1a1a1a] rounded-lg overflow-hidden cursor-pointer transform hover:scale-105 transition-all duration-300 w-full box-card-hover">
-      {/* Imagen de la caja */}
-      <div className="w-full h-48 flex items-center justify-center mt-4 box-image-container">
+    <div className={`bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-orange-500/20 transition-all duration-300 ${className}`}>
+      {/* Imagen y descuento */}
+      <div className="relative">
         <img 
           src={box.image} 
-          alt={box.name} 
-          className="h-full object-contain max-w-[180px] box-image"
-          loading="lazy"
+          alt={box.name}
+          className="w-full h-48 object-cover"
         />
+        {box.discount && (
+          <div className="absolute top-2 right-2 bg-orange-500 text-white px-2 py-1 rounded-md text-sm font-bold">
+            -{box.discount}%
+          </div>
+        )}
       </div>
 
-      {/* Información de la caja */}
-      <div className="p-4 box-info">
-        <div className="text-gray-400 text-sm sm:text-base">{box.name}</div>
-        <h3 className="text-white text-lg font-bold">{box.price.toFixed(2)}€</h3>
+      {/* Información */}
+      <div className="p-4">
+        <h3 className="text-white font-semibold mb-2">{box.name}</h3>
+        
+        {/* Precio y rating */}
+        <div className="flex justify-between items-center mb-3">
+          <div className="text-orange-500 font-bold">${box.price}</div>
+          <div className="flex items-center">
+            <span className="text-yellow-400 mr-1">★</span>
+            <span className="text-gray-300 text-sm">{box.rating}</span>
+          </div>
+        </div>
+
+        {/* Contador de aperturas */}
+        <div className="text-gray-400 text-sm">
+          {new Intl.NumberFormat().format(box.openCount)} {t('home.popularBoxes.opened')}
+        </div>
       </div>
     </div>
   );

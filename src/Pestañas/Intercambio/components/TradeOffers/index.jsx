@@ -1,6 +1,6 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-// Mock data para las ofertas
 const MOCK_OFFERS = [
   {
     id: 1,
@@ -25,21 +25,24 @@ const MOCK_OFFERS = [
         image: "m4howl.png"
       }
     ]
-  },
-  // Puedes añadir más ofertas aquí
+  }
 ];
 
 const TradeOffers = ({ onBack }) => {
+  const { t } = useTranslation();
+
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 lg:mt-14 mb-6 sm:mb-8 mt-20">
-        <h2 className="text-2xl sm:text-3xl font-bold text-white">Ofertas Pendientes</h2>
+        <h2 className="text-2xl sm:text-3xl font-bold text-white">
+          {t('trade.tradeOffers.title')}
+        </h2>
         <button
           onClick={onBack}
           className="bg-[#2a2a2a] text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-[#3a3a3a] transition-all flex items-center gap-2 text-sm sm:text-base"
         >
           <i className="fas fa-arrow-left"></i>
-          Volver a búsqueda
+          {t('trade.tradeOffers.backToSearch')}
         </button>
       </div>
       
@@ -57,7 +60,7 @@ const TradeOffers = ({ onBack }) => {
               <div className="flex flex-col sm:flex-row justify-between items-start gap-4 sm:gap-0 mb-4 sm:mb-6">
                 <div>
                   <h3 className="text-lg sm:text-xl font-bold text-white mb-1">
-                    Oferta de {offer.from}
+                    {t('trade.tradeOffers.offer.from')} {offer.from}
                   </h3>
                   <p className="text-gray-400 text-sm sm:text-base">
                     {new Date(offer.timestamp).toLocaleString()}
@@ -65,17 +68,19 @@ const TradeOffers = ({ onBack }) => {
                 </div>
                 <div className="flex gap-2 w-full sm:w-auto">
                   <button className="flex-1 sm:flex-none bg-green-600 text-white px-3 sm:px-4 py-2 rounded text-sm sm:text-base hover:bg-green-700 transition-all">
-                    Aceptar
+                    {t('trade.tradeOffers.offer.accept')}
                   </button>
                   <button className="flex-1 sm:flex-none bg-red-600 text-white px-3 sm:px-4 py-2 rounded text-sm sm:text-base hover:bg-red-700 transition-all">
-                    Rechazar
+                    {t('trade.tradeOffers.offer.reject')}
                   </button>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                 <div>
-                  <h4 className="text-white font-medium mb-2 sm:mb-3 text-sm sm:text-base">Sus items:</h4>
+                  <h4 className="text-white font-medium mb-2 sm:mb-3 text-sm sm:text-base">
+                    {t('trade.tradeOffers.offer.theirItems')}
+                  </h4>
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                     {offer.theirItems.map((item) => (
                       <div 
@@ -99,7 +104,9 @@ const TradeOffers = ({ onBack }) => {
                 </div>
 
                 <div>
-                  <h4 className="text-white font-medium mb-2 sm:mb-3 text-sm sm:text-base">Tus items:</h4>
+                  <h4 className="text-white font-medium mb-2 sm:mb-3 text-sm sm:text-base">
+                    {t('trade.tradeOffers.offer.yourItems')}
+                  </h4>
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                     {offer.yourItems.map((item) => (
                       <div 
@@ -124,10 +131,10 @@ const TradeOffers = ({ onBack }) => {
               </div>
 
               <div className="mt-4 text-white text-sm sm:text-base">
-                <p>Total de sus items: ${theirTotal.toFixed(2)}</p>
-                <p>Total de tus items: ${yourTotal.toFixed(2)}</p>
+                <p>{t('trade.tradeOffers.offer.totalTheirs')} ${theirTotal.toFixed(2)}</p>
+                <p>{t('trade.tradeOffers.offer.totalYours')} ${yourTotal.toFixed(2)}</p>
                 <p className={difference > 0 ? 'text-green-500' : 'text-red-500'}>
-                  Diferencia: ${Math.abs(difference).toFixed(2)}
+                  {t('trade.tradeOffers.offer.difference')} ${Math.abs(difference).toFixed(2)}
                 </p>
               </div>
             </div>

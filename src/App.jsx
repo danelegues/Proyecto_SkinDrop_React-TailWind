@@ -11,6 +11,7 @@ import Inventory from './Pestañas/Inventario';
 import Intercambio from './Pestañas/Intercambio';
 import Register from './Pestañas/Register';
 import Login from './Pestañas/Login';
+import './i18next.config';
 
 function App() {
   return (
