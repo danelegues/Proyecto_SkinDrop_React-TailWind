@@ -11,6 +11,7 @@ import Inventory from './Pestañas/Inventario';
 import Intercambio from './Pestañas/Intercambio';
 import Register from './Pestañas/Register';
 import Login from './Pestañas/Login';
+import Perfil from './Pestañas/Perfil';
 import './i18next.config';
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
           <Route path="/inventario" element={<Inventory />} />
           <Route path="/registro" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/perfil" element={<Perfil />} />
         </Routes>
         
         <Footer />

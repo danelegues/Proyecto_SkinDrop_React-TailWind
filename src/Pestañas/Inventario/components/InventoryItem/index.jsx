@@ -1,6 +1,8 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 const InventoryItem = ({ item, onSellClick }) => {
+  const { t } = useTranslation();
   const { name, wear, price, image, status } = item;
 
   const getWearColor = (wear) => {
@@ -14,8 +16,15 @@ const InventoryItem = ({ item, onSellClick }) => {
     return colors[wear] || 'text-gray-400';
   };
 
-  const handleImageError = (e) => {
-    e.target.src = '/img/default-skin.png';
+  const getStatusText = (status) => {
+    switch(status) {
+      case 'on_sale':
+        return t('inventory.status.onSale');
+      case 'locked':
+        return t('inventory.status.locked');
+      default:
+        return t('inventory.status.available');
+    }
   };
 
   return (
@@ -25,22 +34,13 @@ const InventoryItem = ({ item, onSellClick }) => {
           <img 
             src={`/img/${image}`} 
             alt={name}
-            onError={handleImageError}
             className="max-w-full max-h-full object-contain group-hover:scale-110 group-hover:rotate-1"
-            style={{
-              maxHeight: '150px',
-              width: 'auto'
-            }}
+            style={{ maxHeight: '150px', width: 'auto' }}
           />
         </div>
         {status === 'on_sale' && (
           <span className="absolute top-3 right-3 px-3 py-1 rounded-lg text-sm font-medium bg-gradient-to-r from-green-500 to-green-600 text-white shadow-lg">
-            En venta
-          </span>
-        )}
-        {status === 'locked' && (
-          <span className="absolute top-3 right-3 px-3 py-1 rounded-lg text-sm font-medium bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg">
-            Bloqueado
+            {t('inventory.status.onSale')}
           </span>
         )}
       </div>
@@ -52,7 +52,7 @@ const InventoryItem = ({ item, onSellClick }) => {
         <div className="flex items-center gap-2 mb-4">
           <span className={`text-sm ${getWearColor(wear)} font-medium`}>{wear}</span>
           <span className="text-gray-600">•</span>
-          <span className="text-gray-400 text-sm">ID: #{item.id}</span>
+          <span className="text-gray-400 text-sm">{t('inventory.item.id')} #{item.id}</span>
         </div>
         <button 
           className={`w-full py-2.5 rounded-lg font-medium
@@ -62,7 +62,7 @@ const InventoryItem = ({ item, onSellClick }) => {
           disabled={status === 'locked' || status === 'on_sale'}
           onClick={() => onSellClick(item)}
         >
-          {status === 'locked' ? 'Bloqueado' : status === 'on_sale' ? 'En venta' : 'Vender'}
+          {getStatusText(status)}
         </button>
       </div>
     </div>

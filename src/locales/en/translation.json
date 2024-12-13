@@ -164,14 +164,110 @@
       "yourItems": "Your Items",
       "theirItems": "Their Items",
       "selectedItems": "Selected Items",
-      "total": "Total:",
+      "total": "Total: $",
       "submit": "Submit Offer",
-      "cancel": "Cancel",
-      "values": {
-        "yourItems": "Your items: $",
-        "theirItems": "Their items: $",
-        "difference": "Difference: $"
-      }
+      "cancel": "Cancel"
+    },
+    "values": {
+      "yourItems": "Your Items: $",
+      "theirItems": "Their Items: $",
+      "difference": "Difference: $"
+    }
+  },
+  "inventory": {
+    "title": "My Inventory",
+    "totalItems": "Total items:",
+    "search": {
+      "placeholder": "Search items...",
+      "sortByPrice": "Sort by price"
+    },
+    "sort": {
+      "default": "Sort by",
+      "priceAsc": "Price: Low to High",
+      "priceDesc": "Price: High to Low",
+      "name": "Name",
+      "wear": "Wear"
+    },
+    "filters": {
+      "title": "Filters",
+      "wear": "Wear",
+      "allWears": "All wears",
+      "factoryNew": "Factory New",
+      "minimalWear": "Minimal Wear",
+      "fieldTested": "Field-Tested",
+      "wellWorn": "Well-Worn",
+      "battleScarred": "Battle-Scarred",
+      "status": "Status",
+      "allStatuses": "All statuses",
+      "available": "Available",
+      "onSale": "On Sale",
+      "locked": "Locked",
+      "priceRange": "Price range",
+      "min": "Min",
+      "max": "Max",
+      "reset": "Reset",
+      "apply": "Apply Filters",
+      "close": "Close",
+      "allTypes": "All types",
+      "rifles": "Rifles",
+      "pistols": "Pistols",
+      "knives": "Knives",
+      "allRarities": "All rarities",
+      "consumer": "Consumer",
+      "industrial": "Industrial",
+      "milSpec": "Mil-Spec",
+      "restricted": "Restricted",
+      "classified": "Classified",
+      "covert": "Covert"
+    },
+    "sell": {
+      "title": "Sell Item",
+      "quickSell": "Quick Sell",
+      "enterPrice": "Enter price",
+      "listForSale": "List for Sale",
+      "close": "Close",
+      "invalidPrice": "Please enter a valid price"
+    },
+    "status": {
+      "onSale": "On Sale",
+      "locked": "Locked",
+      "available": "Available"
+    },
+    "item": {
+      "id": "ID:",
+      "sell": "Sell",
+      "onSale": "On Sale",
+      "locked": "Locked"
+    },
+    "grid": {
+      "noItems": "No items found"
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next"
+    }
+  },
+  "profile": {
+    "title": "My Profile",
+    "memberSince": "Member since {{year}}",
+    "options": {
+      "editProfile": "Edit Profile",
+      "changePassword": "Change Password",
+      "logout": "Logout"
+    },
+    "editModal": {
+      "title": "Edit Profile",
+      "username": "New username",
+      "save": "Save Changes",
+      "close": "Close"
+    },
+    "passwordModal": {
+      "title": "Change Password",
+      "currentPassword": "Current password",
+      "newPassword": "New password",
+      "confirmPassword": "Confirm new password",
+      "save": "Change Password",
+      "close": "Close"
     }
   }
 } 

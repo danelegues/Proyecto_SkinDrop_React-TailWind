@@ -29,13 +29,41 @@ const Inventario = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 pt-24 pb-8">
-      <InventoryHeader 
-        totalItems={totalItems}
-        onSort={handleSort}
-        onFilter={() => setIsFiltersModalOpen(true)}
-      />
-      
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-32 mt-28">
+      <div className="flex flex-col gap-2 mb-8">
+        <InventoryHeader 
+          totalItems={totalItems}
+          onSort={handleSort}
+          onFilter={() => setIsFiltersModalOpen(true)}
+        />
+      </div>
+
+      <div className="flex flex-col sm:flex-row gap-4 mb-8">
+        <button className="bg-[#FF6B00] text-white px-4 py-2 rounded hover:bg-[#ff8533] transition-colors">
+          {t('inventory.search.sortByPrice')}
+        </button>
+        <input
+          type="text"
+          placeholder={t('inventory.search.placeholder')}
+          className="bg-[#2a2a2a] text-white px-4 py-2 rounded flex-grow"
+        />
+        <select className="bg-[#2a2a2a] text-white px-4 py-2 rounded">
+          <option value="all">{t('inventory.filters.allTypes')}</option>
+          <option value="rifles">{t('inventory.filters.rifles')}</option>
+          <option value="pistols">{t('inventory.filters.pistols')}</option>
+          <option value="knives">{t('inventory.filters.knives')}</option>
+        </select>
+        <select className="bg-[#2a2a2a] text-white px-4 py-2 rounded">
+          <option value="all">{t('inventory.filters.allRarities')}</option>
+          <option value="consumer">{t('inventory.filters.consumer')}</option>
+          <option value="industrial">{t('inventory.filters.industrial')}</option>
+          <option value="milspec">{t('inventory.filters.milSpec')}</option>
+          <option value="restricted">{t('inventory.filters.restricted')}</option>
+          <option value="classified">{t('inventory.filters.classified')}</option>
+          <option value="covert">{t('inventory.filters.covert')}</option>
+        </select>
+      </div>
+
       <InventoryGrid 
         items={sortedAndFilteredItems}
         onSellClick={handleSellClick}

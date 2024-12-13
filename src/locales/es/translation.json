@@ -164,14 +164,111 @@
       "yourItems": "Tus Items",
       "theirItems": "Sus Items",
       "selectedItems": "Items Seleccionados",
-      "total": "Total:",
+      "total": "Total: $",
       "submit": "Enviar Oferta",
-      "cancel": "Cancelar",
-      "values": {
-        "yourItems": "Tus items: $",
-        "theirItems": "Sus items: $",
-        "difference": "Diferencia: $"
-      }
+      "cancel": "Cancelar"
+    },
+    "values": {
+      "yourItems": "Tus Items: $",
+      "theirItems": "Sus Items: $",
+      "difference": "Diferencia: $"
+    }
+  },
+  "inventory": {
+    "title": "Mi Inventario",
+    "totalItems": "Total de items:",
+    "search": {
+      "placeholder": "Buscar items...",
+      "sortByPrice": "Ordenar por precio"
+    },
+    "sort": {
+      "default": "Ordenar por",
+      "priceAsc": "Precio: Menor a Mayor",
+      "priceDesc": "Precio: Mayor a Menor",
+      "name": "Nombre",
+      "wear": "Desgaste"
+    },
+    "filters": {
+      "title": "Filtros",
+      "wear": "Desgaste",
+      "allWears": "Todos los desgastes",
+      "factoryNew": "Factory New",
+      "minimalWear": "Minimal Wear",
+      "fieldTested": "Field-Tested",
+      "wellWorn": "Well-Worn",
+      "battleScarred": "Battle-Scarred",
+      "status": "Estado",
+      "allStatuses": "Todos los estados",
+      "available": "Disponible",
+      "onSale": "En venta",
+      "locked": "Bloqueado",
+      "priceRange": "Rango de precio",
+      "min": "Mín",
+      "max": "Máx",
+      "reset": "Resetear",
+      "apply": "Aplicar Filtros",
+      "close": "Cerrar",
+      "allTypes": "Todos los tipos",
+      "rifles": "Rifles",
+      "pistols": "Pistolas",
+      "knives": "Cuchillos",
+      "allRarities": "Todas las rarezas",
+      "consumer": "Consumer",
+      "industrial": "Industrial",
+      "milSpec": "Mil-Spec",
+      "restricted": "Restricted",
+      "classified": "Classified",
+      "covert": "Covert"
+    },
+    "sell": {
+      "title": "Vender Item",
+      "quickSell": "Venta Rápida",
+      "enterPrice": "Introduce el precio",
+      "listForSale": "Poner en venta",
+      "close": "Cerrar"
+    },
+    "status": {
+      "onSale": "En venta",
+      "locked": "Bloqueado",
+      "available": "Disponible"
+    },
+    "item": {
+      "id": "ID:",
+      "sell": "Vender",
+      "onSale": "En venta",
+      "locked": "Bloqueado"
+    },
+    "pagination": {
+      "previous": "Anterior",
+      "next": "Siguiente"
+    }
+  },
+  "profile": {
+    "title": "Mi Perfil",
+    "memberSince": "Miembro desde {{year}}",
+    "options": {
+      "editProfile": "Editar Perfil",
+      "changePassword": "Cambiar Contraseña",
+      "logout": "Cerrar Sesión"
+    },
+    "editModal": {
+      "title": "Editar Perfil",
+      "username": "Nuevo nombre de usuario",
+      "save": "Guardar Cambios",
+      "close": "Cerrar"
+    },
+    "passwordModal": {
+      "title": "Cambiar Contraseña",
+      "currentPassword": "Contraseña actual",
+      "newPassword": "Nueva contraseña",
+      "confirmPassword": "Confirmar nueva contraseña",
+      "save": "Cambiar Contraseña",
+      "close": "Cerrar"
+    },
+    "stats": {
+      "trades": "Intercambios",
+      "items": "Items",
+      "value": "Valor Total"
     }
   }
 } 

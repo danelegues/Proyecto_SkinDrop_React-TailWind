@@ -52,7 +52,7 @@ function Register() {
     
     if (Object.keys(validationErrors).length === 0) {
       try {
-        const response = await axios.post('http://10.14.4.197:8000/api/register', {
+        const response = await axios.post('http://localhost:8000/api/register', {
           username: formData.username,
           email: formData.email,
           password: formData.password,
