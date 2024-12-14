@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../components/Auth/AuthContext';
 
 function Login() {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ function Login() {
   });
 
   const [errors, setErrors] = useState({});
+  const { login } = useAuth();
 
   const handleChange = (e) => {
     setFormData({
@@ -46,8 +48,7 @@ function Login() {
         });
 
         if (response.data && response.data.token) {
-          localStorage.setItem('token', response.data.token);
-          console.log('Inicio de sesión exitoso', response.data);
+          login(response.data.token, response.data.user);
           navigate('/');
         } else {
           setErrors({ general: 'Respuesta del servidor inválida' });
