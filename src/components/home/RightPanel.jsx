@@ -38,44 +38,7 @@ const RightPanel = () => {
       {/* Balance del Usuario */}
       <UserBalance />
 
-      {/* Filtros */}
-      <div className="bg-[#141414] rounded-lg p-4">
-        <h3 className="text-white text-lg font-medium mb-4">{t('filters.title')}</h3>
-        
-        {/* Nombre de la caja */}
-        <div className="mb-4">
-          <label className="text-gray-400 text-sm block mb-2">{t('filters.boxName')}</label>
-          <input 
-            type="text" 
-            placeholder={t('filters.searchBox')}
-            className="w-full bg-[#1a1a1a] text-white rounded-lg p-2 text-sm"
-          />
-        </div>
-
-        {/* Rango de precio */}
-        <div className="mb-4">
-          <label className="text-gray-400 text-sm block mb-2">{t('filters.priceRange')}</label>
-          <div className="flex gap-2 items-center">
-            <input 
-              type="number" 
-              placeholder={t('filters.min')}
-              className="w-1/2 bg-[#1a1a1a] text-white rounded-lg p-2 text-sm"
-            />
-            <span className="text-gray-400">-</span>
-            <input 
-              type="number" 
-              placeholder={t('filters.max')}
-              className="w-1/2 bg-[#1a1a1a] text-white rounded-lg p-2 text-sm"
-            />
-          </div>
-        </div>
-
-        {/* Botón de aplicar filtros */}
-        <button className="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-lg text-sm transition-colors flex items-center justify-center gap-2">
-          <i className="fas fa-filter"></i>
-          {t('filters.apply')}
-        </button>
-      </div>
+      
 
       {/* Últimos Drops */}
       <div className="bg-[#141414] rounded-lg p-4">

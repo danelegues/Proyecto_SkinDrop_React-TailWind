@@ -247,27 +247,8 @@
       "next": "Next"
     }
   },
-  "profile": {
-    "title": "My Profile",
-    "memberSince": "Member since {{year}}",
-    "options": {
-      "editProfile": "Edit Profile",
-      "changePassword": "Change Password",
-      "logout": "Logout"
-    },
-    "editModal": {
-      "title": "Edit Profile",
-      "username": "New username",
-      "save": "Save Changes",
-      "close": "Close"
-    },
-    "passwordModal": {
-      "title": "Change Password",
-      "currentPassword": "Current password",
-      "newPassword": "New password",
-      "confirmPassword": "Confirm new password",
-      "save": "Change Password",
-      "close": "Close"
-    }
+  "boxPopup": {
+    "possibleRewards": "Possible rewards",
+    "openFor": "Open for"
   }
 } 

@@ -264,11 +264,10 @@
       "confirmPassword": "Confirmar nueva contraseña",
       "save": "Cambiar Contraseña",
       "close": "Cerrar"
-    },
-    "stats": {
-      "trades": "Intercambios",
-      "items": "Items",
-      "value": "Valor Total"
     }
+  },
+  "boxPopup": {
+    "possibleRewards": "Posibles recompensas",
+    "openFor": "Abrir por"
   }
 } 

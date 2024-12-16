@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import BoxPopup from '../BoxPopup/BoxPopup';
 
 const MainContent = () => {
   const { t } = useTranslation();
+  const [selectedBox, setSelectedBox] = useState(null);
 
   const boxes = [
     {
@@ -37,12 +39,16 @@ const MainContent = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {boxes.map((box) => (
-          <div key={box.id} className="bg-[#1a1a1a] rounded-lg p-4 group">
+          <div 
+            key={box.id} 
+            className="bg-[#1a1a1a] rounded-lg p-4 group cursor-pointer"
+            onClick={() => setSelectedBox(box)}
+          >
             <div className="overflow-hidden">
               <img 
                 src={box.image} 
                 alt={box.name} 
-                className="w-full h-48 object-contain transform transition-transform duration-300 group-hover:scale-110"
+                className="w-full h-48 object-contain transform transition-transform duration-300 group-hover:scale-125"
               />
             </div>
             <div className="text-center">
@@ -59,6 +65,13 @@ const MainContent = () => {
     <div className="flex-1 min-h-0 px-4 lg:px-6">
       <BoxGrid title={t('home.popularBoxes.title')} />
       <BoxGrid title={t('home.popularBoxes.bestSellers')} />
+      
+      {selectedBox && (
+        <BoxPopup 
+          boxData={selectedBox} 
+          onClose={() => setSelectedBox(null)}
+        />
+      )}
     </div>
   );
 };

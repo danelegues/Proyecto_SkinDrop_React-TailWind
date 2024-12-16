@@ -14,6 +14,7 @@ import Login from './Pestañas/Login';
 import Perfil from './Pestañas/Perfil';
 import './i18next.config';
 import { AuthProvider } from './components/Auth/AuthContext';
+import BoxOpening from './Pestañas/AperturaCaja';
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
             <Route path="/perfil" element={<Perfil />} />
             <Route path="/inventario" element={<Inventory />} />
             <Route path="/intercambio" element={<Intercambio />} />
+            <Route path="/box-opening" element={<BoxOpening />} />
           </Routes>
           
           <Footer />
