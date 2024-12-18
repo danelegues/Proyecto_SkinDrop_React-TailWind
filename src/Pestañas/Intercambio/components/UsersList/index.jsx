@@ -23,9 +23,9 @@ const UsersList = ({ users, isLoading }) => {
   }
 
   return (
-    <>
+    <div className="users-tabs-container">
       <div className="max-w-5xl mx-auto">
-        <div className="grid grid-cols-1 gap-4">
+        <div className="grid grid-cols-1 gap-4 max-h-[50vh] overflow-y-auto">
           {users.map(user => (
             <div key={user.id} 
                  className="bg-[#1a1a1a] rounded-lg p-6 flex items-center justify-between hover:bg-[#2a2a2a] transition-all">
@@ -75,7 +75,7 @@ const UsersList = ({ users, isLoading }) => {
           onClose={handleCloseAll}
         />
       )}
-    </>
+    </div>
   );
 };
 

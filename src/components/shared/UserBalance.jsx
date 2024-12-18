@@ -12,9 +12,9 @@ const UserBalance = () => {
       
       <div className="bg-white bg-opacity-5 rounded-lg p-3 sm:p-4">
         <div className="flex items-center mb-3 sm:mb-4">
-          <i className="fa-solid fa-euro-sign text-orange-500 text-xl sm:text-2xl mr-2 sm:mr-3 opacity-100"></i>
+          
           <div>
-            <span className="text-white text-lg sm:text-xl font-bold block">1.500,00 {t('balance.currency')}</span>
+            <span className="text-white text-lg sm:text-xl font-bold block">1.500,00 <i className="fa-solid fa-euro-sign text-orange-500 text-xl sm:text-2xl mr-2 sm:mr-3 opacity-100"></i></span>
           </div>
         </div>
 

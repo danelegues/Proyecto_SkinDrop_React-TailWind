@@ -91,6 +91,100 @@ export const MOCK_USERS = [
         image: "ak47vulcan.png"
       }
     ]
+  },
+  {
+    id: 3,
+    username: "trader3",
+    avatarUrl: "/img/avatar3.png",
+    totalItems: 4,
+    inventory: [
+      {
+        id: 301,
+        name: "AK-47 | Asiimov",
+        wear: "Factory New",
+        price: 150.50,
+        image: "akruleta.png"
+      },
+      {
+        id: 302,
+        name: "M4A4 | Neo-Noir",
+        wear: "Minimal Wear",
+        price: 89.99,
+        image: "M4A1.png"
+      },
+      {
+        id: 303,
+        name: "AWP | Dragon Lore",
+        wear: "Field-Tested",
+        price: 1500.00,
+        image: "awpdragonlore.png"
+      },
+      {
+        id: 304,
+        name: "Butterfly Knife | Fade",
+        wear: "Factory New",
+        price: 950.00,
+        image: "butterflyfade.png"
+      },
+      {
+        id: 305,
+        name: "Glock-18 | Fade",
+        wear: "Minimal Wear",
+        price: 220.00,
+        image: "glockfade.png"
+      }
+    ]
+  },
+  {
+    id: 4,
+    username: "trader1_test",
+    avatarUrl: "/img/avatar4.png",
+    totalItems: 3,
+    inventory: [
+      {
+        id: 401,
+        name: "AK-47 | Asiimov",
+        wear: "Factory New",
+        price: 150.50,
+        image: "akruleta.png"
+      },
+      {
+        id: 402,
+        name: "M4A4 | Neo-Noir",
+        wear: "Minimal Wear",
+        price: 89.99,
+        image: "M4A1.png"
+      },
+      {
+        id: 403,
+        name: "AWP | Dragon Lore",
+        wear: "Field-Tested",
+        price: 1500.00,
+        image: "awpdragonlore.png"
+      }
+    ]
+  },
+  {
+    id: 5,
+    username: "trader1_demo",
+    avatarUrl: "/img/avatar5.png",
+    totalItems: 2,
+    inventory: [
+      {
+        id: 501,
+        name: "AK-47 | Asiimov",
+        wear: "Factory New",
+        price: 150.50,
+        image: "akruleta.png"
+      },
+      {
+        id: 502,
+        name: "M4A4 | Neo-Noir",
+        wear: "Minimal Wear",
+        price: 89.99,
+        image: "M4A1.png"
+      }
+    ]
   }
 ];
 

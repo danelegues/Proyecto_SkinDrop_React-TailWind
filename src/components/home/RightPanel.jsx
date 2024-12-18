@@ -56,7 +56,7 @@ const RightPanel = () => {
               />
               <div className="flex-1">
                 <h4 className="text-white text-sm font-medium">{drop.name}</h4>
-                <p className="text-orange-500 font-bold">${drop.price}</p>
+                <p className="text-orange-500 font-bold">{drop.price}€</p>
               </div>
             </div>
           ))}
