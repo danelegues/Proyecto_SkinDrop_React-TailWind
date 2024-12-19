@@ -1,0 +1,284 @@
+{
+  "navbar": {
+    "home": "Inicio",
+    "store": "Tienda",
+    "inventory": "Inventario",
+    "trade": "Intercambio",
+    "login": "Iniciar Sesión",
+    "register": "Registrarse"
+  },
+  "home": {
+    "tutorial": {
+      "title": "¿Cómo funciona?",
+      "description": "Mira este breve tutorial sobre cómo usar SkinDrop"
+    },
+    "hero": {
+      "mainTitle": "TU SUERTE, TU ESTILO, MEJORA TUS SKINS Y DOMINA EL JUEGO",
+      "bannerTitle": "LAS MEJORES SKINS AL MEJOR PRECIO",
+      "bannerText": "Aprovecha ahora las ofertas de navidades de hasta el 40%, y abre cajas como un loco!"
+    },
+    "popularBoxes": {
+      "title": "CAJAS POPULARES",
+      "bestSellers": "CAJAS MÁS VENDIDAS",
+      "viewAll": "Ver todas",
+      "boxNames": {
+        "premium": "Caja Premium",
+        "deluxe": "Caja Deluxe",
+        "ultimate": "Caja Ultimate"
+      }
+    },
+    "recentWinners": {
+      "title": "Últimos Ganadores",
+      "timeAgo": "Hace {{time}}"
+    },
+    "stats": {
+      "title": "Estadísticas",
+      "casesOpenedToday": "Cajas abiertas hoy",
+      "bestDrop": "Mejor drop",
+      "onlineUsers": "Usuarios en línea"
+    }
+  },
+  "balance": {
+    "title": "Tu Balance",
+    "addFunds": "Añadir Fondos",
+    "csCoins": "CS Coins"
+  },
+  "filters": {
+    "title": "Filtros",
+    "boxName": "Nombre de la caja",
+    "searchBox": "Buscar caja...",
+    "priceRange": "Rango de precio",
+    "min": "Mínimo",
+    "max": "Máximo",
+    "apply": "Aplicar Filtros",
+    "clear": "Limpiar Filtros"
+  },
+  "lastDrops": {
+    "title": "Últimos Drops"
+  },
+  "footer": {
+    "about": "Sobre Nosotros",
+    "description": "SkinDrop es tu destino de confianza para cajas de skins de CS2. Ofrecemos una experiencia segura y transparente para todos nuestros usuarios.",
+    "quickLinks": "Enlaces Rápidos",
+    "terms": "Términos y Condiciones",
+    "privacy": "Política de Privacidad",
+    "faq": "Preguntas Frecuentes",
+    "contact": "Contacto",
+    "followUs": "Síguenos",
+    "sslSecure": "SSL Seguro",
+    "steamPartner": "Partner de Steam",
+    "newsletter": "Suscríbete a nuestro newsletter",
+    "emailPlaceholder": "Tu correo electrónico",
+    "subscribe": "Suscribirse",
+    "copyright": "Todos los derechos reservados"
+  },
+  "store": {
+    "navigation": {
+      "market": {
+        "title": "MERCADO",
+        "subtitle": "ONLINE"
+      },
+      "skindrop": {
+        "title": "MERCADO",
+        "subtitle": "SkinDrop"
+      },
+      "sales": {
+        "title": "TUS",
+        "subtitle": "VENTAS"
+      }
+    },
+    "search": {
+      "sortByPrice": "ORDENAR POR PRECIO",
+      "searchPlaceholder": "BUSCAR MERCADO",
+      "filters": {
+        "allTypes": "Todos los tipos",
+        "rifles": "Rifles",
+        "pistols": "Pistolas",
+        "knives": "Cuchillos",
+        "allRarities": "Todas las rarezas",
+        "consumer": "Consumer",
+        "industrial": "Industrial",
+        "milSpec": "Mil-Spec",
+        "restricted": "Restricted",
+        "classified": "Classified",
+        "covert": "Covert"
+      }
+    },
+    "pagination": {
+      "previous": "Anterior",
+      "next": "Siguiente",
+      "showing": "Mostrando {{shown}} de {{total}} items"
+    },
+    "product": {
+      "bid": "COMPRAR"
+    },
+    "sales": {
+      "activeSales": "Ventas Activas",
+      "salesHistory": "Historial de Ventas",
+      "newSale": "Nueva Venta",
+      "noActiveSales": "No tienes ventas activas en este momento",
+      "selectSkin": "Selecciona el skin",
+      "price": "Precio (€)",
+      "enterPrice": "Introduce el precio",
+      "cancel": "Cancelar",
+      "putOnSale": "Poner a la venta",
+      "soldTo": "Vendido a:",
+      "listedTime": "Listado hace {{time}}",
+      "soldTime": "Vendido hace {{time}}"
+    }
+  },
+  "trade": {
+    "title": "Intercambios",
+    "subtitle": "Encuentra usuarios y realiza intercambios de skins",
+    "search": {
+      "placeholder": "Buscar usuario...",
+      "button": "Buscar",
+      "loading": "Buscando usuarios..."
+    },
+    "userList": {
+      "items": "items en inventario",
+      "viewInventory": "Ver Inventario",
+      "makeOffer": "Hacer Oferta"
+    },
+    "tradeOffers": {
+      "viewPending": "Ver ofertas pendientes",
+      "title": "Ofertas Pendientes",
+      "backToSearch": "Volver a búsqueda",
+      "offer": {
+        "from": "Oferta de",
+        "accept": "Aceptar",
+        "reject": "Rechazar",
+        "theirItems": "Sus items",
+        "yourItems": "Tus items",
+        "totalTheirs": "Su total:",
+        "totalYours": "Tu total:",
+        "difference": "Diferencia:"
+      }
+    },
+    "inventory": {
+      "items": "items",
+      "close": "Cerrar"
+    },
+    "tradeOffer": {
+      "title": "Hacer Oferta de Intercambio con",
+      "yourItems": "Tus Items",
+      "theirItems": "Sus Items",
+      "selectedItems": "Items Seleccionados",
+      "total": "Total: ",
+      "submit": "Enviar Oferta",
+      "cancel": "Cancelar"
+    },
+    "values": {
+      "yourItems": "Tus Items: ",
+      "theirItems": "Sus Items: ",
+      "difference": "Diferencia: "
+    }
+  },
+  "inventory": {
+    "title": "Mi Inventario",
+    "totalItems": "Total de items:",
+    "search": {
+      "placeholder": "Buscar items...",
+      "sortByPrice": "Ordenar por precio"
+    },
+    "sort": {
+      "default": "Ordenar por",
+      "priceAsc": "Precio: Menor a Mayor",
+      "priceDesc": "Precio: Mayor a Menor",
+      "name": "Nombre",
+      "wear": "Desgaste"
+    },
+    "filters": {
+      "title": "Filtros",
+      "wear": "Desgaste",
+      "allWears": "Todos los desgastes",
+      "factoryNew": "Factory New",
+      "minimalWear": "Minimal Wear",
+      "fieldTested": "Field-Tested",
+      "wellWorn": "Well-Worn",
+      "battleScarred": "Battle-Scarred",
+      "status": "Estado",
+      "allStatuses": "Todos los estados",
+      "available": "Disponible",
+      "onSale": "En venta",
+      "locked": "Bloqueado",
+      "priceRange": "Rango de precio",
+      "min": "Mín",
+      "max": "Máx",
+      "reset": "Resetear",
+      "apply": "Aplicar Filtros",
+      "close": "Cerrar",
+      "allTypes": "Todos los tipos",
+      "rifles": "Rifles",
+      "pistols": "Pistolas",
+      "knives": "Cuchillos",
+      "allRarities": "Todas las rarezas",
+      "consumer": "Consumer",
+      "industrial": "Industrial",
+      "milSpec": "Mil-Spec",
+      "restricted": "Restricted",
+      "classified": "Classified",
+      "covert": "Covert"
+    },
+    "sell": {
+      "title": "Vender Item",
+      "quickSell": "Venta Rápida",
+      "enterPrice": "Introduce el precio",
+      "listForSale": "Poner en venta",
+      "close": "Cerrar"
+    },
+    "status": {
+      "onSale": "En venta",
+      "locked": "Bloqueado",
+      "available": "Disponible"
+    },
+    "item": {
+      "id": "ID:",
+      "sell": "Vender",
+      "onSale": "En venta",
+      "locked": "Bloqueado"
+    },
+    "pagination": {
+      "previous": "Anterior",
+      "next": "Siguiente"
+    }
+  },
+  "profile": {
+    "title": "Mi Perfil",
+    "memberSince": "Miembro desde {{year}}",
+    "options": {
+      "editProfile": "Editar Perfil",
+      "changePassword": "Cambiar Contraseña",
+      "logout": "Cerrar Sesión"
+    },
+    "editModal": {
+      "title": "Editar Perfil",
+      "username": "Nuevo nombre de usuario",
+      "save": "Guardar Cambios",
+      "close": "Cerrar"
+    },
+    "passwordModal": {
+      "title": "Cambiar Contraseña",
+      "currentPassword": "Contraseña actual",
+      "newPassword": "Nueva contraseña",
+      "confirmPassword": "Confirmar nueva contraseña",
+      "save": "Cambiar Contraseña",
+      "close": "Cerrar",
+      "errors": {
+        "updateFailed": "Error al actualizar la contraseña",
+        "currentPasswordWrong": "La contraseña actual es incorrecta",
+        "needsUpperLower": "La contraseña debe contener al menos una mayúscula y una minúscula",
+        "tooShort": "La contraseña debe tener al menos 8 caracteres",
+        "noMatch": "Las contraseñas no coinciden",
+        "allRequired": "Todos los campos son requeridos"
+      }
+    }
+  },
+  "boxPopup": {
+    "possibleRewards": "Posibles recompensas",
+    "openFor": "Abrir por"
+  },
+  "common": {
+    "cancel": "Cancelar"
+  }
+} 

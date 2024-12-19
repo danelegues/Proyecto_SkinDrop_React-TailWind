@@ -1,0 +1,305 @@
+{
+  "navbar": {
+    "home": "Home",
+    "store": "Store",
+    "inventory": "Inventory",
+    "trade": "Trade",
+    "login": "Login",
+    "register": "Register"
+  },
+  "home": {
+    "tutorial": {
+      "title": "How does it work?",
+      "description": "Watch this short tutorial about how to use SkinDrop"
+    },
+    "hero": {
+      "mainTitle": "YOUR LUCK, YOUR STYLE, UPGRADE YOUR SKINS AND DOMINATE THE GAME",
+      "bannerTitle": "THE BEST SKINS AT THE BEST PRICE",
+      "bannerText": "Take advantage of Christmas offers up to 40% off, and open boxes like crazy!"
+    },
+    "popularBoxes": {
+      "title": "POPULAR BOXES",
+      "bestSellers": "BEST SELLING BOXES",
+      "viewAll": "View all",
+      "boxNames": {
+        "premium": "Premium Box",
+        "deluxe": "Deluxe Box",
+        "ultimate": "Ultimate Box"
+      }
+    },
+    "recentWinners": {
+      "title": "Recent Winners",
+      "timeAgo": "{{time}} ago"
+    },
+    "stats": {
+      "title": "Statistics",
+      "casesOpenedToday": "Cases opened today",
+      "bestDrop": "Best drop",
+      "onlineUsers": "Online users"
+    }
+  },
+  "balance": {
+    "title": "Your Balance",
+    "addFunds": "Add Funds",
+    "csCoins": "CS Coins"
+  },
+  "filters": {
+    "title": "Filters",
+    "boxName": "Box name",
+    "searchBox": "Search box...",
+    "priceRange": "Price range",
+    "min": "Minimum",
+    "max": "Maximum",
+    "apply": "Apply Filters",
+    "clear": "Clear Filters"
+  },
+  "lastDrops": {
+    "title": "Latest Drops"
+  },
+  "footer": {
+    "about": "About Us",
+    "description": "SkinDrop is your trusted destination for CS2 skin cases. We offer a safe and transparent experience for all our users.",
+    "quickLinks": "Quick Links",
+    "terms": "Terms & Conditions",
+    "privacy": "Privacy Policy",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "followUs": "Follow Us",
+    "sslSecure": "SSL Secure",
+    "steamPartner": "Steam Partner",
+    "newsletter": "Subscribe to our newsletter",
+    "emailPlaceholder": "Your email",
+    "subscribe": "Subscribe",
+    "copyright": "All rights reserved"
+  },
+  "store": {
+    "navigation": {
+      "market": {
+        "title": "MARKET",
+        "subtitle": "ONLINE"
+      },
+      "skindrop": {
+        "title": "MARKET",
+        "subtitle": "SkinDrop"
+      },
+      "sales": {
+        "title": "YOUR",
+        "subtitle": "SALES"
+      }
+    },
+    "search": {
+      "sortByPrice": "SORT BY PRICE",
+      "searchPlaceholder": "SEARCH MARKET",
+      "filters": {
+        "allTypes": "All types",
+        "rifles": "Rifles",
+        "pistols": "Pistols",
+        "knives": "Knives",
+        "allRarities": "All rarities",
+        "consumer": "Consumer",
+        "industrial": "Industrial",
+        "milSpec": "Mil-Spec",
+        "restricted": "Restricted",
+        "classified": "Classified",
+        "covert": "Covert"
+      }
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next",
+      "showing": "Showing {{shown}} of {{total}} items"
+    },
+    "product": {
+      "bid": "BUY"
+    },
+    "sales": {
+      "activeSales": "Active Sales",
+      "salesHistory": "Sales History",
+      "newSale": "New Sale",
+      "noActiveSales": "You don't have any active sales at the moment",
+      "selectSkin": "Select skin",
+      "price": "Price (€)",
+      "enterPrice": "Enter price",
+      "cancel": "Cancel",
+      "putOnSale": "Put on sale",
+      "soldTo": "Sold to:",
+      "listedTime": "Listed {{time}} ago",
+      "soldTime": "Sold {{time}} ago"
+    }
+  },
+  "trade": {
+    "title": "Trades",
+    "subtitle": "Find users and trade skins",
+    "search": {
+      "placeholder": "Search user...",
+      "button": "Search",
+      "loading": "Searching users..."
+    },
+    "userList": {
+      "items": "items in inventory",
+      "viewInventory": "View Inventory",
+      "makeOffer": "Make Offer"
+    },
+    "tradeOffers": {
+      "viewPending": "View pending offers",
+      "title": "Pending Offers",
+      "backToSearch": "Back to search",
+      "offer": {
+        "from": "Offer from",
+        "accept": "Accept",
+        "reject": "Reject",
+        "theirItems": "Their items",
+        "yourItems": "Your items",
+        "totalTheirs": "Their total:",
+        "totalYours": "Your total:",
+        "difference": "Difference:"
+      }
+    },
+    "inventory": {
+      "items": "items",
+      "close": "Close"
+    },
+    "tradeOffer": {
+      "title": "Make Trade Offer with",
+      "yourItems": "Your Items",
+      "theirItems": "Their Items",
+      "selectedItems": "Selected Items",
+      "total": "Total: ",
+      "submit": "Submit Offer",
+      "cancel": "Cancel"
+    },
+    "values": {
+      "yourItems": "Your Items: ",
+      "theirItems": "Their Items: ",
+      "difference": "Difference: "
+    }
+  },
+  "inventory": {
+    "title": "My Inventory",
+    "totalItems": "Total items:",
+    "search": {
+      "placeholder": "Search items...",
+      "sortByPrice": "Sort by price"
+    },
+    "sort": {
+      "default": "Sort by",
+      "priceAsc": "Price: Low to High",
+      "priceDesc": "Price: High to Low",
+      "name": "Name",
+      "wear": "Wear"
+    },
+    "filters": {
+      "title": "Filters",
+      "wear": "Wear",
+      "allWears": "All wears",
+      "factoryNew": "Factory New",
+      "minimalWear": "Minimal Wear",
+      "fieldTested": "Field-Tested",
+      "wellWorn": "Well-Worn",
+      "battleScarred": "Battle-Scarred",
+      "status": "Status",
+      "allStatuses": "All statuses",
+      "available": "Available",
+      "onSale": "On Sale",
+      "locked": "Locked",
+      "priceRange": "Price range",
+      "min": "Min",
+      "max": "Max",
+      "reset": "Reset",
+      "apply": "Apply Filters",
+      "close": "Close",
+      "allTypes": "All types",
+      "rifles": "Rifles",
+      "pistols": "Pistols",
+      "knives": "Knives",
+      "allRarities": "All rarities",
+      "consumer": "Consumer",
+      "industrial": "Industrial",
+      "milSpec": "Mil-Spec",
+      "restricted": "Restricted",
+      "classified": "Classified",
+      "covert": "Covert"
+    },
+    "sell": {
+      "title": "Sell Item",
+      "quickSell": "Quick Sell",
+      "enterPrice": "Enter price",
+      "listForSale": "List for Sale",
+      "close": "Close",
+      "invalidPrice": "Please enter a valid price"
+    },
+    "status": {
+      "onSale": "On Sale",
+      "locked": "Locked",
+      "available": "Available"
+    },
+    "item": {
+      "id": "ID:",
+      "sell": "Sell",
+      "onSale": "On Sale",
+      "locked": "Locked"
+    },
+    "grid": {
+      "noItems": "No items found"
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next"
+    }
+  },
+  "boxPopup": {
+    "possibleRewards": "Possible rewards",
+    "openFor": "Open for"
+  },
+  "profile": {
+    "title": "My Profile",
+    "avatarAlt": "User avatar",
+    "memberSince": "Member since {{year}}",
+    "stats": {
+      "totalCases": "Cases Opened",
+      "bestDrop": "Best Drop",
+      "totalSpent": "Total Spent",
+      "totalEarned": "Total Earned",
+      "trades": "Trades",
+      "items": "Items"
+    },
+    "options": {
+      "editProfile": "Edit Profile",
+      "changePassword": "Change Password",
+      "logout": "Logout"
+    },
+    "errors": {
+      "loadFailed": "Failed to load profile"
+    },
+    "passwordModal": {
+      "title": "Change Password",
+      "currentPassword": "Current password",
+      "newPassword": "New password",
+      "confirmPassword": "Confirm new password",
+      "save": "Change Password",
+      "close": "Close",
+      "errors": {
+        "allRequired": "All fields are required",
+        "tooShort": "Password must be at least 6 characters long",
+        "noMatch": "Passwords do not match",
+        "updateFailed": "Failed to update password",
+        "currentPasswordWrong": "Current password is incorrect",
+        "needsUpperLower": "Password must contain at least one uppercase and one lowercase letter"
+      }
+    },
+    "editModal": {
+      "title": "Edit Profile",
+      "username": "Username",
+      "save": "Save Changes",
+      "close": "Close",
+      "errors": {
+        "required": "Username is required",
+        "tooShort": "Username must be at least 3 characters long",
+        "updateFailed": "Failed to update profile"
+      }
+    }
+  },
+  "common": {
+    "cancel": "Cancel"
+  }
+} 

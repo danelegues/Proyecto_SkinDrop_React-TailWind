@@ -6,6 +6,7 @@ import Pagination from './components/Pagination';
 import ShopNav from './components/ShopNav';
 import { useShopNavigation } from './hooks/useShopNavigation';
 import YourSales from './components/YourSales';
+import { useTranslation } from 'react-i18next';
 
 function Shop() {
   const {
@@ -18,25 +19,27 @@ function Shop() {
     rarityFilter,
     setRarityFilter,
     currentPage,
-    setCurrentPage,
+    handlePageChange,
     totalPages,
     minPrice,
     setMinPrice,
     maxPrice,
     setMaxPrice,
-    filteredSkins
+    paginatedSkins,
+    totalItems
   } = useSkinsFilter();
 
   const { currentTab, setCurrentTab } = useShopNavigation();
+  const { t } = useTranslation();
 
   return (
     <div className="w-full min-h-screen bg-[#222]">
-      <div className="w-full max-w-[1600px] mx-auto px-12 pt-20">
+      <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-12 pt-20 pb-36">
         <ShopNav currentTab={currentTab} onTabChange={setCurrentTab} />
         
         {currentTab === 'market' && (
-          <>
-            <div className="mt-12">
+          <div className="bg-[#131313] rounded-lg p-3 sm:p-4 lg:p-6 mt-8 mb-12 transition-all duration-300">
+            <div className="mb-4 sm:mb-6">
               <SearchBar 
                 searchQuery={searchQuery}
                 onSearchChange={setSearchQuery}
@@ -52,22 +55,28 @@ function Shop() {
                 onMaxPriceChange={setMaxPrice}
               />
             </div>
-            <div className="mt-8">
-              <ProductGrid skins={filteredSkins} />
-              <Pagination 
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={setCurrentPage}
-              />
+            <div>
+              <ProductGrid skins={paginatedSkins} />
+              <div className="mt-8">
+                <Pagination 
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={handlePageChange}
+                  totalItems={totalItems}
+                />
+              </div>
             </div>
-          </>
+          </div>
         )}
 
-        {currentTab === 'sales' && <YourSales />}
+        {currentTab === 'sales' && (
+          <div className="mb-12">
+            <YourSales />
+          </div>
+        )}
         
-        {/* Implementar vista de SkinDrop cuando sea necesario */}
         {currentTab === 'skindrop' && (
-          <div className="mt-12 text-white">
+          <div className="mt-12 mb-12 text-white">
             Contenido de SkinDrop (por implementar)
           </div>
         )}

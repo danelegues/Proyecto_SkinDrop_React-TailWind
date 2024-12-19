@@ -1,32 +1,64 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import LanguageSelector from '../shared/LanguageSelector';
+import { useTranslation } from 'react-i18next';
+import { useAuth } from '../Auth/AuthContext';
+import AuthPopup from '../Auth/AuthPopup';
 
 const Navbar = () => {
+  const { t } = useTranslation();
+  const { isAuth } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState('/');
+  const [showAuthPopup, setShowAuthPopup] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState(location.pathname);
 
   useEffect(() => {
-    // Inicializar el marker
-    const inicioItem = document.querySelector('.menu-items a[href="/paginaInicio.html"]');
-    if (inicioItem) {
-      moveMarker(inicioItem);
+    setActiveTab(location.pathname);
+    const activeItem = document.querySelector(`.menu-items a[href="${location.pathname}"]`);
+    if (activeItem) {
+      moveMarker(activeItem);
     }
+  }, [location.pathname]);
 
-    // Event listeners para el marker
+  useEffect(() => {
     const menuItems = document.querySelectorAll('.menu-items a');
     menuItems.forEach(item => {
       item.addEventListener('mouseenter', (e) => moveMarker(e.currentTarget));
     });
 
     const menuList = document.querySelector('.menu-items');
-    menuList.addEventListener('mouseleave', () => {
-      const activeItem = document.querySelector('.menu-items a.active');
+    if (menuList) {
+      menuList.addEventListener('mouseleave', () => {
+        const activeItem = document.querySelector(`.menu-items a[href="${activeTab}"]`);
+        if (activeItem) {
+          moveMarker(activeItem);
+        }
+      });
+    }
+
+    setTimeout(() => {
+      const activeItem = document.querySelector(`.menu-items a[href="${activeTab}"]`);
       if (activeItem) {
         moveMarker(activeItem);
       }
-    });
-  }, []);
+    }, 100);
+
+    return () => {
+      menuItems.forEach(item => {
+        item.removeEventListener('mouseenter', (e) => moveMarker(e.currentTarget));
+      });
+      if (menuList) {
+        menuList.removeEventListener('mouseleave', () => {
+          const activeItem = document.querySelector(`.menu-items a[href="${activeTab}"]`);
+          if (activeItem) {
+            moveMarker(activeItem);
+          }
+        });
+      }
+    };
+  }, [activeTab]);
 
   const moveMarker = (element) => {
     const marker = document.querySelector('.marker');
@@ -51,81 +83,63 @@ const Navbar = () => {
     }
   };
 
-  const handleNavClick = (href, element) => {
-    setActiveTab(href);
-    moveMarker(element);
+  const handleNavigation = (path, requiresAuth) => {
+    navigate(path);
+    if (requiresAuth && !isAuth) {
+      setShowAuthPopup(true);
+    }
   };
 
-  return (
-    <div className="fixed top-0 w-full bg-[#141414] shadow-md z-50">
-      <ul className="menu-list">
-        <div className="flex justify-between items-center p-0 list-none">
-          {/* Menu Container */}
-          <div className="menu-container flex justify-between items-center w-full h-[80px] px-5">
-            {/* Logo Section */}
-            <div className="apartadoLogo flex justify-start items-center flex-1">
-              <img src="/img/LogoSkinDrop.png" alt="Logo SkinDrop" className="h-[60px] w-[60px] mr-2" />
-              <span className="text-white text-[30px] font-bold">SkinDrop</span>
-            </div>
-            
-            {/* Botón Hamburguesa */}
-            <button 
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden text-white focus:outline-none"
-            >
-              <i className={`fas ${isMenuOpen ? 'fa-times' : 'fa-bars'} text-2xl`}></i>
-            </button>
+  const menuItems = [
+    { path: '/', icon: 'fa-house-chimney', label: t('navbar.home'), requiresAuth: false },
+    { path: '/tienda', icon: 'fa-shop', label: t('navbar.store'), requiresAuth: false },
+    { path: '/intercambio', icon: 'fa-arrow-right-arrow-left', label: t('navbar.trade'), requiresAuth: true },
+    { path: '/inventario', icon: 'fa-box-open', label: t('navbar.inventory'), requiresAuth: true },
+    { path: '/perfil', icon: 'fa-user', label: t('navbar.login'), requiresAuth: true },
+  ];
 
-            {/* Menu Items Desktop */}
-            <div className="menu-items hidden md:flex items-center space-x-5"
-                 onMouseLeave={handleMouseLeave}>
-              <div className="marker"></div>
-              <NavItem 
-                href="/" 
-                icon="fa-house-chimney" 
-                active={activeTab === '/'} 
-                onClick={(e) => handleNavClick('/', e.currentTarget)}
-                onMouseEnter={(e) => handleMouseEnter(e.currentTarget)}
-              />
-              <NavItem 
-                href="/tienda" 
-                icon="fa-shop" 
-                active={activeTab === '/tienda'}
-                onClick={(e) => handleNavClick('/tienda', e.currentTarget)}
-                onMouseEnter={(e) => handleMouseEnter(e.currentTarget)}
-              />
-              <NavItem 
-                href="/intercambios" 
-                icon="fa-arrow-right-arrow-left" 
-                active={activeTab === '/intercambios'}
-                onClick={(e) => handleNavClick('/intercambios', e.currentTarget)}
-                onMouseEnter={(e) => handleMouseEnter(e.currentTarget)}
-              />
-              <NavItem 
-                href="/objetivos" 
-                icon="fa-crosshairs" 
-                active={activeTab === '/objetivos'}
-                onClick={(e) => handleNavClick('/objetivos', e.currentTarget)}
-                onMouseEnter={(e) => handleMouseEnter(e.currentTarget)}
-              />
-              <NavItem 
-                href="/inventory" 
-                icon="fa-box-open" 
-                active={activeTab === '/inventory'}
-                onClick={(e) => handleNavClick('/inventory', e.currentTarget)}
-                onMouseEnter={(e) => handleMouseEnter(e.currentTarget)}
-              />
-              <NavItem 
-                href="/perfil" 
-                icon="fa-user" 
-                active={activeTab === '/perfil'}
-                onClick={(e) => handleNavClick('/perfil', e.currentTarget)}
-                onMouseEnter={(e) => handleMouseEnter(e.currentTarget)}
-              />
-              <LanguageSelector />
+  return (
+    <>
+      <div className="fixed top-0 w-full bg-[#141414] shadow-md z-50">
+        <ul className="menu-list">
+          <div className="flex justify-between items-center p-0 list-none">
+            {/* Menu Container */}
+            <div className="menu-container flex justify-between items-center w-full h-[80px] px-5">
+              {/* Logo Section */}
+              <div className="apartadoLogo flex justify-start items-center flex-1">
+                <img src="/img/LogoSkinDrop.png" alt="Logo SkinDrop" className="h-[60px] w-[60px] mr-2" />
+                <span className="text-white text-[30px] font-bold">SkinDrop</span>
+              </div>
+              
+              {/* Botón Hamburguesa */}
+              <button 
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="md:hidden text-white focus:outline-none"
+              >
+                <i className={`fas ${isMenuOpen ? 'fa-times' : 'fa-bars'} text-2xl`}></i>
+              </button>
+
+              {/* Menu Items Desktop */}
+              <div className="menu-items hidden md:flex items-center space-x-5"
+                   onMouseLeave={handleMouseLeave}>
+                <div className="marker"></div>
+                {menuItems.map((item) => (
+                  <NavItem 
+                    key={item.path}
+                    href={item.path} 
+                    icon={item.icon} 
+                    active={activeTab === item.path}
+                    requiresAuth={item.requiresAuth}
+                    onClick={(e) => handleNavigation(item.path, item.requiresAuth)}
+                    onMouseEnter={(e) => handleMouseEnter(e.currentTarget)}
+                    isAuth={isAuth}
+                  />
+                ))}
+                <LanguageSelector />
+              </div>
             </div>
           </div>
-        </div>
+        </ul>
 
         {/* Menu móvil */}
         <div 
@@ -136,29 +150,44 @@ const Navbar = () => {
         >
           <MobileMenu onClose={() => setIsMenuOpen(false)} />
         </div>
-      </ul>
-    </div>
+      </div>
+
+      {showAuthPopup && (
+        <AuthPopup 
+          onClose={() => {
+            setShowAuthPopup(false);
+            navigate('/');
+          }} 
+        />
+      )}
+    </>
   );
 };
 
-const NavItem = ({ href, icon, active, onClick, onMouseEnter }) => (
-  <Link 
-    to={href} 
-    className={`p-[10px_20px] text-white cursor-pointer ${active ? 'active' : ''}`}
-    onClick={onClick}
-    onMouseEnter={onMouseEnter}
-  >
-    <i className={`fa-solid ${icon}`}></i>
-  </Link>
-);
+const NavItem = ({ href, icon, active, requiresAuth, onClick, onMouseEnter, isAuth }) => {
+  const handleClick = (e) => {
+    e.preventDefault();
+    onClick(e);
+  };
+
+  return (
+    <a 
+      href={href} 
+      className={`p-[10px_20px] text-white cursor-pointer ${active ? 'active' : ''} ${requiresAuth && !isAuth ? 'opacity-75' : ''}`}
+      onClick={handleClick}
+      onMouseEnter={onMouseEnter}
+    >
+      <i className={`fa-solid ${icon}`}></i>
+    </a>
+  );
+};
 
 const MobileMenu = ({ onClose }) => (
   <div className="bg-[#141414] text-white py-4 px-5 space-y-4">
     <MobileMenuItem href="/paginaInicio.html" icon="fa-house-chimney" text="Inicio" onClick={onClose} />
     <MobileMenuItem href="#" icon="fa-shop" text="Tienda" onClick={onClose} />
     <MobileMenuItem href="#" icon="fa-arrow-right-arrow-left" text="Intercambios" onClick={onClose} />
-    <MobileMenuItem href="#" icon="fa-crosshairs" text="Objetivos" onClick={onClose} />
-    <MobileMenuItem href="/inventory" icon="fa-box-open" text="Cajas" onClick={onClose} />
+    <MobileMenuItem href="/inventario" icon="fa-box-open" text="Inventario" onClick={onClose} />
     <MobileMenuItem href="#" icon="fa-user" text="Perfil" onClick={onClose} />
     
     {/* Selector de idioma móvil */}
