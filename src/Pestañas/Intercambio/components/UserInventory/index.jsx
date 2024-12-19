@@ -12,11 +12,9 @@ const UserInventory = ({ user, onClose }) => {
         {/* Header */}
         <div className="p-6 border-b border-[#2a2a2a] flex justify-between items-center">
           <div className="flex items-center gap-4">
-            <img 
-              src={user.avatarUrl} 
-              alt={user.username}
-              className="w-12 h-12 rounded-full object-cover"
-            />
+            <div className="w-12 h-12 rounded-full bg-[#2a2a2a] flex items-center justify-center">
+              <i className="fas fa-user text-gray-600 text-base"></i>
+            </div>
             <div>
               <h3 className="text-white text-xl font-bold">{user.username}</h3>
               <p className="text-gray-400">
@@ -47,7 +45,7 @@ const UserInventory = ({ user, onClose }) => {
                   className="w-full aspect-square object-contain mb-2"
                 />
                 <h4 className="text-white text-sm font-medium truncate">{item.name}</h4>
-                <p className="text-[#ff6b00] text-sm">${item.price.toFixed(2)}</p>
+                <p className="text-[#ff6b00] text-sm">{item.price.toFixed(2)}€</p>
                 <p className="text-gray-400 text-xs">{item.wear}</p>
               </div>
             ))}

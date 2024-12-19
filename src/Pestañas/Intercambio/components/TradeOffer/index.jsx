@@ -11,14 +11,14 @@ const MY_INVENTORY = [
     name: "AWP | Asiimov",
     wear: "Field-Tested",
     price: 85.50,
-    image: "awpasiimov.png"
+    image: "dragonlore.png"
   },
   {
     id: 302,
     name: "M4A4 | Howl",
     wear: "Minimal Wear",
     price: 1200.00,
-    image: "m4howl.png"
+    image: "m4a4.png"
   }
 ];
 

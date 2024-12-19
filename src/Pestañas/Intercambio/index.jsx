@@ -23,7 +23,7 @@ const Intercambio = () => {
   };
 
   return (
-    <div className="trade-page-wrapper">
+    <div className="trade-page-wrapper mt-48">
       <div className="trade-page-container">
         <div className="trade-content">
           {showOffers ? (

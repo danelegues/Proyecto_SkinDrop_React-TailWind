@@ -11,10 +11,10 @@ const TradeAction = ({ myItems, theirItems, onSubmit, onCancel }) => {
     <div className="border-t border-[#2a2a2a] p-4 sm:p-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div className="text-white text-sm sm:text-base">
-          <p>{t('trade.values.yourItems')} ${myTotal.toFixed(2)}</p>
-          <p>{t('trade.values.theirItems')} ${theirTotal.toFixed(2)}</p>
+          <p>{t('trade.values.yourItems')} {myTotal.toFixed(2)}€</p>
+          <p>{t('trade.values.theirItems')} {theirTotal.toFixed(2)}€</p>
           <p className={difference > 0 ? 'text-red-500' : 'text-green-500'}>
-            {t('trade.values.difference')} ${Math.abs(difference).toFixed(2)}
+            {t('trade.values.difference')} {Math.abs(difference).toFixed(2)}€
           </p>
         </div>
         <div className="flex gap-4 w-full sm:w-auto">

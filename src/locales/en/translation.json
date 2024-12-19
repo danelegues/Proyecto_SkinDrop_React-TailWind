@@ -110,7 +110,7 @@
       "showing": "Showing {{shown}} of {{total}} items"
     },
     "product": {
-      "bid": "BID"
+      "bid": "BUY"
     },
     "sales": {
       "activeSales": "Active Sales",
@@ -164,14 +164,14 @@
       "yourItems": "Your Items",
       "theirItems": "Their Items",
       "selectedItems": "Selected Items",
-      "total": "Total: $",
+      "total": "Total: ",
       "submit": "Submit Offer",
       "cancel": "Cancel"
     },
     "values": {
-      "yourItems": "Your Items: $",
-      "theirItems": "Their Items: $",
-      "difference": "Difference: $"
+      "yourItems": "Your Items: ",
+      "theirItems": "Their Items: ",
+      "difference": "Difference: "
     }
   },
   "inventory": {

@@ -1,42 +1,82 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+
+const API_URL = process.env.REACT_APP_API_URL || 'http://10.14.4.197:8001';
 
 export const useProfile = () => {
-  const navigate = useNavigate();
+  const [profileData, setProfileData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
 
-  const handleOpenEditModal = () => setIsEditModalOpen(true);
-  const handleCloseEditModal = () => setIsEditModalOpen(false);
-  const handleOpenPasswordModal = () => setIsPasswordModalOpen(true);
-  const handleClosePasswordModal = () => setIsPasswordModalOpen(false);
+  const handleCloseEditModal = () => {
+    setIsEditModalOpen(false);
+  };
+
+  const handleOpenEditModal = () => {
+    setIsEditModalOpen(true);
+  };
+
+  const handleOpenPasswordModal = () => {
+    // Implementar lógica para abrir modal de contraseña
+  };
+
+  const handleClosePasswordModal = () => {
+    // Implementar lógica para cerrar modal de contraseña
+  };
 
   const handleLogout = () => {
-    // Aquí iría la lógica de logout
-    navigate('/');
+    // Implementar lógica de cierre de sesión
   };
 
-  const handleSaveProfile = (data) => {
-    // Aquí iría la lógica para guardar el perfil
-    console.log('Saving profile:', data);
-    handleCloseEditModal();
+  const handleChangePassword = () => {
+    // Implementar lógica de cambio de contraseña
   };
 
-  const handleChangePassword = (data) => {
-    // Aquí iría la lógica para cambiar la contraseña
-    console.log('Changing password:', data);
-    handleClosePasswordModal();
+  const handleUpdateProfile = async (newData) => {
+    try {
+      const response = await axios.put(`${API_URL}/api/profile/update`, newData, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+      setProfileData(response.data.user);
+      handleCloseEditModal();
+    } catch (error) {
+      setError('Error al actualizar el perfil');
+    }
   };
+
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/api/profile`, {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        });
+        setProfileData(response.data.user);
+        setLoading(false);
+      } catch (error) {
+        setError('Error al cargar el perfil');
+        setLoading(false);
+      }
+    };
+
+    fetchProfileData();
+  }, []);
 
   return {
+    profileData,
+    loading,
+    error,
     isEditModalOpen,
-    isPasswordModalOpen,
-    handleOpenEditModal,
     handleCloseEditModal,
+    handleOpenEditModal,
     handleOpenPasswordModal,
     handleClosePasswordModal,
     handleLogout,
-    handleSaveProfile,
-    handleChangePassword
+    handleChangePassword,
+    handleUpdateProfile
   };
 };

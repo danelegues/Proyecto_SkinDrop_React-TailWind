@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 const SelectedItems = ({ items, onRemoveItem }) => {
   const { t } = useTranslation();
   const totalValue = items.reduce((sum, item) => sum + item.price, 0);
+  
 
   return (
     <div className="bg-[#2a2a2a] rounded-lg p-2 sm:p-4">
@@ -12,7 +13,7 @@ const SelectedItems = ({ items, onRemoveItem }) => {
           {t('trade.tradeOffer.selectedItems')}
         </h4>
         <p className="text-[#ff6b00] text-sm sm:text-base">
-          {t('trade.tradeOffer.total')} ${totalValue.toFixed(2)}
+          {t('trade.tradeOffer.total')} {totalValue.toFixed(2)}€
         </p>
       </div>
       <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2">

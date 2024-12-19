@@ -13,13 +13,14 @@ const Perfil = () => {
   const navigate = useNavigate();
   const { logout } = useAuth();
   const {
+    profileData,
     isEditModalOpen,
     isPasswordModalOpen,
     handleOpenEditModal,
     handleCloseEditModal,
     handleOpenPasswordModal,
     handleClosePasswordModal,
-    handleSaveProfile,
+    handleUpdateProfile,
     handleChangePassword
   } = useProfile();
 
@@ -37,7 +38,7 @@ const Perfil = () => {
           <div className="px-8 pb-8 -mt-16">
             <ProfileHeader />
             
-            <div className="grid grid-cols-3 gap-4 mb-8 mt-6">
+            <div className="grid grid-cols-2 gap-4 mb-8 mt-6">
               <div className="bg-[#1a1a1a] p-4 rounded-xl border border-[#2a2a2a] text-center">
                 <div className="text-2xl font-bold text-[#ff6b00]">24</div>
                 <div className="text-gray-400 text-sm">{t('profile.stats.trades')}</div>
@@ -45,10 +46,6 @@ const Perfil = () => {
               <div className="bg-[#1a1a1a] p-4 rounded-xl border border-[#2a2a2a] text-center">
                 <div className="text-2xl font-bold text-[#ff6b00]">156</div>
                 <div className="text-gray-400 text-sm">{t('profile.stats.items')}</div>
-              </div>
-              <div className="bg-[#1a1a1a] p-4 rounded-xl border border-[#2a2a2a] text-center">
-                <div className="text-2xl font-bold text-[#ff6b00]">$2.5K</div>
-                <div className="text-gray-400 text-sm">{t('profile.stats.value')}</div>
               </div>
             </div>
 
@@ -64,7 +61,11 @@ const Perfil = () => {
       <EditProfileModal 
         isOpen={isEditModalOpen}
         onClose={handleCloseEditModal}
-        onSave={handleSaveProfile}
+        onSave={(data) => {
+          console.log('Llamando a handleUpdateProfile desde el modal con:', data);
+          return handleUpdateProfile(data);
+        }}
+        currentUsername={profileData?.username}
       />
 
       <ChangePasswordModal 
