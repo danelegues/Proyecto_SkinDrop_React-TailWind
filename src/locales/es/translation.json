@@ -263,11 +263,22 @@
       "newPassword": "Nueva contraseña",
       "confirmPassword": "Confirmar nueva contraseña",
       "save": "Cambiar Contraseña",
-      "close": "Cerrar"
+      "close": "Cerrar",
+      "errors": {
+        "updateFailed": "Error al actualizar la contraseña",
+        "currentPasswordWrong": "La contraseña actual es incorrecta",
+        "needsUpperLower": "La contraseña debe contener al menos una mayúscula y una minúscula",
+        "tooShort": "La contraseña debe tener al menos 8 caracteres",
+        "noMatch": "Las contraseñas no coinciden",
+        "allRequired": "Todos los campos son requeridos"
+      }
     }
   },
   "boxPopup": {
     "possibleRewards": "Posibles recompensas",
     "openFor": "Abrir por"
+  },
+  "common": {
+    "cancel": "Cancelar"
   }
 } 

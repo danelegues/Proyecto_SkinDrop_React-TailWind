@@ -8,6 +8,7 @@ export const useProfile = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
 
   const handleCloseEditModal = () => {
     setIsEditModalOpen(false);
@@ -18,19 +19,11 @@ export const useProfile = () => {
   };
 
   const handleOpenPasswordModal = () => {
-    // Implementar lógica para abrir modal de contraseña
+    setIsPasswordModalOpen(true);
   };
 
   const handleClosePasswordModal = () => {
-    // Implementar lógica para cerrar modal de contraseña
-  };
-
-  const handleLogout = () => {
-    // Implementar lógica de cierre de sesión
-  };
-
-  const handleChangePassword = () => {
-    // Implementar lógica de cambio de contraseña
+    setIsPasswordModalOpen(false);
   };
 
   const handleUpdateProfile = async (newData) => {
@@ -42,8 +35,49 @@ export const useProfile = () => {
       });
       setProfileData(response.data.user);
       handleCloseEditModal();
+      window.location.reload(); // Recargar la página después de actualizar
     } catch (error) {
       setError('Error al actualizar el perfil');
+      throw error;
+    }
+  };
+
+  const handleChangePassword = async (passwordData) => {
+    try {
+      const response = await axios.put(`${API_URL}/api/profile/password`, passwordData, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+      handleClosePasswordModal();
+      window.location.reload();
+    } catch (error) {
+      let translationKey = 'profile.passwordModal.errors.updateFailed';
+      
+      // Mapear mensajes de error del backend a claves de traducción
+      if (error.response?.data?.errors?.password) {
+        const backendError = error.response.data.errors.password[0];
+        
+        // Mapear cada mensaje de error a su clave de traducción correspondiente
+        switch (backendError) {
+          case 'The password field must contain at least one uppercase and one lowercase letter.':
+            translationKey = 'profile.passwordModal.errors.needsUpperLower';
+            break;
+          case 'The current password is incorrect.':
+            translationKey = 'profile.passwordModal.errors.currentPasswordWrong';
+            break;
+          case 'The password must be at least 8 characters.':
+            translationKey = 'profile.passwordModal.errors.tooShort';
+            break;
+          case 'The password confirmation does not match.':
+            translationKey = 'profile.passwordModal.errors.noMatch';
+            break;
+          default:
+            translationKey = 'profile.passwordModal.errors.updateFailed';
+        }
+      }
+      
+      throw new Error(translationKey);
     }
   };
 
@@ -71,12 +105,12 @@ export const useProfile = () => {
     loading,
     error,
     isEditModalOpen,
+    isPasswordModalOpen,
     handleCloseEditModal,
     handleOpenEditModal,
     handleOpenPasswordModal,
     handleClosePasswordModal,
-    handleLogout,
-    handleChangePassword,
-    handleUpdateProfile
+    handleUpdateProfile,
+    handleChangePassword
   };
 };

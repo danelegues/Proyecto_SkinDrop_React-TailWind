@@ -250,5 +250,56 @@
   "boxPopup": {
     "possibleRewards": "Possible rewards",
     "openFor": "Open for"
+  },
+  "profile": {
+    "title": "My Profile",
+    "avatarAlt": "User avatar",
+    "memberSince": "Member since {{year}}",
+    "stats": {
+      "totalCases": "Cases Opened",
+      "bestDrop": "Best Drop",
+      "totalSpent": "Total Spent",
+      "totalEarned": "Total Earned",
+      "trades": "Trades",
+      "items": "Items"
+    },
+    "options": {
+      "editProfile": "Edit Profile",
+      "changePassword": "Change Password",
+      "logout": "Logout"
+    },
+    "errors": {
+      "loadFailed": "Failed to load profile"
+    },
+    "passwordModal": {
+      "title": "Change Password",
+      "currentPassword": "Current password",
+      "newPassword": "New password",
+      "confirmPassword": "Confirm new password",
+      "save": "Change Password",
+      "close": "Close",
+      "errors": {
+        "allRequired": "All fields are required",
+        "tooShort": "Password must be at least 6 characters long",
+        "noMatch": "Passwords do not match",
+        "updateFailed": "Failed to update password",
+        "currentPasswordWrong": "Current password is incorrect",
+        "needsUpperLower": "Password must contain at least one uppercase and one lowercase letter"
+      }
+    },
+    "editModal": {
+      "title": "Edit Profile",
+      "username": "Username",
+      "save": "Save Changes",
+      "close": "Close",
+      "errors": {
+        "required": "Username is required",
+        "tooShort": "Username must be at least 3 characters long",
+        "updateFailed": "Failed to update profile"
+      }
+    }
+  },
+  "common": {
+    "cancel": "Cancel"
   }
 } 
