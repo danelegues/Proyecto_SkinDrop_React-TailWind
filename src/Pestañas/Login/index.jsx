@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../components/Auth/AuthContext';
+import { useTranslation } from 'react-i18next';
 
 function Login() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -24,13 +26,13 @@ function Login() {
     const newErrors = {};
     
     if (!formData.email) {
-      newErrors.email = 'El email es requerido';
+      newErrors.email = t('authRL.login.errors.emailRequired');
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)) {
-      newErrors.email = 'Email no válido';
+      newErrors.email = t('authRL.login.errors.emailInvalid');
     }
     
     if (!formData.password) {
-      newErrors.password = 'La contraseña es requerida';
+      newErrors.password = t('authRL.login.errors.passwordRequired');
     }
     
     return newErrors;
@@ -51,7 +53,7 @@ function Login() {
           login(response.data.token, response.data.user);
           navigate('/');
         } else {
-          setErrors({ general: 'Respuesta del servidor inválida' });
+          setErrors({ general: t('authRL.login.errors.invalidResponse') });
         }
         
       } catch (error) {
@@ -65,13 +67,13 @@ function Login() {
             // Si el servidor devuelve un mensaje de error general
             setErrors({ general: error.response.data.message });
           } else {
-            setErrors({ general: 'Error en el inicio de sesión' });
+            setErrors({ general: t('authRL.login.errors.loginError') });
           }
         } else if (error.message) {
           // Si hay un error de red o de otro tipo
           setErrors({ general: error.message });
         } else {
-          setErrors({ general: 'Error al conectar con el servidor' });
+          setErrors({ general: t('authRL.login.errors.serverError') });
         }
       }
     } else {
@@ -84,17 +86,17 @@ function Login() {
       <div className="max-w-md w-full space-y-8 bg-[#333] p-8 rounded-xl shadow-2xl">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-white">
-            Iniciar sesión
+          {t('authRL.login.title')}
           </h2>
           <p className="mt-2 text-center text-sm text-gray-400">
-            Accede a tu cuenta de SkinDrop
+          {t('authRL.login.subtitle')}
           </p>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="rounded-md shadow-sm space-y-4">
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-300">
-                Email
+              {t('authRL.login.email')}
               </label>
               <input
                 id="email"
@@ -102,7 +104,7 @@ function Login() {
                 type="email"
                 required
                 className="appearance-none relative block w-full px-3 py-2 border border-gray-600 placeholder-gray-500 text-white rounded-lg bg-[#444] focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
-                placeholder="tu@ejemplo.com"
+                placeholder={t('authRL.register.emailPlaceholder')}
                 value={formData.email}
                 onChange={handleChange}
               />
@@ -111,7 +113,7 @@ function Login() {
             
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-300">
-                Contraseña
+              {t('authRL.login.password')}
               </label>
               <input
                 id="password"
@@ -132,7 +134,7 @@ function Login() {
               type="submit"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200 ease-in-out transform hover:scale-[1.02]"
             >
-              Iniciar sesión
+              {t('authRL.login.title')}
             </button>
           </div>
           {errors.general && <p className="text-red-500 text-sm text-center">{errors.general}</p>}
@@ -140,16 +142,16 @@ function Login() {
 
         <div className="flex flex-col space-y-4 mt-6">
           <div className="text-center text-sm">
-            <span className="text-gray-400">¿No tienes una cuenta? </span>
+            <span className="text-gray-400">{t('authRL.login.noAccount')} </span>
             <Link to="/registro" className="text-orange-500 hover:text-orange-400 font-medium">
-              Regístrate aquí
+            {t('authRL.login.registerLink')}
             </Link>
           </div>
           <Link 
             to="/" 
             className="text-center text-gray-400 hover:text-white text-sm transition-colors duration-200"
           >
-            Volver a la página principal
+            {t('authRL.login.backHome')}
           </Link>
         </div>
       </div>
