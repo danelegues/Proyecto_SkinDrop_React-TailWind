@@ -4,8 +4,13 @@ import UsersList from './components/UsersList';
 import TradeOffers from './components/TradeOffers';
 import { MOCK_USERS } from './constants/users';
 import { useTranslation } from 'react-i18next';
+import { useEffect } from 'react';
 
 const Intercambio = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  
   const { t } = useTranslation();
   const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
