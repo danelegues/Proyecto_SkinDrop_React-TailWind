@@ -94,11 +94,6 @@
       "onlineUsers": "Usuarios en línea"
     }
   },
-  "balance": {
-    "title": "Tu Balance",
-    "addFunds": "Añadir Fondos",
-    "csCoins": "CS Coins"
-  },
   "filters": {
     "title": "Filtros",
     "boxName": "Nombre de la caja",
@@ -337,5 +332,23 @@
   },
   "common": {
     "cancel": "Cancelar"
+  },
+  "balance": {
+    "title": "Tu Balance",
+    "addFunds": "Añadir Fondos",
+    "currentBalance": "Balance Actual",
+    "modal": {
+      "title": "Añadir Fondos",
+      "amount": "Cantidad",
+      "submit": "Confirmar",
+      "cancel": "Cancelar"
+    },
+    "errors": {
+      "invalidAmount": "Cantidad inválida",
+      "minAmount": "Mínimo 5€",
+      "maxAmount": "Máximo 1000€",
+      "updateError": "Error al actualizar el balance"
+    },
+    "success": "Fondos añadidos correctamente"
   }
 } 
