@@ -7,8 +7,13 @@ import ShopNav from './components/ShopNav';
 import { useShopNavigation } from './hooks/useShopNavigation';
 import YourSales from './components/YourSales';
 import { useTranslation } from 'react-i18next';
+import { useEffect } from 'react';
 
 function Shop() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  
   const {
     searchQuery,
     setSearchQuery,

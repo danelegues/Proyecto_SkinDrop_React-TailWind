@@ -6,8 +6,13 @@ import SellModal from './components/SellModal';
 import { useInventoryFilter } from './hooks/useInventoryFilter';
 import { useInventoryActions } from './hooks/useInventoryActions';
 import { useTranslation } from 'react-i18next';
+import { useEffect } from 'react';
 
 const Inventario = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  
   const { t } = useTranslation();
   const [isFiltersModalOpen, setIsFiltersModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -15,6 +20,8 @@ const Inventario = () => {
 
   const {
     items,
+    loading,
+    error,
     filters,
     setFilters,
     sortedAndFilteredItems,
@@ -27,6 +34,9 @@ const Inventario = () => {
     setSelectedItem(item);
     setIsSellModalOpen(true);
   };
+
+  if (loading) return <div className="text-center py-10 text-white">Cargando inventario...</div>;
+  if (error) return <div className="text-center py-10 text-red-500">Error: {error}</div>;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-32 mt-28">
@@ -85,4 +95,4 @@ const Inventario = () => {
   );
 };
 
-export default Inventario; 
+export default Inventario;

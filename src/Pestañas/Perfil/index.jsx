@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import ProfileHeader from './components/ProfileHeader';
 import ProfileOptions from './components/ProfileOptions';
@@ -7,8 +7,40 @@ import ChangePasswordModal from './components/ChangePasswordModal';
 import { useProfile } from './hooks/useProfile';
 import { useAuth } from '../../components/Auth/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Perfil = () => {
+  const [inventoryCount, setInventoryCount] = useState(0);
+
+  useEffect(() => {
+    const fetchInventoryCount = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get('http://10.14.4.197:8001/api/inventory', {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Accept': 'application/json'
+          }
+        });
+        if (response.data && Array.isArray(response.data.data)) {
+          setInventoryCount(response.data.data.length);
+        } else {
+          console.error('Formato de respuesta inválido:', response.data);
+          setInventoryCount(0);
+        }
+      } catch (error) {
+        console.error('Error al obtener el inventario:', error);
+        setInventoryCount(0);
+      }
+    };
+
+    fetchInventoryCount();
+  }, []);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { logout } = useAuth();
@@ -44,7 +76,7 @@ const Perfil = () => {
                 <div className="text-gray-400 text-sm">{t('profile.stats.trades')}</div>
               </div>
               <div className="bg-[#1a1a1a] p-4 rounded-xl border border-[#2a2a2a] text-center">
-                <div className="text-2xl font-bold text-[#ff6b00]">156</div>
+                <div className="text-2xl font-bold text-[#ff6b00]">{inventoryCount}</div>
                 <div className="text-gray-400 text-sm">{t('profile.stats.items')}</div>
               </div>
             </div>

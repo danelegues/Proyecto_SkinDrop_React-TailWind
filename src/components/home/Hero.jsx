@@ -22,11 +22,8 @@ const Hero = () => {
       const gift = document.createElement('div');
       gift.className = 'floating-gift';
       
-      // Posición aleatoria
       gift.style.left = `${Math.random() * 100}%`;
       gift.style.top = `${Math.random() * 100}%`;
-      
-      // Animación aleatoria
       gift.style.animationDelay = `${Math.random() * 2}s`;
       gift.style.animationDuration = `${3 + Math.random() * 2}s`;
 
@@ -35,9 +32,9 @@ const Hero = () => {
   };
 
   return (
-    <div className="h-auto min-h-[600px] w-full pt-[120px] mt-[-30px] flex flex-col items-center relative overflow-hidden px-4">
+    <div className="h-auto min-h-[37.5rem] w-full pt-28 -mt-8 flex flex-col items-center relative overflow-hidden px-2">
       {/* Título principal */}
-      <div className="text-white text-[30px] mt-4 sm:text-[45px] md:text-[45px] lg:text-[60px] xl:text-[75px] sm:w-[90%] md:w-[80%] lg:w-[80%] xl:w-[70%] font-bowlby font-bold text-center leading-tight z-[999] transition-all duration-300">
+      <div className="text-white text-[clamp(1.9rem,6vw,5rem)] mt-4 font-bowlby font-bold text-center leading-tight z-[999] transition-all duration-300 w-[clamp(82%,85%,90%)]">
         <h1>
           {t('home.hero.mainTitle', {
             defaultValue: 'TU SUERTE, TU ESTILO, MEJORA TUS SKINS Y DOMINA EL JUEGO'
@@ -45,10 +42,9 @@ const Hero = () => {
         </h1>
       </div>
       {/* Imagen principal */}
-
-      <div className="rotate-[25deg] mt-[-35px] sm:mt-[-40px] md:mt-[-45px] lg:mt-[-50px] relative z-[999] w-full flex justify-center transition-all duration-300">
+      <div className="rotate-[25deg] -mt-8 sm:-mt-10 md:-mt-12 lg:-mt-14 relative z-[999] w-full flex justify-center transition-all duration-300">
         <img 
-          className="w-[620px] sm:w-[650px] md:w-[650px] lg:w-[650px] xl:w-[650px] h-auto transition-all duration-300 " 
+          className="w-full max-w-[40.625rem] h-auto transition-all duration-300" 
           src="/img/jake-yes-akgarenderedit_preview_rev_1.png" 
           alt="Hero" 
           id="imagenFrontal"
@@ -56,15 +52,15 @@ const Hero = () => {
       </div>
 
       {/* Banner naranja */}
-      <div className="mt-[-10px] sm:mt-[-30px] md:mt-[-30px] lg:mt-[-30px] xl:mt-[-20px] mb-[200px] bg-[#ff8c00] w-[95%] sm:w-[90%] md:w-[80%] lg:w-[80%] xl:w-[55%] flex flex-col md:flex-row gap-[15px] rounded-[25px] p-[15px] md:p-[20px] z-[700] transition-all duration-300">
-        <div className="w-full md:w-1/2 text-[28px] sm:text-[32px] md:text-[36px] lg:text-[40px] xl:text-[38px] font-bowlby font-bold p-2 text-black transition-all duration-300 animate-expand-glow">
+      <div className="mt-2 sm:-mt-8 mb-48 max-w-4xl bg-[#ff8c00] w-[clamp(55%,70%,70%)] flex flex-col md:flex-row gap-4 rounded-[1.5625rem] p-4 md:p-5 z-[700] transition-all duration-300">
+        <div className="w-full md:w-1/2 text-[clamp(1.75rem,4vw,2.5rem)] font-bowlby font-bold p-2 text-black transition-all duration-300 animate-expand-glow">
           <h1>
             {t('home.hero.bannerTitle', {
               defaultValue: 'LAS MEJORES SKINS AL MEJOR PRECIO'
             })}
           </h1>
         </div>
-        <div className="w-full md:w-1/2 text-[15px] sm:text-[16px] md:text-[16px] font-bowlby p-2 text-black transition-all duration-300 animate-expand-glow" style={{animationDelay: '0.8s'}}>
+        <div className="w-full md:w-1/2 text-[clamp(0.9375rem,2vw,1rem)] font-bowlby p-2 text-black transition-all duration-300 animate-expand-glow" style={{animationDelay: '0.8s'}}>
           <p>
             {t('home.hero.bannerText', {
               defaultValue: 'Aprovecha ahora las ofertas de navidades de hasta el 40%, y abre cajas como un loco!'

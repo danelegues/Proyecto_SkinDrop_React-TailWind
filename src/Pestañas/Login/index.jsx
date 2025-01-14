@@ -3,8 +3,13 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../components/Auth/AuthContext';
 import { useTranslation } from 'react-i18next';
+import { useEffect } from 'react';
 
 function Login() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [formData, setFormData] = useState({
