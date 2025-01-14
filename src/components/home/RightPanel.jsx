@@ -42,7 +42,7 @@ const RightPanel = () => {
 
       {/* Últimos Drops */}
       <div className="bg-[#141414] rounded-lg p-4">
-        <h3 className="text-white text-xl font-bold mb-4">Últimos Drops</h3>
+        <h3 className="text-white text-xl font-bold mb-4">{t('lastDrops.title')}</h3>
         <div className="space-y-2">
           {recentDrops.map((drop) => (
             <div 

@@ -43,7 +43,7 @@ const Intercambio = () => {
                   className="w-full sm:w-auto bg-[#2a2a2a] text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-[#3a3a3a] transition-all flex items-center justify-center gap-2 mx-auto -mt-2 text-sm sm:text-base"
                 >
                   <i className="fas fa-exchange-alt"></i>
-                  <span className="whitespace-nowrap">Ver ofertas pendientes</span>
+                  <span className="whitespace-nowrap">{t('trade.pending')}</span>
                 </button>
               </div>
 
