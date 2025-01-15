@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';  
 
 function Register() {
+  const { t } = useTranslation();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -30,23 +31,23 @@ function Register() {
     const newErrors = {};
     
     if (!formData.username) {
-      newErrors.username = 'El nombre de usuario es requerido';
+      newErrors.username = t('authRL.register.errors.usernameRequired');
     }
     
     if (!formData.email) {
-      newErrors.email = 'El email es requerido';
+      newErrors.email = t('authRL.register.errors.emailRequired');
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)) {
-      newErrors.email = 'Email no válido';
+      newErrors.email = t('authRL.register.errors.emailInvalid');
     }
     
     if (!formData.password) {
-      newErrors.password = 'La contraseña es requerida';
+      newErrors.password = t('authRL.register.errors.passwordRequired');
     } else if (formData.password.length < 8) {
-      newErrors.password = 'La contraseña debe tener al menos 8 caracteres';
+      newErrors.password = t('authRL.register.errors.passwordLength');
     }
     
     if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = 'Las contraseñas no coinciden';
+      newErrors.confirmPassword = t('authRL.register.errors.passwordsNoMatch');
     }
     
     return newErrors;
@@ -73,7 +74,7 @@ function Register() {
             confirmPassword: ''
           });
           
-          alert('¡Registro exitoso! Por favor, revisa tu email para verificar tu cuenta.');
+          alert("¡Registro exitoso! Por favor, revisa tu email para verificar tu cuenta.");
           
           setTimeout(() => {
             navigate('/login');
@@ -85,7 +86,7 @@ function Register() {
         
         if (error.name === 'NetworkError' || error.message === 'Network Error') {
           setErrors({ 
-            general: 'Error de conexión. El registro fue exitoso, pero hubo un problema al enviar el email de verificación.' 
+            general: t('authRL.register.errors.networkError') 
           });
           
           setTimeout(() => {
@@ -104,12 +105,12 @@ function Register() {
             setErrors(formattedErrors);
           } else {
             setErrors({ 
-              general: 'Hubo un error en el registro. Por favor, inténtalo de nuevo.' 
+              general: t('authRL.register.errors.registerError')
             });
           }
         } else {
           setErrors({ 
-            general: 'Error de conexión. Por favor, verifica tu conexión a internet.' 
+            general: t('authRL.register.errors.connectionError')
           });
         }
       }
@@ -123,17 +124,17 @@ function Register() {
       <div className="max-w-md w-full space-y-8 bg-[#333] p-8 rounded-xl shadow-2xl">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-white">
-            Crear nueva cuenta
+          {t('authRL.register.title')}
           </h2>
           <p className="mt-2 text-center text-sm text-gray-400">
-            Únete a la comunidad de SkinDrop
+          {t('authRL.register.subtitle')}
           </p>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="rounded-md shadow-sm space-y-4">
             <div>
               <label htmlFor="username" className="block text-sm font-medium text-gray-300">
-                Nombre de usuario
+              {t('authRL.register.username')}
               </label>
               <input
                 id="username"
@@ -141,7 +142,7 @@ function Register() {
                 type="text"
                 required
                 className="appearance-none relative block w-full px-3 py-2 border border-gray-600 placeholder-gray-500 text-white rounded-lg bg-[#444] focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
-                placeholder="Tu nombre de usuario"
+                placeholder={t('authRL.register.usernamePlaceholder')}
                 value={formData.username}
                 onChange={handleChange}
               />
@@ -150,7 +151,7 @@ function Register() {
             
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-300">
-                Email
+              {t('authRL.register.email')}
               </label>
               <input
                 id="email"
@@ -158,7 +159,7 @@ function Register() {
                 type="email"
                 required
                 className="appearance-none relative block w-full px-3 py-2 border border-gray-600 placeholder-gray-500 text-white rounded-lg bg-[#444] focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
-                placeholder="tu@ejemplo.com"
+                placeholder={t('authRL.register.emailPlaceholder')}
                 value={formData.email}
                 onChange={handleChange}
               />
@@ -167,7 +168,7 @@ function Register() {
             
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-300">
-                Contraseña
+              {t('authRL.register.password')}
               </label>
               <input
                 id="password"
@@ -184,7 +185,7 @@ function Register() {
             
             <div>
               <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-300">
-                Repetir Contraseña
+              {t('authRL.register.confirmPassword')}
               </label>
               <input
                 id="confirmPassword"
@@ -205,7 +206,7 @@ function Register() {
               type="submit"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200 ease-in-out transform hover:scale-[1.02]"
             >
-              Registrarse
+              {t('authRL.register.submitButton')}
             </button>
           </div>
           {errors.general && <p className="text-red-500 text-sm text-center">{errors.general}</p>}
@@ -213,16 +214,16 @@ function Register() {
 
         <div className="flex flex-col space-y-4 mt-6">
           <div className="text-center text-sm">
-            <span className="text-gray-400">¿Ya tienes una cuenta? </span>
+            <span className="text-gray-400">{t('authRL.register.hasAccount')} </span>
             <Link to="/login" className="text-orange-500 hover:text-orange-400 font-medium">
-              Inicia sesión aquí
+            {t('authRL.register.loginLink')}
             </Link>
           </div>
           <Link 
             to="/" 
             className="text-center text-gray-400 hover:text-white text-sm transition-colors duration-200"
           >
-            Volver a la página principal
+            {t('authRL.register.backHome')}
           </Link>
         </div>
       </div>

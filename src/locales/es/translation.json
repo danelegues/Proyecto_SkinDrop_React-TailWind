@@ -1,4 +1,60 @@
 {
+  "auth": {
+    "restrictedAccess": "Acceso Restringido",
+    "loginRequired": "Necesitas iniciar sesión para acceder a esta sección",
+    "login": "Iniciar Sesión",
+    "errors": {
+      "authProviderError": "useAuth debe ser usado dentro de un AuthProvider"
+    }
+  },
+  "authRL": {
+    "login": {
+      "title": "Iniciar sesión",
+      "subtitle": "Accede a tu cuenta de SkinDrop",
+      "email": "Email",
+      "emailPlaceholder": "tu@ejemplo.com",
+      "password": "Contraseña",
+      "passwordPlaceholder": "••••••••",
+      "submitButton": "Iniciar sesión",
+      "noAccount": "¿No tienes una cuenta?",
+      "registerLink": "Regístrate aquí",
+      "backHome": "Volver a la página principal",
+      "errors": {
+        "emailRequired": "El email es requerido",
+        "emailInvalid": "Email no válido",
+        "passwordRequired": "La contraseña es requerida",
+        "invalidResponse": "Respuesta del servidor inválida",
+        "loginError": "Error en el inicio de sesión",
+        "serverError": "Error al conectar con el servidor"
+      }
+    },
+    "register": {
+      "title": "Crear nueva cuenta",
+      "subtitle": "Únete a la comunidad de SkinDrop",
+      "username": "Nombre de usuario",
+      "usernamePlaceholder": "Tu nombre de usuario",
+      "email": "Email",
+      "emailPlaceholder": "tu@ejemplo.com",
+      "password": "Contraseña",
+      "confirmPassword": "Repetir Contraseña",
+      "submitButton": "Registrarse",
+      "hasAccount": "¿Ya tienes una cuenta?",
+      "loginLink": "Inicia sesión aquí",
+      "backHome": "Volver a la página principal",
+      "successMessage": "¡Registro exitoso! Por favor, revisa tu email para verificar tu cuenta.",
+      "errors": {
+        "usernameRequired": "El nombre de usuario es requerido",
+        "emailRequired": "El email es requerido",
+        "emailInvalid": "Email no válido",
+        "passwordRequired": "La contraseña es requerida",
+        "passwordLength": "La contraseña debe tener al menos 8 caracteres",
+        "passwordsNoMatch": "Las contraseñas no coinciden",
+        "networkError": "Error de conexión. El registro fue exitoso, pero hubo un problema al enviar el email de verificación.",
+        "registerError": "Hubo un error en el registro. Por favor, inténtalo de nuevo.",
+        "connectionError": "Error de conexión. Por favor, verifica tu conexión a internet."
+      }
+    }
+  },
   "navbar": {
     "home": "Inicio",
     "store": "Tienda",
@@ -37,11 +93,6 @@
       "bestDrop": "Mejor drop",
       "onlineUsers": "Usuarios en línea"
     }
-  },
-  "balance": {
-    "title": "Tu Balance",
-    "addFunds": "Añadir Fondos",
-    "csCoins": "CS Coins"
   },
   "filters": {
     "title": "Filtros",
@@ -130,6 +181,7 @@
   "trade": {
     "title": "Intercambios",
     "subtitle": "Encuentra usuarios y realiza intercambios de skins",
+    "pending": "Ver ofertas pendientes",
     "search": {
       "placeholder": "Buscar usuario...",
       "button": "Buscar",
@@ -280,5 +332,23 @@
   },
   "common": {
     "cancel": "Cancelar"
+  },
+  "balance": {
+    "title": "Tu Balance",
+    "addFunds": "Añadir Fondos",
+    "currentBalance": "Balance Actual",
+    "modal": {
+      "title": "Añadir Fondos",
+      "amount": "Cantidad",
+      "submit": "Confirmar",
+      "cancel": "Cancelar"
+    },
+    "errors": {
+      "invalidAmount": "Cantidad inválida",
+      "minAmount": "Mínimo 5€",
+      "maxAmount": "Máximo 1000€",
+      "updateError": "Error al actualizar el balance"
+    },
+    "success": "Fondos añadidos correctamente"
   }
 } 

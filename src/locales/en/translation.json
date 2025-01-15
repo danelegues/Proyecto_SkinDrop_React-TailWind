@@ -1,4 +1,60 @@
 {
+  "auth": {
+    "restrictedAccess": "Restricted Access",
+    "loginRequired": "You need to login to access this section",
+    "login": "Login",
+    "errors": {
+      "authProviderError": "useAuth must be used within an AuthProvider"
+    }
+  },
+  "authRL": {
+    "login": {
+      "title": "Login",
+      "subtitle": "Access your SkinDrop account",
+      "email": "Email",
+      "emailPlaceholder": "your@example.com",
+      "password": "Password",
+      "submitButton": "Login",
+      "noAccount": "Don't have an account?",
+      "registerLink": "Register here",
+      "backHome": "Back to home",
+      "errors": {
+        "emailRequired": "Email is required",
+        "emailInvalid": "Invalid email",
+        "passwordRequired": "Password is required",
+        "invalidResponse": "Invalid server response",
+        "loginError": "Login error",
+        "serverError": "Server connection error"
+      }
+    },
+    "register": {
+      "title": "Create new account",
+      "subtitle": "Join the SkinDrop community",
+      "username": "Username",
+      "usernamePlaceholder": "Your username",
+      "email": "Email",
+      "emailPlaceholder": "your@example.com",
+      "password": "Password",
+      "passwordPlaceholder": "••••••••",
+      "confirmPassword": "Confirm Password",
+      "submitButton": "Register",
+      "hasAccount": "Already have an account?",
+      "loginLink": "Login here",
+      "backHome": "Back to home",
+      "successMessage": "Registration successful! Please check your email to verify your account.",
+      "errors": {
+        "usernameRequired": "Username is required",
+        "emailRequired": "Email is required",
+        "emailInvalid": "Invalid email",
+        "passwordRequired": "Password is required",
+        "passwordLength": "Password must be at least 8 characters",
+        "passwordsNoMatch": "Passwords do not match",
+        "networkError": "Connection error. Registration was successful, but there was a problem sending the verification email.",
+        "registerError": "There was an error in registration. Please try again.",
+        "connectionError": "Connection error. Please check your internet connection."
+      }
+    }
+  },
   "navbar": {
     "home": "Home",
     "store": "Store",
@@ -130,6 +186,7 @@
   "trade": {
     "title": "Trades",
     "subtitle": "Find users and trade skins",
+    "pending": "See pending offers",
     "search": {
       "placeholder": "Search user...",
       "button": "Search",

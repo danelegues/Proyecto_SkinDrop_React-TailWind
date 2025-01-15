@@ -1,8 +1,42 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useTranslation } from 'react-i18next';
+import { useAuth } from '../Auth/AuthContext';
 
 const UserBalance = () => {
   const { t } = useTranslation();
+  const { user } = useAuth();
+  const [balance, setBalance] = useState(0);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetchBalance();
+  }, [user]);
+
+  const fetchBalance = async () => {
+    try {
+      const response = await axios.get('http://10.14.4.197:8000/api/profile', {
+        headers: { 
+          Authorization: `Bearer ${localStorage.getItem('token')}` 
+        }
+      });
+      setBalance(response.data.user.balance);
+    } catch (error) {
+      setError(error.message);
+      console.error('Error fetching balance:', error);
+    }
+  };
+
+  const formatBalance = (amount) => {
+    return new Intl.NumberFormat('es-ES', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    }).format(amount);
+  };
+
+  if (error) {
+    return <div className="text-red-500">{t('balance.error')}</div>;
+  }
 
   return (
     <div className="bg-[#141414] rounded-lg p-4 sm:p-6">
@@ -14,7 +48,9 @@ const UserBalance = () => {
         <div className="flex items-center mb-3 sm:mb-4">
           
           <div>
-            <span className="text-white text-lg sm:text-xl font-bold block">1.500,00 <i className="fa-solid fa-euro-sign text-orange-500 text-xl sm:text-2xl mr-2 sm:mr-3 opacity-100"></i></span>
+            <span className="text-white text-lg sm:text-xl font-bold block">
+              {formatBalance(balance)} <i className="fa-solid fa-euro-sign text-orange-500 text-xl sm:text-2xl mr-2 sm:mr-3 opacity-100"></i>
+            </span>
           </div>
         </div>
 

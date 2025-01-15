@@ -1,8 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { useTranslation } from 'react-i18next';
 const AuthPopup = ({ onClose }) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleLogin = () => {
     onClose();
@@ -21,10 +22,10 @@ const AuthPopup = ({ onClose }) => {
         <div className="text-center">
           <i className="fas fa-lock text-4xl text-orange-500 mb-4"></i>
           <h2 className="text-2xl font-bold text-white mb-4">
-            Acceso Restringido
+            {t('auth.restrictedAccess')}
           </h2>
           <p className="text-gray-300 mb-6">
-            Necesitas iniciar sesión para acceder a esta sección
+            {t('auth.loginRequired')}
           </p>
           
           <div className="flex gap-4">
@@ -32,13 +33,7 @@ const AuthPopup = ({ onClose }) => {
               onClick={handleLogin}
               className="flex-1 bg-orange-600 text-white py-3 px-4 rounded-lg hover:bg-orange-700 transition-colors duration-200"
             >
-              Iniciar Sesión
-            </button>
-            <button
-              onClick={onClose}
-              className="flex-1 bg-gray-700 text-white py-3 px-4 rounded-lg hover:bg-gray-600 transition-colors duration-200"
-            >
-              Cancelar
+              {t('auth.login')}
             </button>
           </div>
         </div>
