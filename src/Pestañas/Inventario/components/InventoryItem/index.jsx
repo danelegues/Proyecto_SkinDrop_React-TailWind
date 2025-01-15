@@ -8,11 +8,6 @@ const InventoryItem = ({ item, onSellClick }) => {
     const { item: itemDetails, wear, status } = item;
     // Verificamos que itemDetails exista y tenga las propiedades necesarias
     const { name, image, price } = itemDetails || {};
-    
-    // Agregamos console.log para debuggear
-    console.log('Item completo:', item);
-    console.log('ItemDetails:', itemDetails);
-    console.log('URL de imagen:', image);
    
     const getWearColor = (wear) => {
         const colors = {
@@ -48,9 +43,7 @@ const InventoryItem = ({ item, onSellClick }) => {
                             alt={name || 'Item image'}
                             className="max-w-full max-h-full object-contain group-hover:scale-110 group-hover:rotate-1"
                             style={{ maxHeight: '180px', width: 'auto' }}
-                            onError={(e) => {
-                                console.error('Error al cargar la imagen:', item.image);
-                            }}
+                            onError={(e) => {}}
                         />
                     ) : (
                         <div className="text-gray-500">No image available</div>

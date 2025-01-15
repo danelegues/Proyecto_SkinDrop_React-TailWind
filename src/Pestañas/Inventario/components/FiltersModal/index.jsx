@@ -6,6 +6,18 @@ const FiltersModal = ({ isOpen, onClose, filters, onApplyFilters }) => {
   
   if (!isOpen) return null;
 
+  const handleReset = () => {
+    onApplyFilters({
+      search: '',
+      minPrice: '',
+      maxPrice: '',
+      wear: [],
+      type: [],
+      sortBy: '',
+      status: 'all'
+    });
+  };
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-[#1a1a1a] rounded-lg p-6 w-[500px]">
@@ -72,12 +84,7 @@ const FiltersModal = ({ isOpen, onClose, filters, onApplyFilters }) => {
 
         <div className="flex justify-end gap-4 mt-6">
           <button
-            onClick={() => onApplyFilters({
-              wear: '',
-              minPrice: '',
-              maxPrice: '',
-              status: 'all'
-            })}
+            onClick={handleReset}
             className="px-4 py-2 text-gray-400 hover:text-white"
           >
             {t('inventory.filters.reset')}

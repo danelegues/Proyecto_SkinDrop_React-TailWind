@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import InventoryHeader from './components/InventoryHeader';
 import InventoryGrid from './components/InventoryGrid';
 import FiltersModal from './components/FiltersModal';
 import SellModal from './components/SellModal';
 import { useInventoryFilter } from './hooks/useInventoryFilter';
-import { useInventoryActions } from './hooks/useInventoryActions';
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
 
@@ -28,7 +26,12 @@ const Inventario = () => {
     totalItems
   } = useInventoryFilter();
 
-  const { handleSort } = useInventoryActions();
+  const handleSort = (e) => {
+    setFilters({
+      ...filters,
+      sortBy: e.target.value
+    });
+  };
 
   const handleSellClick = (item) => {
     setSelectedItem(item);
@@ -40,38 +43,41 @@ const Inventario = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-32 mt-28">
-      <div className="flex flex-col gap-2 mb-8">
-        <InventoryHeader 
-          totalItems={totalItems}
-          onSort={handleSort}
-          onFilter={() => setIsFiltersModalOpen(true)}
-        />
-      </div>
+      <div className="flex flex-col gap-4 mb-8">
+        <div>
+          <h1 className="text-4xl font-bold text-white mb-2">{t('inventory.title')}</h1>
+          <p className="text-gray-400 text-lg">
+            {t('inventory.totalItems')} {totalItems}
+          </p>
+        </div>
+        <br />
+        <div className="flex gap-3">
+          
+          <select 
+            className="bg-[#1a1a1a] text-white px-6 py-3 rounded-lg border border-[#2a2a2a] hover:border-[#ff6b00] transition-all focus:outline-none focus:border-[#ff6b00] text-lg min-w-[200px]"
+            onChange={handleSort}
+          >
+            <option value="">{t('inventory.sort.default')}</option>
+            <option value="price_asc">{t('inventory.sort.priceAsc')}</option>
+            <option value="price_desc">{t('inventory.sort.priceDesc')}</option>
+            <option value="name">{t('inventory.sort.name')}</option>
+            <option value="wear">{t('inventory.sort.wear')}</option>
+          </select>
+          <button 
+            onClick={() => setIsFiltersModalOpen(true)}
+            className="bg-[#ff6b00] hover:bg-[#ff8533] text-white px-6 py-3 rounded-lg transition-all hover:scale-105 text-lg font-medium min-w-[120px]"
+          >
+            {t('inventory.filters.title')}
+          </button>
 
-      <div className="flex flex-col sm:flex-row gap-4 mb-8">
-        <button className="bg-[#FF6B00] text-white px-4 py-2 rounded hover:bg-[#ff8533] transition-colors">
-          {t('inventory.search.sortByPrice')}
-        </button>
-        <input
-          type="text"
-          placeholder={t('inventory.search.placeholder')}
-          className="bg-[#2a2a2a] text-white px-4 py-2 rounded flex-grow"
-        />
-        <select className="bg-[#2a2a2a] text-white px-4 py-2 rounded">
-          <option value="all">{t('inventory.filters.allTypes')}</option>
-          <option value="rifles">{t('inventory.filters.rifles')}</option>
-          <option value="pistols">{t('inventory.filters.pistols')}</option>
-          <option value="knives">{t('inventory.filters.knives')}</option>
-        </select>
-        <select className="bg-[#2a2a2a] text-white px-4 py-2 rounded">
-          <option value="all">{t('inventory.filters.allRarities')}</option>
-          <option value="consumer">{t('inventory.filters.consumer')}</option>
-          <option value="industrial">{t('inventory.filters.industrial')}</option>
-          <option value="milspec">{t('inventory.filters.milSpec')}</option>
-          <option value="restricted">{t('inventory.filters.restricted')}</option>
-          <option value="classified">{t('inventory.filters.classified')}</option>
-          <option value="covert">{t('inventory.filters.covert')}</option>
-        </select>
+          <input
+            type="text"
+            placeholder={t('inventory.search.placeholder')}
+            className="bg-[#1a1a1a] text-white px-6 py-3 rounded-lg border border-[#2a2a2a] hover:border-[#ff6b00] transition-all focus:outline-none focus:border-[#ff6b00] text-lg flex-1"
+            value={filters.search}
+            onChange={(e) => setFilters({...filters, search: e.target.value})}
+          />
+        </div>
       </div>
 
       <InventoryGrid 
