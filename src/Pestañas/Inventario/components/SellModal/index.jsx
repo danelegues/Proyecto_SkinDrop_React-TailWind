@@ -1,80 +1,95 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { marketService } from '../../../Tienda/hooks/marketService';
 
 const SellModal = ({ isOpen, onClose, item }) => {
-  const { t } = useTranslation();
-  const [price, setPrice] = useState('');
-  const quickSellPrice = (item?.price * 0.8).toFixed(2);
+    const { t } = useTranslation();
+    const [price, setPrice] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
 
-  if (!isOpen) return null;
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!price || isNaN(price) || price <= 0) {
+            setError(t('inventory.sell.invalidPrice'));
+            return;
+        }
 
-  const handleQuickSell = () => {
-    console.log(`Venta rápida de ${item?.name} por $${quickSellPrice}`);
-    onClose();
-  };
+        setIsLoading(true);
+        setError(null);
 
-  const handleMarketSell = () => {
-    if (!price || price <= 0) {
-      alert(t('inventory.sell.invalidPrice'));
-      return;
-    }
-    console.log(`Vendiendo ${item?.name} en el mercado por $${price}`);
-    onClose();
-  };
+        try {
+            await marketService.putItemOnSale(item.id, parseFloat(price));
+            onClose();
+            // Opcional: Actualizar el estado del item localmente
+            if (item.onStatusChange) {
+                item.onStatusChange('on_sale');
+            }
+        } catch (error) {
+            setError(error.response?.data?.message || 'Error al poner el item en venta');
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-[#1a1a1a] rounded-lg p-6 w-[400px]">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-white text-2xl font-bold">{t('inventory.sell.title')}</h2>
-          <button onClick={onClose} className="text-gray-400 hover:text-white">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
+    if (!isOpen) return null;
 
-        <div className="flex flex-col items-center">
-          <div className="mb-4 w-48 h-48 flex items-center justify-center">
-            <img src={`/img/${item?.image}`} alt={item?.name} className="max-w-full max-h-full object-contain" />
-          </div>
+    return (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-[#1a1a1a] rounded-lg p-6 w-96">
+                <h2 className="text-xl text-white mb-4">{t('inventory.sell.title')}</h2>
+                
+                <div className="mb-4">
+                    <div className="flex items-center justify-center mb-4">
+                        <img 
+                            src={`img/${item.image}`}
+                            alt={item.name}
+                            className="max-h-32 object-contain"
+                        />
+                    </div>
+                    <p className="text-white text-center mb-2">{item.name}</p>
+                </div>
 
-          <div className="text-center mb-6">
-            <h3 className="text-white text-xl font-bold mb-1">{item?.name}</h3>
-            <p className="text-purple-400 text-sm font-medium">{item?.wear}</p>
-          </div>
+                <form onSubmit={handleSubmit}>
+                    <div className="mb-4">
+                        <label className="block text-gray-400 mb-2">
+                            {t('store.sales.price')}
+                        </label>
+                        <input
+                            type="number"
+                            step="0.01"
+                            value={price}
+                            onChange={(e) => setPrice(e.target.value)}
+                            placeholder={t('store.sales.enterPrice')}
+                            className="w-full bg-[#2a2a2a] text-white p-2 rounded"
+                            disabled={isLoading}
+                        />
+                        {error && (
+                            <p className="text-red-500 text-sm mt-1">{error}</p>
+                        )}
+                    </div>
 
-          <div className="w-full space-y-4">
-            <button
-              onClick={handleQuickSell}
-              className="w-full py-3 px-4 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg font-medium hover:from-green-600 hover:to-green-700 transition-all"
-            >
-              {t('inventory.sell.quickSell')} ${quickSellPrice}
-            </button>
-
-            <div className="relative">
-              <div className="relative flex items-center bg-[#2a2a2a] rounded-lg mb-2">
-                <span className="text-gray-400 pl-3">$</span>
-                <input
-                  type="number"
-                  value={price}
-                  onChange={(e) => setPrice(e.target.value)}
-                  className="w-full bg-transparent text-white px-2 py-3 focus:outline-none"
-                  placeholder={t('inventory.sell.enterPrice')}
-                />
-              </div>
-              <button
-                onClick={handleMarketSell}
-                className="w-full py-3 bg-[#ff6b00] text-white rounded-lg font-medium hover:bg-[#ff8533] transition-all"
-              >
-                {t('inventory.sell.listForSale')}
-              </button>
+                    <div className="flex gap-3">
+                        <button
+                            type="button"
+                            onClick={onClose}
+                            className="flex-1 px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700"
+                            disabled={isLoading}
+                        >
+                            {t('common.cancel')}
+                        </button>
+                        <button
+                            type="submit"
+                            className="flex-1 px-4 py-2 bg-gradient-to-r from-[#ff6b00] to-[#ff8533] text-white rounded hover:opacity-90"
+                            disabled={isLoading}
+                        >
+                            {isLoading ? '...' : t('store.sales.putOnSale')}
+                        </button>
+                    </div>
+                </form>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default SellModal;
