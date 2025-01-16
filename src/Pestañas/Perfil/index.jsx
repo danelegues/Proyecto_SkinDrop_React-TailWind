@@ -11,6 +11,14 @@ import axios from 'axios';
 
 const Perfil = () => {
   const [inventoryCount, setInventoryCount] = useState(0);
+  const [balance, setBalance] = useState(0);
+
+  const formatBalance = (amount) => {
+    return new Intl.NumberFormat('es-ES', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    }).format(amount);
+  };
 
   useEffect(() => {
     const fetchInventoryCount = async () => {
@@ -35,6 +43,23 @@ const Perfil = () => {
     };
 
     fetchInventoryCount();
+  }, []);
+
+  useEffect(() => {
+    const fetchBalance = async () => {
+      try {
+        const response = await axios.get('http://10.14.4.197:8000/api/profile', {
+          headers: { 
+            Authorization: `Bearer ${localStorage.getItem('token')}` 
+          }
+        });
+        setBalance(response.data.user.balance);
+      } catch (error) {
+        console.error('Error al obtener el balance:', error);
+      }
+    };
+
+    fetchBalance();
   }, []);
 
   useEffect(() => {
@@ -71,14 +96,23 @@ const Perfil = () => {
             <ProfileHeader />
             
             <div className="grid grid-cols-2 gap-4 mb-8 mt-6">
+
               <div className="bg-[#1a1a1a] p-4 rounded-xl border border-[#2a2a2a] text-center">
-                <div className="text-2xl font-bold text-[#ff6b00]">24</div>
-                <div className="text-gray-400 text-sm">{t('profile.stats.trades')}</div>
+
+                <div className="text-2xl font-bold text-[#ff6b00]">
+                  {formatBalance(balance)} <i className="fa-solid fa-euro-sign text-orange-500 text-xl opacity-100"></i>
+                </div>
+
+                <div className="text-gray-400 text-sm">{t('balance.title')}</div>
+                
               </div>
+
+
               <div className="bg-[#1a1a1a] p-4 rounded-xl border border-[#2a2a2a] text-center">
                 <div className="text-2xl font-bold text-[#ff6b00]">{inventoryCount}</div>
                 <div className="text-gray-400 text-sm">{t('profile.stats.items')}</div>
               </div>
+
             </div>
 
             <ProfileOptions 

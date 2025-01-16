@@ -53,14 +53,14 @@ const Hero = () => {
 
       {/* Banner naranja */}
       <div className="mt-2 sm:-mt-8 mb-48 max-w-4xl bg-[#ff8c00] w-[clamp(55%,70%,70%)] flex flex-col md:flex-row gap-4 rounded-[1.5625rem] p-4 md:p-5 z-[700] transition-all duration-300">
-        <div className="w-full md:w-1/2 text-[clamp(1.75rem,4vw,2.5rem)] font-bowlby font-bold p-2 text-black transition-all duration-300 animate-expand-glow">
+        <div className="w-full md:w-1/2 text-[clamp(1.75rem,4vw,2.5rem)] font-bowlby font-bold p-2 text-black transition-all duration-300">
           <h1>
             {t('home.hero.bannerTitle', {
               defaultValue: 'LAS MEJORES SKINS AL MEJOR PRECIO'
             })}
           </h1>
         </div>
-        <div className="w-full md:w-1/2 text-[clamp(0.9375rem,2vw,1rem)] font-bowlby p-2 text-black transition-all duration-300 animate-expand-glow" style={{animationDelay: '0.8s'}}>
+        <div className="w-full md:w-1/2 text-[clamp(0.9375rem,2vw,1rem)] font-bowlby p-2 text-black transition-all duration-300">
           <p>
             {t('home.hero.bannerText', {
               defaultValue: 'Aprovecha ahora las ofertas de navidades de hasta el 40%, y abre cajas como un loco!'
