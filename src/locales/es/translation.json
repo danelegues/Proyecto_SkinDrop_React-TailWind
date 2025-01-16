@@ -350,5 +350,33 @@
       "updateError": "Error al actualizar el balance"
     },
     "success": "Fondos añadidos correctamente"
+  },
+  "admin": {
+    "addBox": "Añadir Nueva Caja",
+    "manageBoxes": "Gestionar Cajas",
+    "deleteBoxButton": "Eliminar",
+    "selectItemButton": "Seleccionar",
+    "deselectItemButton": "Deseleccionar",
+    "noAccess": "No tienes acceso a esta sección",
+    "goBack": "Volver",
+    "form": {
+      "name": "Nombre",
+      "namePlaceholder": "Nombre de la caja",
+      "imageUrl": "URL de la imagen",
+      "imageUrlPlaceholder": "URL de la imagen",
+      "price": "Precio",
+      "pricePlaceholder": "Precio",
+      "items": "Ítems",
+      "submit": "Añadir caja"
+    },
+    "errors": {
+      "nameRequired": "El nombre es requerido",
+      "imageUrlRequired": "La URL de la imagen es requerida",
+      "priceRequired": "El precio es requerido",
+      "invalidPrice": "El precio debe ser un número positivo",
+      "minItems": "Debe seleccionar al menos 6 ítems",
+      "maxItems": "No puede seleccionar más de 20 ítems",
+      "addError": "Hubo un error al añadir la caja. Por favor, inténtalo de nuevo."
+    }
   }
 } 

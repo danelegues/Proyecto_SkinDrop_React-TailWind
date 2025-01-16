@@ -1,10 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import VideoPreview from '../shared/VideoPreview';
 import '../../styles/LeftPanel.css';
 
-const LeftPanel = () => {
+const LeftPanel = ({ onFilterChange }) => {
   const { t } = useTranslation();
+  const [filters, setFilters] = useState({
+    boxName: '',
+    priceRange: {
+      min: '',
+      max: ''
+    }
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    if (name === 'boxName') {
+      setFilters(prev => ({
+        ...prev,
+        boxName: value
+      }));
+    } else {
+      setFilters(prev => ({
+        ...prev,
+        priceRange: {
+          ...prev.priceRange,
+          [name]: value
+        }
+      }));
+    }
+  };
+
+  const handleApplyFilters = () => {
+    onFilterChange(filters);
+  };
 
   // Datos de ejemplo para los jugadores
   const recentWinners = [
@@ -49,6 +78,9 @@ const LeftPanel = () => {
           <label className="text-gray-400 text-sm block mb-2">{t('filters.boxName')}</label>
           <input 
             type="text" 
+            name="boxName"
+            value={filters.boxName}
+            onChange={handleInputChange}
             placeholder={t('filters.searchBox')}
             className="w-full bg-[#1a1a1a] text-white rounded-lg p-2 text-sm"
           />
@@ -60,12 +92,18 @@ const LeftPanel = () => {
           <div className="flex gap-2 items-center">
             <input 
               type="number" 
+              name="min"
+              value={filters.priceRange.min}
+              onChange={handleInputChange}
               placeholder={t('filters.min')}
               className="w-1/2 bg-[#1a1a1a] text-white rounded-lg p-2 text-sm"
             />
             <span className="text-gray-400">-</span>
             <input 
               type="number" 
+              name="max"
+              value={filters.priceRange.max}
+              onChange={handleInputChange}
               placeholder={t('filters.max')}
               className="w-1/2 bg-[#1a1a1a] text-white rounded-lg p-2 text-sm"
             />
@@ -73,7 +111,10 @@ const LeftPanel = () => {
         </div>
 
         {/* Botón de aplicar filtros */}
-        <button className="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-lg text-sm transition-colors flex items-center justify-center gap-2">
+        <button 
+          onClick={handleApplyFilters}
+          className="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-lg text-sm transition-colors flex items-center justify-center gap-2"
+        >
           <i className="fas fa-filter"></i>
           {t('filters.apply')}
         </button>

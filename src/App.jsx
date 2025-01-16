@@ -15,10 +15,14 @@ import Perfil from './Pestañas/Perfil';
 import './i18next.config';
 import { AuthProvider } from './components/Auth/AuthContext';
 import BoxOpening from './Pestañas/AperturaCaja';
+import { BalanceProvider } from './components/shared/BalanceContext';
+import AdminPanel from './components/AdminPanel/AdminPanel';
+import HomePage from './components/home/HomePage';
 
 function App() {
   return (
     <AuthProvider>
+      <BalanceProvider>
       <Router>
         <div className="min-h-screen bg-[#222] text-white">
           <Navbar />
@@ -26,20 +30,7 @@ function App() {
           <Routes>
             <Route path="/" element={
               <>
-                <Hero />
-                <div className="ml-2 mr-2 py-8">
-                  <div className="flex flex-col lg:flex-row gap-2 min-h-[900px]">
-                    <div className="lg:w-[250px] xl:w-[300px] h-full">
-                      <LeftPanel />
-                    </div>
-                    <div className="flex-1">
-                      <MainContent />
-                    </div>
-                    <div className="lg:w-[250px] xl:w-[300px] h-full">
-                      <RightPanel />
-                    </div>
-                  </div>
-                </div>
+                <HomePage></HomePage>
               </>
             } />
             
@@ -50,11 +41,13 @@ function App() {
             <Route path="/inventario" element={<Inventory />} />
             <Route path="/intercambio" element={<Intercambio />} />
             <Route path="/box-opening" element={<BoxOpening />} />
+            <Route path="/adminPanel" element={<AdminPanel />} />
           </Routes>
           
           <Footer />
         </div>
       </Router>
+      </BalanceProvider>
     </AuthProvider>
   );
 }

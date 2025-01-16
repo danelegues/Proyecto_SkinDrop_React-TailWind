@@ -14,82 +14,14 @@ const BoxPopup = ({ onClose, boxData }) => {
     };
 
     window.addEventListener('keydown', handleEscape);
-
-    return () => {
-      window.removeEventListener('keydown', handleEscape);
-    };
+    return () => window.removeEventListener('keydown', handleEscape);
   }, [onClose]);
-
-  const possibleItems = [
-    {
-      id: 1,
-      name: "AWP | Dragon Lore",
-      image: "/img/dragonlore.png",
-      rarity: "legendary"
-    },
-    {
-      id: 2,
-      name: "AK-47 | Asiimov",
-      image: "/img/akruleta.png",
-      rarity: "rare"
-    },
-    {
-      id: 3,
-      name: "M4A4 | Howl",
-      image: "/img/howl.png",
-      rarity: "mythical"
-    },
-    {
-      id: 4,
-      name: "Desert Eagle | Blaze",
-      image: "/img/deagle.png",
-      rarity: "rare"
-    },
-    {
-      id: 5,
-      name: "USP-S | Kill Confirmed",
-      image: "/img/deagle.png",
-      rarity: "classified"
-    },
-    {
-      id: 6,
-      name: "Glock-18 | Fade",
-      image: "/img/glock.png",
-      rarity: "rare"
-    },
-    {
-      id: 7,
-      name: "M4A1-S | Hyper Beast",
-      image: "/img/howl.png",
-      rarity: "classified"
-    },
-    {
-      id: 8,
-      name: "Karambit | Fade",
-      image: "/img/karambitbluegem.png",
-      rarity: "legendary"
-    },
-    {
-      id: 9,
-      name: "Butterfly | Doppler",
-      image: "/img/karambitbluegem.png",
-      rarity: "legendary"
-    },
-    {
-      id: 10,
-      name: "AK-47 | Fire Serpent",
-      image: "/img/akruleta.png",
-      rarity: "covert"
-    }
-  ];
 
   const handleOpenBox = () => {
     navigate('/box-opening', { 
       state: { 
-        boxData: {
-          ...boxData,
-          possibleItems: possibleItems
-        }
+        boxData: boxData,
+        items: boxData.items // Asegúrate de que los items vengan de la API
       } 
     });
   };
@@ -111,7 +43,7 @@ const BoxPopup = ({ onClose, boxData }) => {
           
           <div className="mb-6">
             <img 
-              src={boxData.image} 
+              src={boxData.image_url} 
               alt={boxData.name} 
               className="w-48 h-48 object-contain mx-auto"
             />
@@ -120,13 +52,13 @@ const BoxPopup = ({ onClose, boxData }) => {
           <div className="mb-6">
             <h3 className="text-gray-400 text-lg mb-4">{t('boxPopup.possibleRewards')}:</h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-              {possibleItems.map((item) => (
+              {boxData.items && boxData.items.map((item) => (
                 <div 
                   key={item.id} 
-                  className={`bg-[#2a2a2a] p-2 rounded-lg`}
+                  className={`bg-[#2a2a2a] p-2 rounded-lg border-2 ${getRarityBorderColor(item.rarity)}`}
                 >
                   <img 
-                    src={item.image} 
+                    src={item.image_url} 
                     alt={item.name} 
                     className="w-full h-24 object-contain"
                   />
@@ -146,6 +78,20 @@ const BoxPopup = ({ onClose, boxData }) => {
       </div>
     </div>
   );
+};
+
+const getRarityBorderColor = (rarity) => {
+  const colors = {
+    'common': 'border-gray-400',
+    'uncommon': 'border-blue-400',
+    'rare': 'border-purple-400',
+    'epic': 'border-pink-400',
+    'legendary': 'border-orange-400',
+    'mythical': 'border-red-400',
+    'ancient': 'border-yellow-400',
+    'default': 'border-gray-400'
+  };
+  return colors[rarity?.toLowerCase()] || colors.default;
 };
 
 export default BoxPopup;

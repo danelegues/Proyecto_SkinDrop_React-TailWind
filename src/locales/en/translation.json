@@ -97,7 +97,20 @@
   "balance": {
     "title": "Your Balance",
     "addFunds": "Add Funds",
-    "csCoins": "CS Coins"
+    "currentBalance": "Current Balance",
+    "modal": {
+      "title": "Add Funds",
+      "amount": "Amount",
+      "submit": "Confirm",
+      "cancel": "Cancel"
+    },
+    "errors": {
+      "invalidAmount": "Invalid amount",
+      "minAmount": "Minimum 5€",
+      "maxAmount": "Maximum 1000€",
+      "updateError": "Error updating balance"
+    },
+    "success": "Funds added successfully"
   },
   "filters": {
     "title": "Filters",
@@ -358,5 +371,33 @@
   },
   "common": {
     "cancel": "Cancel"
+  },
+  "admin": {
+    "addBox": "Add New Box",
+    "manageBoxes": "Manage Boxes",
+    "deleteBoxButton": "Delete",
+    "selectItemButton": "Select",
+    "deselectItemButton": "Deselect",
+    "noAccess": "You don't have access to this section",
+    "goBack": "Go Back",
+    "form": {
+      "name": "Name",
+      "namePlaceholder": "Box name",
+      "imageUrl": "Image URL",
+      "imageUrlPlaceholder": "Image URL",
+      "price": "Price",
+      "pricePlaceholder": "Price",
+      "items": "Items",
+      "submit": "Add box"
+    },
+    "errors": {
+      "nameRequired": "Name is required",
+      "imageUrlRequired": "Image URL is required",
+      "priceRequired": "Price is required",
+      "invalidPrice": "Price must be a positive number",
+      "minItems": "You must select at least 6 items",
+      "maxItems": "You cannot select more than 20 items",
+      "addError": "There was an error adding the box. Please try again."
+    }
   }
 } 

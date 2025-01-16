@@ -55,7 +55,7 @@ function Login() {
         });
 
         if (response.data && response.data.token) {
-          login(response.data.token, response.data.user);
+          login(response.data.token, { ...response.data.user, is_admin: response.data.is_admin });
           navigate('/');
         } else {
           setErrors({ general: t('authRL.login.errors.invalidResponse') });
