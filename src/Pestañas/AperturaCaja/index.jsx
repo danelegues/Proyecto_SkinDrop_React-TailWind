@@ -1,129 +1,232 @@
 // index.jsx
-import React, { useEffect, useState } from 'react';
-import './styles.css';
-import axios from 'axios';
-
-const API_URL = 'http://10.14.4.197:8001/api';
-
-const inventoryService = {
-  async openCase(itemData) {
-    try {
-      const token = localStorage.getItem('token');
-      
-      console.log('Enviando datos al servidor:', {
-        url: `${API_URL}/inventory`,
-        data: itemData,
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-
-      const response = await axios({
-        method: 'POST',
-        url: `${API_URL}/inventory`,
-        data: itemData,
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }
-      });
-
-      console.log('Respuesta del servidor:', response.data);
-      return response.data;
-    } catch (error) {
-      console.error('Error detallado en openCase:', {
-        message: error.message,
-        response: error.response?.data,
-        status: error.response?.status
-      });
-      throw error;
-    }
-  }
-};
+import React, { useEffect, useMemo, useState } from "react";
+import "./styles.css";
 
 const AperturaCaja = () => {
-  const [isAnimationStopped, setIsAnimationStopped] = useState(false);
-  
+  const [rotationAngle, setRotationAngle] = useState(0);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   const cardsJSON = [
-    { id: "tarjeta1", name: "AK47 MADERA AZUL", imgArma: "/img/akruleta.png", animationDelay:"0s", boxShadow: "0px 0px 10px rgb(0, 102, 255)"},
-    { id: "tarjeta2", name: "AUG FLORES", imgArma: "/img/aung.png", animationDelay:"-0.25s", boxShadow: "0px 0px 10px rgb(0, 102, 255)"},
-    { id: "tarjeta3", name: "GLOCK-18 MARINA", imgArma: "/img/glock.png", animationDelay:"-0.5s", boxShadow: "0px 0px 10px rgb(0, 102, 255)"},
-    { id: "tarjeta4", name: "SCOUT ARENA FINA", imgArma: "/img/scout.png", animationDelay:"-0.75s", boxShadow: "0px 0px 10px rgb(0, 102, 255)"},
-    { id: "tarjeta5", name: "M4A4 HOWL", imgArma: "/img/howl.png", animationDelay:"-1s", boxShadow: "0px 0px 10px rgb(255, 0, 0)"},
-    { id: "tarjeta6", name: "AWP DAGON LORE", imgArma: "/img/dragonlore.png", animationDelay:"-1.25s", boxShadow: "0px 0px 10px rgb(255, 166, 0)"},
-    { id: "tarjeta7", name: "KARAMBIT BLUE GEM", imgArma: "/img/karambitbluegem.png", animationDelay:"-1.5s", boxShadow: "0px 0px 10px rgb(0, 255, 128)"},
-    { id: "tarjeta8", name: "GUANTES DE ARMAS", imgArma: "/img/guantes.png", animationDelay:"-1.75s", boxShadow: "0px 0px 10px rgb(255, 0, 0)"},
-    { id: "tarjeta9", name: "FAMAS LINEAS ROJAS", imgArma: "/img/famas.png", animationDelay:"-2s", boxShadow: "0px 0px 10px rgb(0, 102, 255)"},
-    { id: "tarjeta10", name: "DEAGLE TATUADA", imgArma: "/img/deagle.png", animationDelay:"-2.25s", boxShadow: "0px 0px 10px rgb(0, 102, 255)"},
-    { id: "tarjeta11", name: "M4A4 INDUSTRIAL", imgArma: "/img/howl.png", animationDelay:"-2.5s", boxShadow: "0px 0px 10px rgb(255, 255, 0)"},
-    { id: "tarjeta12", name: "BOWIE TIGER TOOTH", imgArma: "/img/bowie.png", animationDelay:"-2.75s", boxShadow: "0px 0px 10px rgb(255, 255, 0)"},
-    { id: "tarjeta13", name: "GLOCK-18 SELVA", imgArma: "/img/glockSelva.png", animationDelay:"-3s", boxShadow: "0px 0px 10px rgb(255, 255, 0)"},
-    { id: "tarjeta14", name: "UMP-45 NEON", imgArma: "/img/UMP.png", animationDelay:"-3.25s", boxShadow: "0px 0px 10px rgb(255, 0, 0)"},
-    { id: "tarjeta15", name: "RECORTADA BESOS", imgArma: "/img/recortada.png", animationDelay:"-3.5s", boxShadow: "0px 0px 10px rgb(255, 0, 0)"},
-    { id: "tarjeta16", name: "M4A1 BLANCO NUCLEAR", imgArma: "/img/M4A1.png", animationDelay:"-3.75s", boxShadow: "0px 0px 10px rgb(255, 0, 0)"}
+    {
+      id: "tarjeta1",
+      probability: 0.1,
+      name: "AK47 MADERA AZUL",
+      imgArma: "/img/akruleta.png",
+      animationDelay: "0s",
+      boxShadow: "0px 0px 10px rgb(0, 102, 255)",
+    },
+    {
+      id: "tarjeta2",
+      probability: 0.1,
+      name: "AUG FLORES",
+      imgArma: "/img/aung.png",
+      animationDelay: "-0.25s",
+      boxShadow: "0px 0px 10px rgb(0, 102, 255)",
+    },
+    {
+      id: "tarjeta3",
+      probability: 0.1,
+      name: "GLOCK-18 MARINA",
+      imgArma: "/img/glock.png",
+      animationDelay: "-0.5s",
+      boxShadow: "0px 0px 10px rgb(0, 102, 255)",
+    },
+    {
+      id: "tarjeta4",
+      probability: 0.1,
+      name: "SCOUT ARENA FINA",
+      imgArma: "/img/scout.png",
+      animationDelay: "-0.75s",
+      boxShadow: "0px 0px 10px rgb(0, 102, 255)",
+    },
+    {
+      id: "tarjeta5",
+      probability: 0.05,
+      name: "M4A4 HOWL",
+      imgArma: "/img/howl.png",
+      animationDelay: "-1s",
+      boxShadow: "0px 0px 10px rgb(255, 0, 0)",
+    },
+    {
+      id: "tarjeta6",
+      probability: 0.05,
+      name: "AWP DAGON LORE",
+      imgArma: "/img/dragonlore.png",
+      animationDelay: "-1.25s",
+      boxShadow: "0px 0px 10px rgb(255, 166, 0)",
+    },
+    {
+      id: "tarjeta7",
+      probability: 0.05,
+      name: "KARAMBIT BLUE GEM",
+      imgArma: "/img/karambitbluegem.png",
+      animationDelay: "-1.5s",
+      boxShadow: "0px 0px 10px rgb(0, 255, 128)",
+    },
+    {
+      id: "tarjeta8",
+      probability: 0.05,
+      name: "GUANTES DE ARMAS",
+      imgArma: "/img/guantes.png",
+      animationDelay: "-1.75s",
+      boxShadow: "0px 0px 10px rgb(255, 0, 0)",
+    },
+    {
+      id: "tarjeta9",
+      probability: 0.05,
+      name: "FAMAS LINEAS ROJAS",
+      imgArma: "/img/famas.png",
+      animationDelay: "-2s",
+      boxShadow: "0px 0px 10px rgb(0, 102, 255)",
+    },
+    {
+      id: "tarjeta10",
+      probability: 0.05,
+      name: "DEAGLE TATUADA",
+      imgArma: "/img/deagle.png",
+      animationDelay: "-2.25s",
+      boxShadow: "0px 0px 10px rgb(0, 102, 255)",
+    },
+    {
+      id: "tarjeta11",
+      probability: 0.05,
+      name: "M4A4 INDUSTRIAL",
+      imgArma: "/img/howl.png",
+      animationDelay: "-2.5s",
+      boxShadow: "0px 0px 10px rgb(255, 255, 0)",
+    },
+    {
+      id: "tarjeta12",
+      probability: 0.05,
+      name: "BOWIE TIGER TOOTH",
+      imgArma: "/img/bowie.png",
+      animationDelay: "-2.75s",
+      boxShadow: "0px 0px 10px rgb(255, 255, 0)",
+    },
+    {
+      id: "tarjeta13",
+      probability: 0.05,
+      name: "GLOCK-18 SELVA",
+      imgArma: "/img/glockSelva.png",
+      animationDelay: "-3s",
+      boxShadow: "0px 0px 10px rgb(255, 255, 0)",
+    },
+    {
+      id: "tarjeta14",
+      probability: 0.05,
+      name: "UMP-45 NEON",
+      imgArma: "/img/UMP.png",
+      animationDelay: "-3.25s",
+      boxShadow: "0px 0px 10px rgb(255, 0, 0)",
+    },
+    {
+      id: "tarjeta15",
+      probability: 0.05,
+      name: "RECORTADA BESOS",
+      imgArma: "/img/recortada.png",
+      animationDelay: "-3.5s",
+      boxShadow: "0px 0px 10px rgb(255, 0, 0)",
+    },
+    {
+      id: "tarjeta16",
+      probability: 0.05,
+      name: "M4A1 BLANCO NUCLEAR",
+      imgArma: "/img/M4A1.png",
+      animationDelay: "-3.75s",
+      boxShadow: "0px 0px 10px rgb(255, 0, 0)",
+    },
   ];
 
+  const randomCards = useMemo(
+    () => cardsJSON.sort(() => Math.random() - 0.5),
+    []
+  );
+
   useEffect(() => {
+    const result = randomCards.reduce((acc, card) => {
+      if (acc.length === 0) {
+        acc.push(card.probability);
+      } else {
+        acc.push(acc[acc.length - 1] + card.probability);
+      }
+      return acc;
+    }, []);
+
+    const randomValue = Math.random();
+
+    const cardIndex = result.findIndex((card) => randomValue < card);
+
+    const winnerCard = cardsJSON[cardIndex];
+    const winnerAngle = -(cardIndex * 360) / cardsJSON.length;
+    const randomOffset = Math.random() * 16 - 8; // Random number between -8 and 8
+    const targetAngle = winnerAngle + randomOffset;
+
+    console.log(winnerCard, targetAngle);
+
     const cards = document.querySelectorAll(".tarjeta");
-    const container = document.querySelector(".container");
+
     let angle = 0;
     let speed = 5;
     let animationStartTime = Date.now();
     let isAnimationStopped = false;
 
+    let lastTime = 0;
+
+    let realTargetAngle = null;
+
     function updateCards() {
       const currentTime = Date.now();
       const elapsedTime = currentTime - animationStartTime;
-      const radius = Math.min(container.offsetWidth, container.offsetHeight) / 4;
-
-      cards.forEach((card, index) => {
-        const cardAngle = angle + index * (360 / cards.length);
-        const radian = (cardAngle * Math.PI) / 180;
-
-        card.style.transform = `rotateY(${cardAngle}deg) translateZ(300px)`;
-        card.style.zIndex = Math.round(1000 * Math.cos(radian));
-      });
+      if (lastTime === 0) {
+        lastTime = currentTime;
+      }
+      const deltaTime = currentTime - lastTime;
+      lastTime = currentTime;
 
       if (elapsedTime < 3000) {
-        angle += speed;
-      } 
-      
-      else if (speed > 0.01) {
-        speed *= 0.985;
-        angle += speed;
-      } 
-      
-      else if (!isAnimationStopped) {
-        isAnimationStopped = true;
-        setIsAnimationStopped(true);
+        // Primera fase: velocidad constante
+        angle += speed * (deltaTime / 16.67);
+      } else {
+        if (realTargetAngle === null) {
+          // Calculamos cuántas vueltas completas queremos dar (3 en este caso)
+          const extraRotations = 360 * 1;
+          // Calculamos el ángulo actual módulo 360
+          const currentAngleMod360 = angle % 360;
+          // Calculamos cuánto nos falta para llegar al targetAngle
+          const angleToTarget = (360 - currentAngleMod360 + targetAngle) % 360;
+          // El ángulo final será las vueltas extra más lo que falta para llegar al target
+          realTargetAngle = angle + angleToTarget + extraRotations;
+        }
 
-        let closestCard = null;
-        let highestZIndex = -Infinity;
-        let selectedCardData = null;
+        if (angle < realTargetAngle) {
+          // Calculamos la distancia restante al objetivo
+          const remainingAngle = realTargetAngle - angle;
 
-        cards.forEach((card, index) => {
-          const zIndex = parseInt(card.style.zIndex, 10);
-          if (zIndex > highestZIndex) {
-            highestZIndex = zIndex;
-            closestCard = card;
-            selectedCardData = cardsJSON[index];
-          }
-        });
+          // La velocidad disminuye más lentamente cuando estamos cerca del objetivo
+          const slowdownFactor = Math.pow(
+            Math.min(remainingAngle / 360, 1),
+            0.8
+          );
+          const currentSpeed = speed * slowdownFactor;
 
-        if (closestCard && selectedCardData) {
-          closestCard.style.backgroundColor = "yellow";
-          mostrarArma(selectedCardData);
+          // Aplicamos la velocidad con el deltaTime
+          angle += currentSpeed * (deltaTime / 16.67);
+        } else {
+          // Hemos llegado al final de la animación
+          angle = realTargetAngle;
+          isAnimationStopped = true;
+          mostrarArma(winnerCard);
         }
       }
 
       if (!isAnimationStopped) {
         requestAnimationFrame(updateCards);
       }
+
+      setRotationAngle(angle);
     }
 
     cards.forEach((card) => {
@@ -134,36 +237,10 @@ const AperturaCaja = () => {
     updateCards();
   }, []);
 
-  const determinarRareza = (boxShadow) => {
-    if (boxShadow.includes('rgb(255, 0, 0)')) return 'Covert'; // Rojo
-    if (boxShadow.includes('rgb(255, 166, 0)')) return 'Classified'; // Naranja
-    if (boxShadow.includes('rgb(0, 255, 128)')) return 'Restricted'; // Verde
-    if (boxShadow.includes('rgb(0, 102, 255)')) return 'Mil-Spec'; // Azul
-    return 'Consumer Grade';
-  };
-
-  const determinarPrecio = (boxShadow) => {
-    if (boxShadow.includes('rgb(255, 0, 0)')) return 1500.00; // Rojo
-    if (boxShadow.includes('rgb(255, 166, 0)')) return 500.00; // Naranja
-    if (boxShadow.includes('rgb(0, 255, 128)')) return 250.00; // Verde
-    if (boxShadow.includes('rgb(0, 102, 255)')) return 100.00; // Azul
-    return 50.00;
-  };
-
-  const determinarCategoria = (name) => {
-    if (name.includes('AK47')) return 'rifle';
-    if (name.includes('M4A4') || name.includes('M4A1')) return 'rifle';
-    if (name.includes('AWP')) return 'sniper';
-    if (name.includes('GLOCK')) return 'pistol';
-    if (name.includes('KARAMBIT') || name.includes('BOWIE')) return 'knife';
-    if (name.includes('GUANTES')) return 'gloves';
-    return 'other';
-  };
-
-  const mostrarArma = async (cardData) => {
-    const popup = document.getElementById('popup');
+  const mostrarArma = (cardData) => {
+    const popup = document.getElementById("popup");
     if (popup) {
-      popup.style.display = 'block';
+      popup.style.display = "block";
       popup.innerHTML = `
         <div class="popup-content">  
           <h2 id="popup-titulo">${cardData.name}</h2>
@@ -174,23 +251,6 @@ const AperturaCaja = () => {
           <button onclick="window.location.href='/'">Salir</button>
         </div>
       `;
-    }
-
-    const itemData = {
-      name: cardData.name,
-      image_url: cardData.imgArma.replace('/img/', ''),
-      price: determinarPrecio(cardData.boxShadow),
-      rarity: determinarRareza(cardData.boxShadow),
-      category: determinarCategoria(cardData.name),
-      wear: 'Factory New',
-      status: 'available'
-    };
-
-    try {
-      const response = await inventoryService.openCase(itemData);
-      console.log('Item añadido al inventario:', response);
-    } catch (error) {
-      console.error('Error al añadir el item al inventario:', error);
     }
   };
 
@@ -206,22 +266,30 @@ const AperturaCaja = () => {
       </div>
 
       <div className="container">
-        {cardsJSON.sort(() => Math.random() - 0.5).map((card) => (
-          <div 
-            key={card.id} 
-            className="tarjeta" 
-            style={{
-              backgroundImage: `url(${card.imgArma})`,
-              backgroundSize: 'contain',
-              backgroundRepeat: 'no-repeat',
-              backgroundPosition: 'center',
-              boxShadow: card.boxShadow,
-              animationDelay: card.animationDelay
-            }}
-          >
-            <h3>{card.name}</h3>
-          </div>
-        ))}
+        {randomCards.map((card, index) => {
+          const cardAngle = (index * 360) / cardsJSON.length + rotationAngle;
+          const radian = (cardAngle * Math.PI) / 180;
+          const radius = 300;
+          return (
+            <div
+              key={card.id}
+              className="tarjeta"
+              style={{
+                backgroundImage: `url(${card.imgArma})`,
+                backgroundSize: "contain",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
+                boxShadow: card.boxShadow,
+                animationDelay: card.animationDelay,
+                position: "absolute",
+                transform: `rotateY(${cardAngle}deg) translateZ(${radius}px)`,
+                zIndex: Math.round(1000 * Math.cos(radian)),
+              }}
+            >
+              <h3>{card.name}</h3>
+            </div>
+          );
+        })}
       </div>
 
       <div className="contenidoInferior">
