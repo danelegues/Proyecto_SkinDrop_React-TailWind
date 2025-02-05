@@ -132,7 +132,7 @@ const InventoryItem = ({ item, onStatusChange }) => {
                     <div className="flex items-center gap-2 mb-4">
                         <span className={`text-sm ${getWearColor(wear)} font-medium`}>{wear}</span>
                         <span className="text-gray-600">•</span>
-                        <span className="text-green-500 font-bold text-sm ml-2">${Number(item.price).toFixed(2)}</span>
+                        <span className="text-green-500 font-bold text-sm ml-2">{Number(item.price).toFixed(2)}€</span>
                     </div>
                     <button 
                         className={`w-full py-2.5 rounded-lg font-medium

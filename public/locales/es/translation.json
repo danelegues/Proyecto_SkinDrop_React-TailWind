@@ -85,8 +85,8 @@
   },
   "home": {
     "tutorial": {
-      "title": "Noticias",
-      "description": "¿Quieres introducirte en el mundo de las skins?"
+      "title": "¿Cómo funciona?",
+      "description": "Mira este breve tutorial sobre cómo usar SkinDrop"
     },
     "hero": {
       "mainTitle": "TU SUERTE, TU ESTILO, MEJORA TUS SKINS Y DOMINA EL JUEGO",
@@ -381,5 +381,8 @@
       "updateError": "Error al actualizar el balance"
     },
     "success": "Fondos añadidos correctamente"
+  },
+  "language": {
+    "select": "Seleccionar Idioma"
   }
 } 

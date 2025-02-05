@@ -171,19 +171,20 @@ const LeftPanel = ({ setFilters }) => {
       </div>
 
       {/* Estadísticas */}
+      {user && user.is_admin ? (
       <div className="bg-[#141414] rounded-lg p-4">
         <h3 className="text-white text-lg font-medium mb-4">{t('home.stats.title')}</h3>
         <div className="space-y-3">
           <StatItem label={t('home.stats.casesOpened')} value={stats.casesOpened} />
-          {user && user.is_admin && (
-          <StatItem 
-            label={t('home.stats.totalValue')} 
-            value={`${stats.totalValue.toFixed(2)}€`} 
-          />
-          )}
+          <StatItem label={t('home.stats.totalValue')} value={`${stats.totalValue.toFixed(2)}€`} />
           <StatItem label={t('home.stats.onlineUsers')} value={stats.onlineUsers} isOnline />
         </div>
       </div>
+    ) : (
+      <div className="rounded-lg p-4">
+      </div>
+    )}
+
     </div>
   );
 };

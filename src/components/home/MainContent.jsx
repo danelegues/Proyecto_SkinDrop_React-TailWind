@@ -212,7 +212,7 @@ const MainContent = () => {
             {/* Contenedor del contenido */}
             <div className="mt-2 flex flex-col gap-1 flex-grow justify-between h-full">
               <div>
-                <h3 className="text-lg font-bold">{item.name}</h3>
+                <h3 className="text-lg text-orange-500">{item.name}</h3>
                 <p>{item.price}€</p>
                 <p>{item.rarity}</p>
                 <p>{item.category}</p>
@@ -266,84 +266,91 @@ const MainContent = () => {
       </div>
       <div className="w-full lg:w-2/4 p-4">
         <BoxGrid title={t('home.popularBoxes.title')} />
-        <BoxGrid title={t('home.popularBoxes.bestSellers')} />
         {/* AdminPanel*/}
         {user && user.is_admin && (
           <div className="mt-8">
-            <h2 className="text-xl font-bold">Añadir Caja</h2>
-            <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-              <div className="rounded-md shadow-sm space-y-4">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-300">
-                  Nombre
-                  </label>
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    required
-                    className="appearance-none relative block w-full px-3 py-2 border border-gray-600 placeholder-gray-500 text-white rounded-lg bg-[#444] focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
-                    placeholder="Nombre de la Caja"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                  />
-                  {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
-                </div>
-                
-                <div>
-                  <label htmlFor="image_url" className="block text-sm font-medium text-gray-300">
-                  URL de la Imagen
-                  </label>
-                  <input
-                    id="image_url"
-                    name="image_url"
-                    type="text"
-                    required
-                    className="appearance-none relative block w-full px-3 py-2 border border-gray-600 placeholder-gray-500 text-white rounded-lg bg-[#444] focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
-                    placeholder="URL de la Imagen"
-                    value={formData.image_url}
-                    onChange={handleInputChange}
-                  />
-                  {errors.image_url && <p className="text-red-500 text-xs mt-1">{errors.image_url}</p>}
-                </div>
-                
-                <div>
-                  <label htmlFor="price" className="block text-sm font-medium text-gray-300">
-                  Precio
-                  </label>
-                  <input
-                    id="price"
-                    name="price"
-                    type="text"
-                    required
-                    className="appearance-none relative block w-full px-3 py-2 border border-gray-600 placeholder-gray-500 text-white rounded-lg bg-[#444] focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
-                    placeholder="Precio"
-                    value={formData.price}
-                    onChange={handleInputChange}
-                  />
-                  {errors.price && <p className="text-red-500 text-xs mt-1">{errors.price}</p>}
-                </div>
-
-                <div>
-                  <label htmlFor="items" className="block text-sm font-medium text-gray-300">
-                  Ítems
-                  </label>
-                  <ItemGrid />
-                  {errors.items && <p className="text-red-500 text-xs mt-1">{errors.items}</p>}
-                </div>
-              </div>
-
+          <h2 className="text-xl">Añadir Caja</h2>
+          
+          
+          
+          <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+            <div className="rounded-md shadow-sm space-y-4">
               <div>
-                <button
-                  type="submit"
-                  className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200 ease-in-out transform hover:scale-[1.02]"
-                >
-                  Añadir Caja
-                </button>
+                <label htmlFor="name" className="block text-sm font-medium text-gray-300">
+                  Nombre
+                </label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  required
+                  className="appearance-none relative block w-full px-3 py-2 border border-gray-600 placeholder-gray-500 text-white rounded-lg bg-[#444] focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
+                  placeholder="Nombre de la Caja"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                />
+                {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
               </div>
-              {errors.general && <p className="text-red-500 text-sm text-center">{errors.general}</p>}
-            </form>
-          </div>
+        
+              <div>
+                <label htmlFor="image_url" className="block text-sm font-medium text-gray-300">
+                  URL de la Imagen
+                </label>
+                <input
+                  id="image_url"
+                  name="image_url"
+                  type="text"
+                  required
+                  className="appearance-none relative block w-full px-3 py-2 border border-gray-600 placeholder-gray-500 text-white rounded-lg bg-[#444] focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
+                  placeholder="URL de la Imagen"
+                  value={formData.image_url}
+                  onChange={handleInputChange}
+                />
+                {errors.image_url && <p className="text-red-500 text-xs mt-1">{errors.image_url}</p>}
+              </div>
+        
+              <div>
+                <label htmlFor="price" className="block text-sm font-medium text-gray-300">
+                  Precio
+                </label>
+                <input
+                  id="price"
+                  name="price"
+                  type="text"
+                  required
+                  className="appearance-none relative block w-full px-3 py-2 border border-gray-600 placeholder-gray-500 text-white rounded-lg bg-[#444] focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
+                  placeholder="Precio"
+                  value={formData.price}
+                  onChange={handleInputChange}
+                />
+                {errors.price && <p className="text-red-500 text-xs mt-1">{errors.price}</p>}
+              </div>
+        
+              <div>
+                <label htmlFor="items" className="block text-sm font-medium text-gray-300">
+                  Ítems
+                </label>
+                <p className="text-sm text-gray-300 mt-2">
+                  Ítems seleccionados: <span className="text-orange-500 font-bold">{formData.items.length}</span>/16
+                </p>
+                {/* ItemGrid aquí */}
+                <ItemGrid />
+                {errors.items && <p className="text-red-500 text-xs mt-1">{errors.items}</p>}
+              </div>
+            </div>
+        
+            <div>
+              <button
+                type="submit"
+                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200 ease-in-out transform hover:scale-[1.02]"
+              >
+                Añadir Caja
+              </button>
+            </div>
+            {errors.general && <p className="text-red-500 text-sm text-center">{errors.general}</p>}
+          </form>
+        </div>
+        
         )}
       </div>
       <div className="w-full lg:w-1/4 p-4">

@@ -5,7 +5,6 @@ import './styles/shop.css';
 import Pagination from './components/Pagination';
 import ShopNav from './components/ShopNav';
 import { useShopNavigation } from './hooks/useShopNavigation';
-import YourSales from './components/YourSales';
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
 
@@ -71,12 +70,6 @@ function Shop() {
                 />
               </div>
             </div>
-          </div>
-        )}
-
-        {currentTab === 'sales' && (
-          <div className="mb-12">
-            <YourSales />
           </div>
         )}
         

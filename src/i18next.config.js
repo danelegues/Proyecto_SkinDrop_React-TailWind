@@ -1,19 +1,16 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
-import translationEN from './locales/en/translation.json';
-import translationES from './locales/es/translation.json';
+import API_URL from './config/config.js';
 
-// Recuperar el idioma guardado o usar el predeterminado
-const savedLanguage = localStorage.getItem('language') || 'es';
-
-// Definir los recursos de traducción
-const resources = {
-  en: {
-    translation: translationEN
-  },
-  es: {
-    translation: translationES
+const detectUserLanguage = async () => {
+  try {
+    const response = await fetch(`${API_URL}/api/detect-language`);
+    const data = await response.json();
+    return data.language;
+  } catch (error) {
+    console.error('Error detecting language:', error);
+    return 'en'; // Idioma por defecto si hay error
   }
 };
 
@@ -21,25 +18,27 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    resources,
-    lng: savedLanguage, // idioma inicial
-    fallbackLng: 'en', // idioma de respaldo
-    interpolation: {
-      escapeValue: false // no es necesario escapar valores
+    resources: {
+      en: {
+        translation: require('./locales/en/translation.json')
+      },
+      es: {
+        translation: require('./locales/es/translation.json')
+      }
     },
-    react: {
-      useSuspense: false // desactivar suspense para evitar problemas de renderizado
-    },
+    fallbackLng: 'en',
     detection: {
       order: ['localStorage', 'navigator'],
-      caches: ['localStorage']
+    },
+    interpolation: {
+      escapeValue: false
     }
   });
 
-// Listener para debugging y guardar preferencia de idioma
-i18n.on('languageChanged', (lng) => {
-  console.log('Idioma cambiado a:', lng);
-  localStorage.setItem('language', lng);
-});
+// Detectar y establecer el idioma al cargar la aplicación
+(async () => {
+  const detectedLanguage = await detectUserLanguage();
+  i18n.changeLanguage(detectedLanguage);
+})();
 
 export default i18n;

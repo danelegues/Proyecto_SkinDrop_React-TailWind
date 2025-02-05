@@ -85,8 +85,8 @@
   },
   "home": {
     "tutorial": {
-      "title": "News",
-      "description": "Do you want to enter the world of skins?"
+      "title": "How does it work?",
+      "description": "Watch this short tutorial about how to use SkinDrop"
     },
     "hero": {
       "mainTitle": "YOUR LUCK, YOUR STYLE, UPGRADE YOUR SKINS AND DOMINATE THE GAME",
@@ -403,5 +403,8 @@
   "common": {
     "cancel": "Cancel",
     "loading": "Loading..."
+  },
+  "language": {
+    "select": "Select Language"
   }
 } 

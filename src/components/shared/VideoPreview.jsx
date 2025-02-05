@@ -9,7 +9,7 @@ const VideoPreview = () => {
     <div className="bg-[#141414] rounded-lg overflow-hidden">
       <div className="relative aspect-video">
         <img 
-          src="/img/video-preview.jpg" 
+          src="https://img.youtube.com/vi/O0c0IWHmTAs/maxresdefault.jpg" 
           alt={t('home.tutorial.title')} 
           className="w-full h-full object-cover"
         />
@@ -51,11 +51,13 @@ const VideoModal = ({ onClose }) => (
       <div className="aspect-video">
         <iframe
           className="w-full h-full"
-          src="https://www.youtube.com/embed/your-video-id"
-          title="Tutorial SkinDrop"
+          src="https://www.youtube.com/embed/O0c0IWHmTAs?enablejsapi=1&autoplay=1&showinfo=1&controls=1&rel=0"
+          title="Good bye CS:GO, welcome CS2"
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
+          loading="eager"
+          sandbox="allow-same-origin allow-scripts allow-presentation allow-popups"
         ></iframe>
       </div>
     </div>

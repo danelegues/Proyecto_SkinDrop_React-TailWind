@@ -91,7 +91,7 @@ const UserBalance = () => {
                 {formatBalance(balance)} <i className="fa-solid fa-euro-sign text-orange-500 text-xl sm:text-2xl mr-2 sm:mr-3 opacity-100"></i>
               </span>
             </div>
-          </div>
+         </div>
 
           <button 
             onClick={() => setShowAddFundsModal(true)}
