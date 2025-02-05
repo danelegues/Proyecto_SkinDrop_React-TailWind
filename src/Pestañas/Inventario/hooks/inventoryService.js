@@ -1,15 +1,15 @@
 import axios from 'axios';
+import API_URL from '../../../config/config.js'; 
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://10.14.4.197:8001';
 
 export const inventoryService = {
     async getInventory() {
         try {
             const token = localStorage.getItem('token');
-            console.log('Intentando conectar con:', `http://10.14.4.197:8001/api/inventory`);
+            console.log('Intentando conectar con:', `${API_URL}/api/inventory`);
             console.log('Token:', token);
 
-            const response = await axios.get(`http://10.14.4.197:8001/api/inventory`, {
+            const response = await axios.get(`${API_URL}/api/inventory`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Accept': 'application/json'

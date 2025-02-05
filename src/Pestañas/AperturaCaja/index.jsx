@@ -1,151 +1,63 @@
 // index.jsx
 import React, { useEffect, useMemo, useState } from "react";
 import "./styles.css";
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from 'axios';
+import API_URL from '../../config/config.js';
+
 
 const AperturaCaja = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [rotationAngle, setRotationAngle] = useState(0);
+  const [items, setItems] = useState([]);
 
+  // Función para determinar el color según la rareza
+  function getRarityColor(rarity) {
+    switch(rarity?.toLowerCase()) {
+      case 'common':
+        return 'rgb(0, 102, 255)';
+      case 'rare':
+        return 'rgb(255, 0, 0)';
+      case 'legendary':
+        return 'rgb(255, 166, 0)';
+      default:
+        return 'rgb(0, 102, 255)';
+    }
+  }
+
+  // Efecto para verificar y procesar los datos iniciales
+  useEffect(() => {
+    if (!location.state?.boxData?.items) {
+      navigate('/');
+      return;
+    }
+
+    const processedItems = location.state.boxData.items.map(item => ({
+      id: item.id,
+      probability: item.probability || 0.1,
+      name: item.name,
+      imgArma: item.image_url || item.imgArma,
+      animationDelay: "0s",
+      boxShadow: `0px 0px 10px ${getRarityColor(item.rarity)}`,
+    }));
+
+    setItems(processedItems);
+  }, [location.state, navigate]);
+
+  // Scroll to top effect
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const cardsJSON = [
-    {
-      id: "tarjeta1",
-      probability: 0.1,
-      name: "AK47 MADERA AZUL",
-      imgArma: "/img/akruleta.png",
-      animationDelay: "0s",
-      boxShadow: "0px 0px 10px rgb(0, 102, 255)",
-    },
-    {
-      id: "tarjeta2",
-      probability: 0.1,
-      name: "AUG FLORES",
-      imgArma: "/img/aung.png",
-      animationDelay: "-0.25s",
-      boxShadow: "0px 0px 10px rgb(0, 102, 255)",
-    },
-    {
-      id: "tarjeta3",
-      probability: 0.1,
-      name: "GLOCK-18 MARINA",
-      imgArma: "/img/glock.png",
-      animationDelay: "-0.5s",
-      boxShadow: "0px 0px 10px rgb(0, 102, 255)",
-    },
-    {
-      id: "tarjeta4",
-      probability: 0.1,
-      name: "SCOUT ARENA FINA",
-      imgArma: "/img/scout.png",
-      animationDelay: "-0.75s",
-      boxShadow: "0px 0px 10px rgb(0, 102, 255)",
-    },
-    {
-      id: "tarjeta5",
-      probability: 0.05,
-      name: "M4A4 HOWL",
-      imgArma: "/img/howl.png",
-      animationDelay: "-1s",
-      boxShadow: "0px 0px 10px rgb(255, 0, 0)",
-    },
-    {
-      id: "tarjeta6",
-      probability: 0.05,
-      name: "AWP DAGON LORE",
-      imgArma: "/img/dragonlore.png",
-      animationDelay: "-1.25s",
-      boxShadow: "0px 0px 10px rgb(255, 166, 0)",
-    },
-    {
-      id: "tarjeta7",
-      probability: 0.05,
-      name: "KARAMBIT BLUE GEM",
-      imgArma: "/img/karambitbluegem.png",
-      animationDelay: "-1.5s",
-      boxShadow: "0px 0px 10px rgb(0, 255, 128)",
-    },
-    {
-      id: "tarjeta8",
-      probability: 0.05,
-      name: "GUANTES DE ARMAS",
-      imgArma: "/img/guantes.png",
-      animationDelay: "-1.75s",
-      boxShadow: "0px 0px 10px rgb(255, 0, 0)",
-    },
-    {
-      id: "tarjeta9",
-      probability: 0.05,
-      name: "FAMAS LINEAS ROJAS",
-      imgArma: "/img/famas.png",
-      animationDelay: "-2s",
-      boxShadow: "0px 0px 10px rgb(0, 102, 255)",
-    },
-    {
-      id: "tarjeta10",
-      probability: 0.05,
-      name: "DEAGLE TATUADA",
-      imgArma: "/img/deagle.png",
-      animationDelay: "-2.25s",
-      boxShadow: "0px 0px 10px rgb(0, 102, 255)",
-    },
-    {
-      id: "tarjeta11",
-      probability: 0.05,
-      name: "M4A4 INDUSTRIAL",
-      imgArma: "/img/howl.png",
-      animationDelay: "-2.5s",
-      boxShadow: "0px 0px 10px rgb(255, 255, 0)",
-    },
-    {
-      id: "tarjeta12",
-      probability: 0.05,
-      name: "BOWIE TIGER TOOTH",
-      imgArma: "/img/bowie.png",
-      animationDelay: "-2.75s",
-      boxShadow: "0px 0px 10px rgb(255, 255, 0)",
-    },
-    {
-      id: "tarjeta13",
-      probability: 0.05,
-      name: "GLOCK-18 SELVA",
-      imgArma: "/img/glockSelva.png",
-      animationDelay: "-3s",
-      boxShadow: "0px 0px 10px rgb(255, 255, 0)",
-    },
-    {
-      id: "tarjeta14",
-      probability: 0.05,
-      name: "UMP-45 NEON",
-      imgArma: "/img/UMP.png",
-      animationDelay: "-3.25s",
-      boxShadow: "0px 0px 10px rgb(255, 0, 0)",
-    },
-    {
-      id: "tarjeta15",
-      probability: 0.05,
-      name: "RECORTADA BESOS",
-      imgArma: "/img/recortada.png",
-      animationDelay: "-3.5s",
-      boxShadow: "0px 0px 10px rgb(255, 0, 0)",
-    },
-    {
-      id: "tarjeta16",
-      probability: 0.05,
-      name: "M4A1 BLANCO NUCLEAR",
-      imgArma: "/img/M4A1.png",
-      animationDelay: "-3.75s",
-      boxShadow: "0px 0px 10px rgb(255, 0, 0)",
-    },
-  ];
-
   const randomCards = useMemo(
-    () => cardsJSON.sort(() => Math.random() - 0.5),
-    []
+    () => items.sort(() => Math.random() - 0.5),
+    [items]
   );
 
   useEffect(() => {
+    if (items.length === 0) return;
+
     const result = randomCards.reduce((acc, card) => {
       if (acc.length === 0) {
         acc.push(card.probability);
@@ -156,25 +68,20 @@ const AperturaCaja = () => {
     }, []);
 
     const randomValue = Math.random();
-
     const cardIndex = result.findIndex((card) => randomValue < card);
-
-    const winnerCard = cardsJSON[cardIndex];
-    const winnerAngle = -(cardIndex * 360) / cardsJSON.length;
-    const randomOffset = Math.random() * 16 - 8; // Random number between -8 and 8
+    const winnerCard = items[cardIndex];
+    const winnerAngle = -(cardIndex * 360) / items.length;
+    const randomOffset = Math.random() * 16 - 8;
     const targetAngle = winnerAngle + randomOffset;
 
     console.log(winnerCard, targetAngle);
 
     const cards = document.querySelectorAll(".tarjeta");
-
     let angle = 0;
     let speed = 5;
     let animationStartTime = Date.now();
     let isAnimationStopped = false;
-
     let lastTime = 0;
-
     let realTargetAngle = null;
 
     function updateCards() {
@@ -187,35 +94,24 @@ const AperturaCaja = () => {
       lastTime = currentTime;
 
       if (elapsedTime < 3000) {
-        // Primera fase: velocidad constante
         angle += speed * (deltaTime / 16.67);
       } else {
         if (realTargetAngle === null) {
-          // Calculamos cuántas vueltas completas queremos dar (3 en este caso)
           const extraRotations = 360 * 1;
-          // Calculamos el ángulo actual módulo 360
           const currentAngleMod360 = angle % 360;
-          // Calculamos cuánto nos falta para llegar al targetAngle
           const angleToTarget = (360 - currentAngleMod360 + targetAngle) % 360;
-          // El ángulo final será las vueltas extra más lo que falta para llegar al target
           realTargetAngle = angle + angleToTarget + extraRotations;
         }
 
         if (angle < realTargetAngle) {
-          // Calculamos la distancia restante al objetivo
           const remainingAngle = realTargetAngle - angle;
-
-          // La velocidad disminuye más lentamente cuando estamos cerca del objetivo
           const slowdownFactor = Math.pow(
             Math.min(remainingAngle / 360, 1),
             0.8
           );
           const currentSpeed = speed * slowdownFactor;
-
-          // Aplicamos la velocidad con el deltaTime
           angle += currentSpeed * (deltaTime / 16.67);
         } else {
-          // Hemos llegado al final de la animación
           angle = realTargetAngle;
           isAnimationStopped = true;
           mostrarArma(winnerCard);
@@ -235,9 +131,57 @@ const AperturaCaja = () => {
     });
 
     updateCards();
-  }, []);
+  }, [items, randomCards]);
 
-  const mostrarArma = (cardData) => {
+  const handleWinnerItem = async (item) => {
+    try {
+      // Añadir console.log para debug
+      console.log('Item a enviar:', {
+        name: item.name,
+        image_url: item.imgArma,
+        rarity: item.rarity,
+        category: item.category || 'weapon',
+        wear: item.wear || 'Factory New',
+        price: item.price || 0
+      });
+
+      const response = await axios.post(`${API_URL}/api/crates/open`, {
+        name: item.name,
+        image_url: item.imgArma,
+        rarity: item.rarity,
+        category: item.category || 'weapon',
+        wear: item.wear || 'Factory New',
+        price: item.price || 0
+      }, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      // Añadir el nuevo item a los drops recientes
+      const newDrop = {
+        id: Date.now(), // Generamos un ID único usando timestamp
+        name: item.name,
+        price: response.data.price || "0.00", // Asumiendo que el backend devuelve el precio
+        image: item.imgArma
+      };
+
+      // Obtener drops existentes
+      const existingDrops = JSON.parse(localStorage.getItem('recentDrops') || '[]');
+      const updatedDrops = [newDrop, ...existingDrops].slice(0, 10);
+      localStorage.setItem('recentDrops', JSON.stringify(updatedDrops));
+
+      console.log('Respuesta:', response.data);
+    } catch (error) {
+      console.error('Error detallado:', error.response?.data || error.message);
+    }
+  };
+
+  const mostrarArma = async (cardData) => {
+    // Primero guardamos el item en el inventario
+    await handleWinnerItem(cardData);
+
     const popup = document.getElementById("popup");
     if (popup) {
       popup.style.display = "block";
@@ -245,19 +189,29 @@ const AperturaCaja = () => {
         <div class="popup-content">  
           <h2 id="popup-titulo">${cardData.name}</h2>
           <div id="popup-imagen-container">
-            <img id="popup-imagen" src="${cardData.imgArma}" alt="Imagen de la carta">
+            <img id="popup-imagen" src="${cardData.imgArma}" alt="${cardData.name}">
           </div>
           <p id="popup-descripcion"></p>
-          <button onclick="window.location.href='/'">Salir</button>
+          <button class="popup-button">
+            <span>Ir al inventario</span>
+          </button>
         </div>
       `;
+
+      // Añadir el event listener después de crear el botón
+      const button = popup.querySelector('.popup-button');
+      button.addEventListener('click', () => {
+        window.location.href = '/inventario'; // Corregida la ruta
+      });
     }
   };
+
+  if (items.length === 0) return null;
 
   return (
     <div className="apertura-caja">
       <div className="nombreCaja">
-        <h1 className="kenia-font">CAJA GAMMA</h1>
+        <h1 className="kenia-font">{location.state?.boxData?.name || "CAJA GAMMA"}</h1>
       </div>
 
       <div className="contenidoSuperior">
@@ -267,7 +221,7 @@ const AperturaCaja = () => {
 
       <div className="container">
         {randomCards.map((card, index) => {
-          const cardAngle = (index * 360) / cardsJSON.length + rotationAngle;
+          const cardAngle = (index * 360) / items.length + rotationAngle;
           const radian = (cardAngle * Math.PI) / 180;
           const radius = 300;
           return (

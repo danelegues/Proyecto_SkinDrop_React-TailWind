@@ -17,10 +17,11 @@ export function useSkinsFilter() {
   const fetchMarketItems = useCallback(async () => {
     try {
       const response = await marketService.getMarketItems()
-      if (response && Array.isArray(response)) {
-        setItems(response)
-      } else if (response && Array.isArray(response.data)) {
+      console.log('Respuesta del servidor:', response) // Debug log
+      
+      if (response && response.success && Array.isArray(response.data)) {
         setItems(response.data)
+        console.log('Items guardados:', response.data) // Debug log
       } else {
         console.warn('Formato de respuesta inválido:', response)
         setItems([])
@@ -37,56 +38,49 @@ export function useSkinsFilter() {
     fetchMarketItems()
   }, [fetchMarketItems])
 
-  const convertPrice = useCallback((priceStr) => {
-    if (typeof priceStr === 'number') return priceStr
-    const cleanPrice = priceStr.replace('€', '').trim()
-    if (cleanPrice.includes('M')) {
-      return parseFloat(cleanPrice.replace('M', '')) * 1000000
-    }
-    return parseFloat(cleanPrice)
-  }, [])
-
   const filteredSkins = useMemo(() => {
+    console.log('Items en filteredSkins:', items) // Debug log
     let result = [...items]
 
     if (searchQuery) {
       const query = searchQuery.toLowerCase()
       result = result.filter(item => 
-        item.item.name.toLowerCase().includes(query)
+        item.name?.toLowerCase().includes(query)
       )
     }
 
     if (typeFilter !== 'all') {
-      result = result.filter(item => item.item.category === typeFilter)
+      result = result.filter(item => item.category === typeFilter)
     }
 
     if (rarityFilter !== 'all') {
-      result = result.filter(item => item.item.rarity === rarityFilter)
+      result = result.filter(item => item.rarity === rarityFilter)
     }
 
-    result = result.filter(item => {
-      const price = convertPrice(item.price)
-      return price >= minPrice && price <= (maxPrice || Infinity)
-    })
+    if (minPrice || maxPrice) {
+      result = result.filter(item => {
+        const price = parseFloat(item.price)
+        return price >= minPrice && price <= (maxPrice || Infinity)
+      })
+    }
 
     if (sortByPrice) {
-      result.sort((a, b) => convertPrice(a.price) - convertPrice(b.price))
+      result.sort((a, b) => parseFloat(a.price) - parseFloat(b.price))
     }
 
+    console.log('Resultado filtrado:', result) // Debug log
     return result
-  }, [items, searchQuery, sortByPrice, typeFilter, rarityFilter, minPrice, maxPrice, convertPrice])
+  }, [items, searchQuery, sortByPrice, typeFilter, rarityFilter, minPrice, maxPrice])
 
   const totalItems = filteredSkins.length
   const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE)
   
   const paginatedSkins = useMemo(() => {
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
-    return filteredSkins.slice(startIndex, startIndex + ITEMS_PER_PAGE)
+    const result = filteredSkins.slice(startIndex, startIndex + ITEMS_PER_PAGE)
+    console.log('Items paginados:', result) // Debug log
+    return result
   }, [filteredSkins, currentPage])
-
-  const handlePageChange = useCallback((newPage) => {
-    setCurrentPage(Math.min(Math.max(1, newPage), totalPages))
-  }, [totalPages])
 
   return {
     searchQuery,
@@ -102,7 +96,7 @@ export function useSkinsFilter() {
     maxPrice,
     setMaxPrice,
     currentPage,
-    handlePageChange,
+    handlePageChange: (newPage) => setCurrentPage(Math.min(Math.max(1, newPage), totalPages)),
     totalPages,
     paginatedSkins,
     totalItems,

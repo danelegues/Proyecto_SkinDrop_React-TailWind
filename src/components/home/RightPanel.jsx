@@ -1,37 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import UserBalance from '../shared/UserBalance';
 import '../../styles/RightPanel.css';
 
 const RightPanel = () => {
   const { t } = useTranslation();
+  const [recentDrops, setRecentDrops] = useState([]);
 
-  const recentDrops = [
-    {
-      id: 1,
-      name: "AWP | Dragon Lore",
-      price: "1,500.00",
-      image: "/img/dragonlore.png"
-    },
-    {
-      id: 2,
-      name: "AWP | Dragon Lore",
-      price: "1,500.00",
-      image: "/img/dragonlore.png"
-    },
-    {
-      id: 3,
-      name: "AWP | Dragon Lore",
-      price: "1,500.00",
-      image: "/img/dragonlore.png"
-    },
-    {
-      id: 4,
-      name: "AWP | Dragon Lore",
-      price: "1,500.00",
-      image: "/img/dragonlore.png"
+  useEffect(() => {
+    // Obtener los drops iniciales
+    const storedDrops = localStorage.getItem('recentDrops');
+    if (storedDrops) {
+      setRecentDrops(JSON.parse(storedDrops));
     }
-  ];
+
+    // Configurar un listener para cambios en localStorage
+    const handleStorageChange = (e) => {
+      if (e.key === 'recentDrops') {
+        setRecentDrops(JSON.parse(e.newValue || '[]'));
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    // Crear un intervalo para verificar cambios
+    const interval = setInterval(() => {
+      const currentDrops = localStorage.getItem('recentDrops');
+      if (currentDrops) {
+        setRecentDrops(JSON.parse(currentDrops));
+      }
+    }, 1000);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      clearInterval(interval);
+    };
+  }, []);
 
   return (
     <div className="h-full flex flex-col space-y-4 mt-16">

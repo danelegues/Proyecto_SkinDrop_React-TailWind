@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../components/Auth/AuthContext';
 import { useTranslation } from 'react-i18next';
-import { useEffect } from 'react';
+import API_URL from '../../config/config.js'; // Importa la URL de la API
 
 function Login() {
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo(0, 0); // Desplazar la ventana al inicio al cargar
   }, []);
   
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t } = useTranslation(); // Inicializa la traducción
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -31,13 +31,13 @@ function Login() {
     const newErrors = {};
     
     if (!formData.email) {
-      newErrors.email = t('authRL.login.errors.emailRequired');
+      newErrors.email = t('authRL.login.errors.emailRequired'); // Traducción
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)) {
-      newErrors.email = t('authRL.login.errors.emailInvalid');
+      newErrors.email = t('authRL.login.errors.emailInvalid'); // Traducción
     }
     
     if (!formData.password) {
-      newErrors.password = t('authRL.login.errors.passwordRequired');
+      newErrors.password = t('authRL.login.errors.passwordRequired'); // Traducción
     }
     
     return newErrors;
@@ -49,36 +49,33 @@ function Login() {
     
     if (Object.keys(validationErrors).length === 0) {
       try {
-        const response = await axios.post('http://10.14.4.197:8001/api/login', {
+        const response = await axios.post(`${API_URL}/api/login`, { // Cambiado a API_URL
           email: formData.email,
           password: formData.password,
         });
 
         if (response.data && response.data.token) {
-          login(response.data.token, response.data.user);
+          login(response.data.token, { ...response.data.user, is_admin: response.data.is_admin });
           navigate('/');
         } else {
-          setErrors({ general: t('authRL.login.errors.invalidResponse') });
+          setErrors({ general: t('authRL.login.errors.invalidResponse') }); // Traducción
         }
         
       } catch (error) {
         console.error('Error completo:', error);
         
         if (error.response && error.response.data) {
-          // Si el servidor devuelve errores específicos
           if (error.response.data.errors) {
             setErrors(error.response.data.errors);
           } else if (error.response.data.message) {
-            // Si el servidor devuelve un mensaje de error general
             setErrors({ general: error.response.data.message });
           } else {
-            setErrors({ general: t('authRL.login.errors.loginError') });
+            setErrors({ general: t('authRL.login.errors.loginError') }); // Traducción
           }
         } else if (error.message) {
-          // Si hay un error de red o de otro tipo
           setErrors({ general: error.message });
         } else {
-          setErrors({ general: t('authRL.login.errors.serverError') });
+          setErrors({ general: t('authRL.login.errors.serverError') }); // Traducción
         }
       }
     } else {
@@ -91,17 +88,17 @@ function Login() {
       <div className="max-w-md w-full space-y-8 bg-[#333] p-8 rounded-xl shadow-2xl">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-white">
-          {t('authRL.login.title')}
+            {t('authRL.login.title')} {/* Traducción */}
           </h2>
           <p className="mt-2 text-center text-sm text-gray-400">
-          {t('authRL.login.subtitle')}
+            {t('authRL.login.subtitle')} {/* Traducción */}
           </p>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="rounded-md shadow-sm space-y-4">
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-300">
-              {t('authRL.login.email')}
+                {t('authRL.login.email')} {/* Traducción */}
               </label>
               <input
                 id="email"
@@ -109,7 +106,7 @@ function Login() {
                 type="email"
                 required
                 className="appearance-none relative block w-full px-3 py-2 border border-gray-600 placeholder-gray-500 text-white rounded-lg bg-[#444] focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
-                placeholder={t('authRL.register.emailPlaceholder')}
+                placeholder={t('authRL.register.emailPlaceholder')} // Traducción
                 value={formData.email}
                 onChange={handleChange}
               />
@@ -118,7 +115,7 @@ function Login() {
             
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-300">
-              {t('authRL.login.password')}
+                {t('authRL.login.password')} {/* Traducción */}
               </label>
               <input
                 id="password"
@@ -139,7 +136,7 @@ function Login() {
               type="submit"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200 ease-in-out transform hover:scale-[1.02]"
             >
-              {t('authRL.login.title')}
+              {t('authRL.login.title')} {/* Traducción */}
             </button>
           </div>
           {errors.general && <p className="text-red-500 text-sm text-center">{errors.general}</p>}
@@ -149,14 +146,14 @@ function Login() {
           <div className="text-center text-sm">
             <span className="text-gray-400">{t('authRL.login.noAccount')} </span>
             <Link to="/registro" className="text-orange-500 hover:text-orange-400 font-medium">
-            {t('authRL.login.registerLink')}
+              {t('authRL.login.registerLink')} {/* Traducción */}
             </Link>
           </div>
           <Link 
             to="/" 
             className="text-center text-gray-400 hover:text-white text-sm transition-colors duration-200"
           >
-            {t('authRL.login.backHome')}
+            {t('authRL.login.backHome')} {/* Traducción */}
           </Link>
         </div>
       </div>

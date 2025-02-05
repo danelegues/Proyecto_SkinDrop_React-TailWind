@@ -133,6 +133,7 @@ const Navbar = () => {
                     onClick={(e) => handleNavigation(item.path, item.requiresAuth)}
                     onMouseEnter={(e) => handleMouseEnter(e.currentTarget)}
                     isAuth={isAuth}
+                    iconColor={item.path === '/perfil' && isAuth ? 'text-orange-500' : ''}
                   />
                 ))}
                 <LanguageSelector />
@@ -164,7 +165,7 @@ const Navbar = () => {
   );
 };
 
-const NavItem = ({ href, icon, active, requiresAuth, onClick, onMouseEnter, isAuth }) => {
+const NavItem = ({ href, icon, active, requiresAuth, onClick, onMouseEnter, isAuth, iconColor }) => {
   const handleClick = (e) => {
     e.preventDefault();
     onClick(e);
@@ -177,25 +178,30 @@ const NavItem = ({ href, icon, active, requiresAuth, onClick, onMouseEnter, isAu
       onClick={handleClick}
       onMouseEnter={onMouseEnter}
     >
-      <i className={`fa-solid ${icon}`}></i>
+      <i className={`fa-solid ${icon} ${iconColor}`}></i>
     </a>
   );
 };
 
-const MobileMenu = ({ onClose }) => (
-  <div className="bg-[#141414] text-white py-4 px-5 space-y-4">
-    <MobileMenuItem href="/paginaInicio.html" icon="fa-house-chimney" text="Inicio" onClick={onClose} />
-    <MobileMenuItem href="#" icon="fa-shop" text="Tienda" onClick={onClose} />
-    <MobileMenuItem href="#" icon="fa-arrow-right-arrow-left" text="Intercambios" onClick={onClose} />
-    <MobileMenuItem href="/inventario" icon="fa-box-open" text="Inventario" onClick={onClose} />
-    <MobileMenuItem href="#" icon="fa-user" text="Perfil" onClick={onClose} />
-    
-    {/* Selector de idioma móvil */}
-    <div className="p-3">
-      <LanguageSelector isMobile={true} />
+const MobileMenu = ({ onClose }) => {
+  const { t } = useTranslation();
+
+  return (
+    <div className="bg-[#141414] text-white py-4 px-5 space-y-4">
+      <MobileMenuItem href="/" icon="fa-house-chimney" text={t('navbar.home')} onClick={onClose} />
+      <MobileMenuItem href="/tienda" icon="fa-shop" text={t('navbar.store')} onClick={onClose} />
+      <MobileMenuItem href="/intercambio" icon="fa-arrow-right-arrow-left" text={t('navbar.trade')} onClick={onClose} />
+      <MobileMenuItem href="/inventario" icon="fa-box-open" text={t('navbar.inventory')} onClick={onClose} />
+      <MobileMenuItem href="/perfil" icon="fa-user" text={t('navbar.profile')} onClick={onClose} />
+      
+      {/* Selector de idioma móvil */}
+      <div className="p-3">
+        <LanguageSelector isMobile={true} />
+      </div>
     </div>
-  </div>
-);
+  );
+};
+
 
 const MobileMenuItem = ({ href, icon, text, onClick }) => (
   <Link 

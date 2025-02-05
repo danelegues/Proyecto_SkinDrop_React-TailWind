@@ -1,9 +1,10 @@
-import { useState, useMemo, useEffect } from 'react';
-import { inventoryService } from './inventoryService';
+import { useState, useEffect, useCallback, useMemo } from 'react';
+import { inventoryService } from '../services/inventoryService';
 
 export const useInventoryFilter = () => {
     const [items, setItems] = useState([]);
-    const [loading, setLoading] = useState(true); 
+    const [filteredSkins, setFilteredSkins] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [filters, setFilters] = useState({
         search: '',
@@ -14,37 +15,46 @@ export const useInventoryFilter = () => {
         sortBy: ''
     });
 
-    // Realizamos una única llamada al montar el componente
-    useEffect(() => {
-        const fetchInventory = async () => {
-            try {
-                const response = await inventoryService.getInventory();
-                if (response?.data && Array.isArray(response.data)) {
-                    const transformedItems = response.data.map(item => ({
-                        id: item.id || '',
-                        name: item.name || '',
-                        wear: item.wear || 'Factory New',
-                        price: item.price || 0,
-                        image: item.image_url || '',
-                        status: item.status || 'available',
-                        category: item.category || 'rifle'
-                    }));
-                    setItems(transformedItems);
-                } else {
-                    console.warn('La respuesta no contiene un array de items:', response);
-                    setItems([]);
-                }
-            } catch (err) {
-                console.error('Error fetching inventory:', err);
-                setError(err.message);
-                setItems([]);
-            } finally {
-                setLoading(false);
-            }
-        };
+    // Función para cargar los items
+    const loadItems = useCallback(async () => {
+        try {
+            setLoading(true);
+            const response = await inventoryService.getInventory();
+            console.log('Datos recibidos del inventario:', response.data);
+            // Log detallado de cada item
+            response.data.forEach((item, index) => {
+                console.log(`Item ${index + 1}:`, {
+                    id: item.id,
+                    name: item.name,
+                    image_url: item.image_url,
+                    status: item.status,
+                    // ... otros campos
+                });
+            });
+            setItems(response.data);
+            setFilteredSkins(response.data);
+        } catch (err) {
+            setError(err.message);
+            console.error('Error loading inventory:', err);
+        } finally {
+            setLoading(false);
+        }
+    }, []);
 
-        fetchInventory();
-    }, []); // Solo se ejecuta al montar el componente
+    // Cargar items al montar el componente
+    useEffect(() => {
+        loadItems();
+    }, [loadItems]);
+
+    // Función para actualizar el estado de un item específico
+    const updateItemStatus = useCallback((itemId, newStatus) => {
+        // Actualizar items y filteredSkins simultáneamente
+        const updateItem = (item) => 
+            item.id === itemId ? { ...item, status: newStatus } : item;
+
+        setItems(prevItems => prevItems.map(updateItem));
+        setFilteredSkins(prevFiltered => prevFiltered.map(updateItem));
+    }, []);
 
     const sortedAndFilteredItems = useMemo(() => {
         let filteredItems = items.filter(item => {
@@ -95,8 +105,12 @@ export const useInventoryFilter = () => {
 
     return {
         items,
+        setItems: updateItemStatus,
+        filteredSkins,
+        setFilteredSkins,
         loading,
         error,
+        refreshItems: loadItems,
         filters,
         setFilters,
         sortedAndFilteredItems,

@@ -27,6 +27,13 @@
         "serverError": "Server connection error"
       }
     },
+    "boxPopup": {
+    "insufficientFunds": "Insufficient balance to open this fund",
+    "errorProcessing": "Error processing operation",
+    "loginRequired": "You must log in to open boxes",
+    "loginToOpen": "Login to open boxes",
+    "openFor": "Open by"
+    },
     "register": {
       "title": "Create new account",
       "subtitle": "Join the SkinDrop community",
@@ -55,13 +62,25 @@
       }
     }
   },
+  "admin": {
+      "deleteBoxButton": "Delete Box",
+      "deselectItemButton": "Deselect Item",
+      "selectItemButton": "Select Item",
+      "addBox": "Add Box",
+      "name": "Name",
+      "nameBox": "Box Name",
+      "imageURL": "Image URL",
+      "price": "Price",
+      "items": "Items"
+    },
   "navbar": {
     "home": "Home",
     "store": "Store",
     "inventory": "Inventory",
     "trade": "Trade",
     "login": "Login",
-    "register": "Register"
+    "register": "Register",
+    "profile":"Profile"
   },
   "home": {
     "tutorial": {
@@ -89,15 +108,29 @@
     },
     "stats": {
       "title": "Statistics",
-      "casesOpenedToday": "Cases opened today",
-      "bestDrop": "Best drop",
-      "onlineUsers": "Online users"
+      "casesOpened": "Cases opened",
+      "totalValue": "Total value open boxes",
+      "onlineUsers": "Total users"
     }
   },
   "balance": {
     "title": "Your Balance",
     "addFunds": "Add Funds",
-    "csCoins": "CS Coins"
+    "currentBalance": "Current Balance",
+    "modal": {
+      "title": "Add Funds",
+      "amount": "Amount",
+      "submit": "Submit",
+      "cancel": "Cancel"
+    },
+    "errors": {
+      "invalidAmount": "Invalid Amount",
+      "minAmount": "Min Amount 5€",
+      "maxAmount": "Max Amount 1000€",
+      "updateError": "Balance Update Error"
+    },
+    "success": "Funds added successfully"
+    
   },
   "filters": {
     "title": "Filters",
@@ -294,7 +327,8 @@
       "id": "ID:",
       "sell": "Sell",
       "onSale": "On Sale",
-      "locked": "Locked"
+      "locked": "Locked",
+      "removeFromMarket": "Remove from Market"
     },
     "grid": {
       "noItems": "No items found"
@@ -302,6 +336,15 @@
     "pagination": {
       "previous": "Previous",
       "next": "Next"
+    },
+    "errors": {
+      "removeFromMarketError": "Error removing item from market",
+      "sellError": "Error putting item on sale"
+    },
+    "sellModal": {
+      "title": "Sell Item",
+      "price": "Sale price",
+      "confirm": "Put on sale"
     }
   },
   "boxPopup": {
@@ -357,6 +400,7 @@
     }
   },
   "common": {
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "loading": "Loading..."
   }
 } 

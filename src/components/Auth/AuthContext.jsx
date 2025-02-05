@@ -6,8 +6,6 @@ import {
   setUserData,
   setToken 
 } from '../../utils/auth';
-import { useTranslation } from 'react-i18next';
-
 
 const AuthContext = createContext(null);
 
@@ -32,7 +30,6 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkAuth = () => {
       const authenticated = isAuthenticated();
-      console.log('Verificación de autenticación:', authenticated);
       setIsAuth(authenticated);
       if (authenticated) {
         setUser(getUserData());
@@ -50,11 +47,10 @@ export const AuthProvider = ({ children }) => {
 };
 
 export const useAuth = () => {
-    const { t } = useTranslation();
-  
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error(t('auth.errors.authProviderError'));
+    throw new Error('useAuth debe ser usado dentro de un AuthProvider');
   }
   return context;
 };
+

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import InventoryGrid from './components/InventoryGrid';
 import FiltersModal from './components/FiltersModal';
 import SellModal from './components/SellModal';
@@ -23,7 +23,8 @@ const Inventario = () => {
     filters,
     setFilters,
     sortedAndFilteredItems,
-    totalItems
+    totalItems,
+    setItems
   } = useInventoryFilter();
 
   const handleSort = (e) => {
@@ -37,6 +38,17 @@ const Inventario = () => {
     setSelectedItem(item);
     setIsSellModalOpen(true);
   };
+
+  const handleStatusChange = useCallback((itemId, newStatus) => {
+    console.log('Updating status for item:', itemId, 'to:', newStatus);
+    setItems(prevItems => 
+      prevItems.map(item => 
+        item.id === itemId 
+          ? { ...item, status: newStatus }
+          : item
+      )
+    );
+  }, [setItems]);
 
   if (loading) return <div className="text-center py-10 text-white">Cargando inventario...</div>;
   if (error) return <div className="text-center py-10 text-red-500">Error: {error}</div>;
@@ -81,8 +93,9 @@ const Inventario = () => {
       </div>
 
       <InventoryGrid 
-        items={sortedAndFilteredItems}
+        items={items}
         onSellClick={handleSellClick}
+        onStatusChange={handleStatusChange}
       />
 
       <FiltersModal 

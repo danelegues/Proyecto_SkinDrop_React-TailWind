@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useEffect } from 'react';  
+import API_URL from '../../config/config.js'; 
+
 
 function Register() {
   const { t } = useTranslation();
@@ -59,7 +60,7 @@ function Register() {
     
     if (Object.keys(validationErrors).length === 0) {
       try {
-        const response = await axios.post('http://10.14.4.197:8001/api/register', {
+        const response = await axios.post(`${API_URL}/api/register`, {
           username: formData.username,
           email: formData.email,
           password: formData.password,

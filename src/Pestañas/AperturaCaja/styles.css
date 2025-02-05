@@ -128,18 +128,47 @@
     text-align: center;
   }
   
-  .popup-content button {
-    width: 80px;
-    height: 40px;
-    border-radius: 5px;
-    background-color: orange;
-    border: 2px solid rgb(177, 115, 0);
+  .popup-button {
+    background: linear-gradient(to right, #ff6b00, #ff8533);
+    border: none;
+    padding: 15px 40px;
+    border-radius: 8px;
     color: white;
+    font-weight: 600;
+    font-size: 18px;
     cursor: pointer;
-    margin-top: 20px;
-    font-size: 16px;
+    transition: all 0.3s ease;
+    margin-top: 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(255, 107, 0, 0.3);
+    width: 250px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
-  .popup-content button:hover {
-    background-color: rgb(177, 115, 0);
+  .popup-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 0, 0.4);
+    background: linear-gradient(to right, #ff8533, #ff6b00);
   }
+  
+  .popup-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 10px rgba(255, 107, 0, 0.3);
+  }
+  
+  #popup-titulo {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 25px;
+    color: #ff6b00;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  
+  /* Importar la fuente Orbitron */
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');

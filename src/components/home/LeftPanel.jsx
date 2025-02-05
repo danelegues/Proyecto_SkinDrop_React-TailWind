@@ -1,38 +1,112 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import VideoPreview from '../shared/VideoPreview';
 import '../../styles/LeftPanel.css';
+import { useAuth } from '../Auth/AuthContext';
 
-const LeftPanel = () => {
+
+
+const LeftPanel = ({ setFilters }) => {
   const { t } = useTranslation();
+  const { user } = useAuth();
 
-  // Datos de ejemplo para los jugadores
-  const recentWinners = [
-    {
-      id: 1,
-      name: "Player123",
-      amount: 1500.00,
-      skin: "AWP | Dragon Lore",
-      time: "Hace 2 min",
-      avatar: "/img/avatar1.png"
-    },
-    {
-      id: 2,
-      name: "GamerPro",
-      amount: 2300.00,
-      skin: "AK-47 | Wild Lotus",
-      time: "Hace 5 min",
-      avatar: "/img/avatar2.png"
-    },
-    {
-      id: 3,
-      name: "SkinHunter",
-      amount: 890.00,
-      skin: "Karambit | Fade",
-      time: "Hace 8 min",
-      avatar: "/img/avatar3.png"
+
+  const [localFilters, setLocalFilters] = useState({
+    boxName: "",
+    minPrice: "",
+    maxPrice: ""
+  });
+
+  const [stats, setStats] = useState({
+    casesOpened: 0,
+    totalValue: 0,
+    onlineUsers: 0
+  });
+
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    setLocalFilters(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const applyFilters = () => {
+    setFilters({
+      boxName: localFilters.boxName,
+      priceRange: {
+        min: localFilters.minPrice,
+        max: localFilters.maxPrice
+      }
+    });
+  };
+
+  const clearFilters = () => {
+    const defaultFilters = { boxName: "", minPrice: "", maxPrice: "" };
+    setLocalFilters(defaultFilters);
+    setFilters({
+      boxName: "",
+      priceRange: { min: "", max: "" }
+    });
+  };
+
+  // Función para incrementar casesOpened y totalValue
+  const incrementCasesOpened = (boxPrice) => {
+    setStats(prev => {
+      const newStats = {
+        ...prev,
+        casesOpened: prev.casesOpened + 1,
+        totalValue: prev.totalValue + parseFloat(boxPrice || 0)
+      };
+      // Guardar en localStorage para persistencia
+      localStorage.setItem('casesOpened', newStats.casesOpened);
+      localStorage.setItem('totalValue', newStats.totalValue);
+      return newStats;
+    });
+  };
+
+  // Añadir esta nueva función para obtener usuarios
+  const fetchTotalUsers = async () => {
+    try {
+      const response = await fetch('/api/users', {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        }
+      });
+      if (response.ok) {
+        const users = await response.json();
+        setStats(prev => ({
+          ...prev,
+          onlineUsers: users.length
+        }));
+      }
+    } catch (error) {
+      console.error('Error al obtener usuarios:', error);
     }
-  ];
+  };
+
+  useEffect(() => {
+    // Cargar valores iniciales desde localStorage
+    const savedCasesOpened = localStorage.getItem('casesOpened');
+    const savedTotalValue = localStorage.getItem('totalValue');
+
+    if (savedCasesOpened || savedTotalValue) {
+      setStats(prev => ({
+        ...prev,
+        casesOpened: parseInt(savedCasesOpened, 10) || 0,
+        totalValue: parseFloat(savedTotalValue) || 0
+      }));
+    }
+
+    // Cargar total de usuarios
+    fetchTotalUsers();
+
+    // Exponer la función a través del window object
+    window.incrementCasesOpened = incrementCasesOpened;
+    return () => {
+      delete window.incrementCasesOpened;
+    };
+  }, []);
 
   return (
     <div className="h-full flex flex-col space-y-4 mt-16">
@@ -49,6 +123,9 @@ const LeftPanel = () => {
           <label className="text-gray-400 text-sm block mb-2">{t('filters.boxName')}</label>
           <input 
             type="text" 
+            name="boxName"
+            value={localFilters.boxName}
+            onChange={handleFilterChange}
             placeholder={t('filters.searchBox')}
             className="w-full bg-[#1a1a1a] text-white rounded-lg p-2 text-sm"
           />
@@ -60,12 +137,18 @@ const LeftPanel = () => {
           <div className="flex gap-2 items-center">
             <input 
               type="number" 
+              name="minPrice"
+              value={localFilters.minPrice}
+              onChange={handleFilterChange}
               placeholder={t('filters.min')}
               className="w-1/2 bg-[#1a1a1a] text-white rounded-lg p-2 text-sm"
             />
             <span className="text-gray-400">-</span>
             <input 
               type="number" 
+              name="maxPrice"
+              value={localFilters.maxPrice}
+              onChange={handleFilterChange}
               placeholder={t('filters.max')}
               className="w-1/2 bg-[#1a1a1a] text-white rounded-lg p-2 text-sm"
             />
@@ -73,9 +156,17 @@ const LeftPanel = () => {
         </div>
 
         {/* Botón de aplicar filtros */}
-        <button className="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-lg text-sm transition-colors flex items-center justify-center gap-2">
+        <button onClick={applyFilters} className="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-lg text-sm transition-colors flex items-center justify-center gap-2 mb-2">
           <i className="fas fa-filter"></i>
           {t('filters.apply')}
+        </button>
+
+        <button 
+          onClick={clearFilters}
+          className="w-full bg-gray-600 hover:bg-gray-700 text-white py-2 rounded-lg text-sm transition-colors flex items-center justify-center gap-2"
+        >
+          <i className="fas fa-times"></i>
+          {t('filters.clear')}
         </button>
       </div>
 
@@ -83,42 +174,21 @@ const LeftPanel = () => {
       <div className="bg-[#141414] rounded-lg p-4">
         <h3 className="text-white text-lg font-medium mb-4">{t('home.stats.title')}</h3>
         <div className="space-y-3">
-          <StatItem label={t('home.stats.casesOpenedToday')} value="1,234" />
-          <StatItem label={t('home.stats.bestDrop')} value="$4,500.00" />
-          <StatItem label={t('home.stats.onlineUsers')} value="789" isOnline />
+          <StatItem label={t('home.stats.casesOpened')} value={stats.casesOpened} />
+          {user && user.is_admin && (
+          <StatItem 
+            label={t('home.stats.totalValue')} 
+            value={`${stats.totalValue.toFixed(2)}€`} 
+          />
+          )}
+          <StatItem label={t('home.stats.onlineUsers')} value={stats.onlineUsers} isOnline />
         </div>
       </div>
     </div>
   );
 };
 
-const WinnerCard = ({ winner }) => (
-  <div className="bg-white bg-opacity-5 rounded-lg p-3 hover:bg-opacity-10 transition-all duration-300 player-card-hover">
-    <div className="flex items-start gap-3">
-      <div className="flex-shrink-0">
-        <img 
-          src={winner.avatar} 
-          alt={winner.name} 
-          className="w-10 h-10 rounded-full"
-        />
-      </div>
-      <div className="flex-1 min-w-0">
-        <div className="flex justify-between items-start">
-          <span className="text-white text-sm font-medium truncate">
-            {winner.name}
-          </span>
-          <span className="text-orange-500 text-sm">
-            ${winner.amount.toFixed(2)}
-          </span>
-        </div>
-        <div className="flex justify-between items-center text-xs mt-1">
-          <span className="text-gray-400 truncate">{winner.skin}</span>
-          <span className="text-gray-500">{winner.time}</span>
-        </div>
-      </div>
-    </div>
-  </div>
-);
+
 
 const StatItem = ({ label, value, isOnline }) => (
   <div className="flex justify-between items-center">

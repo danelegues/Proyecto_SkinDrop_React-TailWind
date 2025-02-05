@@ -28,6 +28,24 @@
         "serverError": "Error al conectar con el servidor"
       }
     },
+    "admin": {
+      "deleteBoxButton": "Eliminar Caja",
+      "deselectItemButton": "Deseleccionar Ítem",
+      "selectItemButton": "Seleccionar Ítem",
+      "addBox": "Añadir Caja",
+      "name": "Nombre",
+      "nameBox": "Nombre de la Caja",
+      "imageURL": "URL de la Imagen",
+      "price": "Precio",
+      "items": "Ítems"
+   },
+   "boxPopup": {
+    "insufficientFunds": "Saldo insuficiente para abrir esta caja",
+    "errorProcessing": "Error al procesar la operación",
+    "loginRequired": "Debes iniciar sesión para abrir cajas",
+    "loginToOpen": "Inicia sesión para abrir cajas",
+    "openFor": "Abrir por"
+  },
     "register": {
       "title": "Crear nueva cuenta",
       "subtitle": "Únete a la comunidad de SkinDrop",
@@ -61,7 +79,8 @@
     "inventory": "Inventario",
     "trade": "Intercambio",
     "login": "Iniciar Sesión",
-    "register": "Registrarse"
+    "register": "Registrarse",
+    "profile":"Perfil"
   },
   "home": {
     "tutorial": {
@@ -89,9 +108,9 @@
     },
     "stats": {
       "title": "Estadísticas",
-      "casesOpenedToday": "Cajas abiertas hoy",
-      "bestDrop": "Mejor drop",
-      "onlineUsers": "Usuarios en línea"
+      "casesOpened": "Cajas abiertas hoy",
+      "totalValue": "Valor total cajas abiertas",
+      "onlineUsers": "Usuarios totales"
     }
   },
   "filters": {
@@ -288,11 +307,21 @@
       "id": "ID:",
       "sell": "Vender",
       "onSale": "En venta",
-      "locked": "Bloqueado"
+      "locked": "Bloqueado",
+      "removeFromMarket": "Quitar del mercado"
     },
     "pagination": {
       "previous": "Anterior",
       "next": "Siguiente"
+    },
+    "errors": {
+      "removeFromMarketError": "Error al quitar el item del mercado",
+      "sellError": "Error al poner el item en venta"
+    },
+    "sellModal": {
+      "title": "Vender Item",
+      "price": "Precio de venta",
+      "confirm": "Poner en venta"
     }
   },
   "profile": {
@@ -331,7 +360,8 @@
     "openFor": "Abrir por"
   },
   "common": {
-    "cancel": "Cancelar"
+    "cancel": "Cancelar",
+    "loading": "Cargando..."
   },
   "balance": {
     "title": "Tu Balance",

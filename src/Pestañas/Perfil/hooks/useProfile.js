@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-
-const API_URL = process.env.REACT_APP_API_URL || 'http://10.14.4.197:8001';
+import API_URL from '../../../config/config.js'; 
 
 export const useProfile = () => {
   const [profileData, setProfileData] = useState(null);
@@ -17,6 +16,7 @@ export const useProfile = () => {
   const handleOpenEditModal = () => {
     setIsEditModalOpen(true);
   };
+  
 
   const handleOpenPasswordModal = () => {
     setIsPasswordModalOpen(true);
