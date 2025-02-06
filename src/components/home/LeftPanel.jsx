@@ -3,8 +3,7 @@ import { useTranslation } from 'react-i18next';
 import VideoPreview from '../shared/VideoPreview';
 import '../../styles/LeftPanel.css';
 import { useAuth } from '../Auth/AuthContext';
-
-
+import API_URL from '../../config/config';
 
 const LeftPanel = ({ setFilters }) => {
   const { t } = useTranslation();
@@ -68,7 +67,7 @@ const LeftPanel = ({ setFilters }) => {
   // Añadir esta nueva función para obtener usuarios
   const fetchTotalUsers = async () => {
     try {
-      const response = await fetch('/api/users', {
+      const response = await fetch(`${API_URL}/api/users`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
         }

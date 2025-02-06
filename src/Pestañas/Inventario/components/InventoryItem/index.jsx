@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import SellModal from '../SellModal';
 import { marketService } from '../../../Tienda/hooks/marketService';
@@ -8,6 +8,8 @@ const InventoryItem = ({ item, onStatusChange }) => {
     const [showSellModal, setShowSellModal] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [imageLoadAttempted, setImageLoadAttempted] = useState(false);
+    const [currentImageSrc, setCurrentImageSrc] = useState(null);
     const [currentStatus, setCurrentStatus] = useState(item.status);
     
     // Desestructuramos el item que viene del backend
@@ -15,13 +17,50 @@ const InventoryItem = ({ item, onStatusChange }) => {
     // Verificamos que itemDetails exista y tenga las propiedades necesarias
     const { name, image, price } = itemDetails || {};
 
-    const getImageUrl = (imageUrl) => {
+    const getImageUrl = useCallback((item) => {
+        if (!item) {
+            return `${process.env.PUBLIC_URL}/images/default.png`;
+        }
+
+        const imageUrl = item.item ? item.item.image_url : item.image_url;
+
+        if (!imageUrl) {
+            return `${process.env.PUBLIC_URL}/images/default.png`;
+        }
+
+        // Si la URL ya es completa
         if (imageUrl.startsWith('http')) {
             return imageUrl;
         }
-        return `${process.env.PUBLIC_URL}/${imageUrl}`;
+
+        // Si la imagen está en la carpeta public
+        if (imageUrl.startsWith('images/') || imageUrl.startsWith('img/')) {
+            return `${process.env.PUBLIC_URL}/${imageUrl}`;
+        }
+
+        // Si es una ruta relativa del backend
+        if (imageUrl.startsWith('/')) {
+            return `${process.env.REACT_APP_API_URL}${imageUrl}`;
+        }
+
+        // Si es solo el nombre del archivo
+        return `${process.env.PUBLIC_URL}/images/${imageUrl}`;
+    }, []);
+
+    // Establecer la URL inicial de la imagen
+    useEffect(() => {
+        setCurrentImageSrc(getImageUrl(item));
+        setImageLoadAttempted(false);
+    }, [item, getImageUrl]);
+
+    const handleImageError = (e) => {
+        if (!imageLoadAttempted) {
+            console.error('Error loading image:', currentImageSrc);
+            setCurrentImageSrc(`${process.env.PUBLIC_URL}/images/default.png`);
+            setImageLoadAttempted(true);
+        }
     };
-   
+
     const getWearColor = (wear) => {
         const colors = {
             'Factory New': 'text-blue-400',
@@ -103,20 +142,13 @@ const InventoryItem = ({ item, onStatusChange }) => {
             <div className="bg-gradient-to-b from-[#1a1a1a] to-[#141414] rounded-lg overflow-hidden group border border-transparent hover:border-[#ff6b00]/50 hover:scale-[1.02] hover:shadow-lg hover:shadow-[#ff6b00]/20">
                 <div className="relative">
                     <div className="bg-[#141414] p-4 aspect-[4/3] flex items-center justify-center overflow-hidden">
-                        {item.image ? (
-                            <img 
-                                src={getImageUrl(item.image)}
-                                alt={name || 'Item image'}
-                                className="max-w-full max-h-full object-contain group-hover:scale-110 group-hover:rotate-1"
-                                style={{ maxHeight: '180px', width: 'auto' }}
-                                onError={(e) => {
-                                    console.error('Error loading image:', item.image);
-                                    e.target.src = `${process.env.PUBLIC_URL}/img/default.png`;
-                                }}
-                            />
-                        ) : (
-                            <div className="text-gray-500">No image available</div>
-                        )}
+                        <img 
+                            src={currentImageSrc}
+                            alt={item.name || 'Item image'}
+                            className="max-w-full max-h-full object-contain group-hover:scale-110 group-hover:rotate-1"
+                            style={{ maxHeight: '180px', width: 'auto' }}
+                            onError={handleImageError}
+                        />
                     </div>
                     {currentStatus === 'on_sale' && (
                         <span className="absolute top-3 right-3 px-3 py-1 rounded-lg text-sm font-medium bg-gradient-to-r from-green-500 to-green-600 text-white shadow-lg">
