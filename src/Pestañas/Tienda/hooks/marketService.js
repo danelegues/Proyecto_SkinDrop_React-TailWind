@@ -8,49 +8,79 @@ export const marketService = {
             const token = localStorage.getItem('token');
             
             if (!token) {
-                throw new Error('No se encontró token de autenticación');
+                console.error('No se encontró token');
+                throw new Error('No hay token de autenticación');
             }
 
-            console.log('Realizando petición a:', `${API_URL}/api/market`);
-            console.log('Token usado:', token);
-
-            const response = await axios({
-                method: 'GET',
-                url: `${API_URL}/api/market`,
+            // Crear instancia de axios con configuración específica
+            const axiosInstance = axios.create({
+                baseURL: API_URL,
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                validateStatus: status => status < 500 // Permitir manejar errores 4xx
+                // Aumentar el timeout si es necesario
+                timeout: 10000,
+                // Permitir ver la respuesta incluso con error
+                validateStatus: function (status) {
+                    return true; // Siempre devuelve true para poder manejar el error
+                },
             });
 
-            console.log('Respuesta completa:', response);
+            console.log('Iniciando petición a:', `${API_URL}/api/market`);
+            
+            const response = await axiosInstance.get('/api/market');
+            
+            // Log detallado de la respuesta
+            console.log('Respuesta completa:', {
+                status: response.status,
+                statusText: response.statusText,
+                headers: response.headers,
+                data: response.data,
+                config: {
+                    url: response.config.url,
+                    method: response.config.method,
+                    headers: response.config.headers
+                }
+            });
 
-            if (response.status === 401) {
-                throw new Error('Sesión expirada o inválida');
-            }
-
-            if (response.status === 200 && response.data) {
-                return {
-                    success: true,
-                    data: response.data.data || []
+            // Si hay error en la respuesta
+            if (response.status >= 400) {
+                throw {
+                    status: response.status,
+                    message: response.data?.message || 'Error del servidor',
+                    data: response.data
                 };
             }
 
-            throw new Error(response.data.message || 'Error al obtener los items');
+            // Si la respuesta es exitosa pero no tiene el formato esperado
+            if (!response.data || !Array.isArray(response.data.data)) {
+                console.error('Formato de respuesta inválido:', response.data);
+                throw new Error('Formato de respuesta inválido');
+            }
+
+            return {
+                success: true,
+                data: response.data.data
+            };
 
         } catch (error) {
+            // Log detallado del error
             console.error('Error detallado en getMarketItems:', {
                 message: error.message,
+                status: error.status,
                 response: error.response?.data,
-                status: error.response?.status
+                config: error.config,
+                stack: error.stack
             });
 
+            // Rethrow con información más detallada
             throw {
                 success: false,
                 message: error.message || 'Error al cargar los items del mercado',
-                status: error.response?.status || 500
+                status: error.status || 500,
+                details: error.response?.data
             };
         }
     },

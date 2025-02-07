@@ -19,6 +19,7 @@ const Inventario = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [sortByPrice, setSortByPrice] = useState('');
   const [typeFilter, setTypeFilter] = useState('all');
+  const [statusFilter, setStatusFilter] = useState('all');
 
   const handleStatusChange = useCallback((itemId, newStatus) => {
     setItems(prevItems => 
@@ -50,6 +51,14 @@ const Inventario = () => {
       });
     }
 
+    // Filtro por status
+    if (statusFilter !== 'all') {
+      filtered = filtered.filter(item => {
+        const status = item.status || item.item?.status;
+        return status === statusFilter;
+      });
+    }
+
     // Ordenar por precio
     if (sortByPrice) {
       filtered.sort((a, b) => {
@@ -60,7 +69,7 @@ const Inventario = () => {
     }
 
     return filtered;
-  }, [items, searchQuery, typeFilter, sortByPrice]);
+  }, [items, searchQuery, typeFilter, statusFilter, sortByPrice]);
 
   if (loading) return <div className="text-center py-10 text-white">{t('common.loading')}</div>;
   if (error) return <div className="text-center py-10 text-red-500">Error: {error}</div>;
@@ -96,6 +105,16 @@ const Inventario = () => {
             <option value="rifle">{t('inventory.filters.rifles')}</option>
             <option value="pistol">{t('inventory.filters.pistols')}</option>
             <option value="gloves">{t('inventory.filters.gloves')}</option>
+          </select>
+
+          <select 
+            className="bg-[#1a1a1a] text-white px-6 py-3 rounded-lg border border-[#2a2a2a] hover:border-[#ff6b00] transition-all focus:outline-none focus:border-[#ff6b00] text-lg"
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+          >
+            <option value="all">{t('inventory.filters.allStatus')}</option>
+            <option value="on_sale">{t('inventory.filters.onSale')}</option>
+            <option value="available">{t('inventory.filters.available')}</option>
           </select>
 
           <input
