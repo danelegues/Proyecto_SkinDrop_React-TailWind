@@ -7,22 +7,51 @@ export const marketService = {
         try {
             const token = localStorage.getItem('token');
             
-            const response = await axios.get(`${API_URL}/api/market`, {
+            if (!token) {
+                throw new Error('No se encontró token de autenticación');
+            }
+
+            console.log('Realizando petición a:', `${API_URL}/api/market`);
+            console.log('Token usado:', token);
+
+            const response = await axios({
+                method: 'GET',
+                url: `${API_URL}/api/market`,
                 headers: {
                     'Authorization': `Bearer ${token}`,
-                    'Accept': 'application/json'
-                }
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                validateStatus: status => status < 500 // Permitir manejar errores 4xx
             });
-            
-            // Asegurarnos de que devolvemos la respuesta en el formato correcto
-            if (response.data && response.data.success) {
-                return response.data;
-            } else {
-                throw new Error('Formato de respuesta inválido');
+
+            console.log('Respuesta completa:', response);
+
+            if (response.status === 401) {
+                throw new Error('Sesión expirada o inválida');
             }
+
+            if (response.status === 200 && response.data) {
+                return {
+                    success: true,
+                    data: response.data.data || []
+                };
+            }
+
+            throw new Error(response.data.message || 'Error al obtener los items');
+
         } catch (error) {
-            console.error('Error en marketService:', error);
-            throw error;
+            console.error('Error detallado en getMarketItems:', {
+                message: error.message,
+                response: error.response?.data,
+                status: error.response?.status
+            });
+
+            throw {
+                success: false,
+                message: error.message || 'Error al cargar los items del mercado',
+                status: error.response?.status || 500
+            };
         }
     },
 

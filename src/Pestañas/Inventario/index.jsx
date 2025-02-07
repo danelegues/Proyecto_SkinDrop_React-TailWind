@@ -1,10 +1,7 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import InventoryGrid from './components/InventoryGrid';
-import FiltersModal from './components/FiltersModal';
-import SellModal from './components/SellModal';
 import { useInventoryFilter } from './hooks/useInventoryFilter';
 import { useTranslation } from 'react-i18next';
-import { useEffect } from 'react';
 
 const Inventario = () => {
   useEffect(() => {
@@ -12,35 +9,18 @@ const Inventario = () => {
   }, []);
   
   const { t } = useTranslation();
-  const [isFiltersModalOpen, setIsFiltersModalOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(null);
-  const [isSellModalOpen, setIsSellModalOpen] = useState(false);
-
   const {
     items,
     loading,
     error,
-    filters,
-    setFilters,
-    sortedAndFilteredItems,
-    totalItems,
     setItems
   } = useInventoryFilter();
 
-  const handleSort = (e) => {
-    setFilters({
-      ...filters,
-      sortBy: e.target.value
-    });
-  };
-
-  const handleSellClick = (item) => {
-    setSelectedItem(item);
-    setIsSellModalOpen(true);
-  };
+  const [searchQuery, setSearchQuery] = useState('');
+  const [sortByPrice, setSortByPrice] = useState('');
+  const [typeFilter, setTypeFilter] = useState('all');
 
   const handleStatusChange = useCallback((itemId, newStatus) => {
-    console.log('Updating status for item:', itemId, 'to:', newStatus);
     setItems(prevItems => 
       prevItems.map(item => 
         item.id === itemId 
@@ -50,7 +30,39 @@ const Inventario = () => {
     );
   }, [setItems]);
 
-  if (loading) return <div className="text-center py-10 text-white">Cargando inventario...</div>;
+  const filteredItems = React.useMemo(() => {
+    let filtered = [...items];
+
+    // Filtro de búsqueda
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(item => 
+        item.name?.toLowerCase().includes(query) || 
+        item.item?.name?.toLowerCase().includes(query)
+      );
+    }
+
+    // Filtro por tipo usando category
+    if (typeFilter !== 'all') {
+      filtered = filtered.filter(item => {
+        const category = item.category || item.item?.category;
+        return category?.toLowerCase() === typeFilter.toLowerCase();
+      });
+    }
+
+    // Ordenar por precio
+    if (sortByPrice) {
+      filtered.sort((a, b) => {
+        const priceA = Number(a.price || a.item?.price || 0);
+        const priceB = Number(b.price || b.item?.price || 0);
+        return sortByPrice === 'asc' ? priceA - priceB : priceB - priceA;
+      });
+    }
+
+    return filtered;
+  }, [items, searchQuery, typeFilter, sortByPrice]);
+
+  if (loading) return <div className="text-center py-10 text-white">{t('common.loading')}</div>;
   if (error) return <div className="text-center py-10 text-red-500">Error: {error}</div>;
 
   return (
@@ -59,56 +71,46 @@ const Inventario = () => {
         <div>
           <h1 className="text-4xl font-bold text-white mb-2">{t('inventory.title')}</h1>
           <p className="text-gray-400 text-lg">
-            {t('inventory.totalItems')} {totalItems}
+            {t('inventory.totalItems')} {filteredItems.length}
           </p>
         </div>
         <br />
-        <div className="flex gap-3">
-          
+        <div className="flex flex-wrap gap-3">
           <select 
-            className="bg-[#1a1a1a] text-white px-6 py-3 rounded-lg border border-[#2a2a2a] hover:border-[#ff6b00] transition-all focus:outline-none focus:border-[#ff6b00] text-lg min-w-[200px]"
-            onChange={handleSort}
+            className="bg-[#1a1a1a] text-white px-6 py-3 rounded-lg border border-[#2a2a2a] hover:border-[#ff6b00] transition-all focus:outline-none focus:border-[#ff6b00] text-lg"
+            value={sortByPrice}
+            onChange={(e) => setSortByPrice(e.target.value)}
           >
             <option value="">{t('inventory.sort.default')}</option>
-            <option value="price_asc">{t('inventory.sort.priceAsc')}</option>
-            <option value="price_desc">{t('inventory.sort.priceDesc')}</option>
-            <option value="name">{t('inventory.sort.name')}</option>
-            <option value="wear">{t('inventory.sort.wear')}</option>
+            <option value="asc">{t('inventory.sort.priceAsc')}</option>
+            <option value="desc">{t('inventory.sort.priceDesc')}</option>
           </select>
-          <button 
-            onClick={() => setIsFiltersModalOpen(true)}
-            className="bg-[#ff6b00] hover:bg-[#ff8533] text-white px-6 py-3 rounded-lg transition-all hover:scale-105 text-lg font-medium min-w-[120px]"
+
+          <select 
+            className="bg-[#1a1a1a] text-white px-6 py-3 rounded-lg border border-[#2a2a2a] hover:border-[#ff6b00] transition-all focus:outline-none focus:border-[#ff6b00] text-lg"
+            value={typeFilter}
+            onChange={(e) => setTypeFilter(e.target.value)}
           >
-            {t('inventory.filters.title')}
-          </button>
+            <option value="all">{t('inventory.filters.allTypes')}</option>
+            <option value="knife">{t('inventory.filters.knives')}</option>
+            <option value="rifle">{t('inventory.filters.rifles')}</option>
+            <option value="pistol">{t('inventory.filters.pistols')}</option>
+            <option value="gloves">{t('inventory.filters.gloves')}</option>
+          </select>
 
           <input
             type="text"
             placeholder={t('inventory.search.placeholder')}
             className="bg-[#1a1a1a] text-white px-6 py-3 rounded-lg border border-[#2a2a2a] hover:border-[#ff6b00] transition-all focus:outline-none focus:border-[#ff6b00] text-lg flex-1"
-            value={filters.search}
-            onChange={(e) => setFilters({...filters, search: e.target.value})}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
       </div>
 
       <InventoryGrid 
-        items={items}
-        onSellClick={handleSellClick}
+        items={filteredItems}
         onStatusChange={handleStatusChange}
-      />
-
-      <FiltersModal 
-        isOpen={isFiltersModalOpen}
-        onClose={() => setIsFiltersModalOpen(false)}
-        filters={filters}
-        onApplyFilters={setFilters}
-      />
-
-      <SellModal 
-        isOpen={isSellModalOpen}
-        onClose={() => setIsSellModalOpen(false)}
-        item={selectedItem}
       />
     </div>
   );

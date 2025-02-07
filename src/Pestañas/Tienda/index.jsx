@@ -7,6 +7,7 @@ import ShopNav from './components/ShopNav';
 import { useShopNavigation } from './hooks/useShopNavigation';
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
+import SkinDropMarket from './components/SkinDropMarket';
 
 function Shop() {
   useEffect(() => {
@@ -75,7 +76,7 @@ function Shop() {
         
         {currentTab === 'skindrop' && (
           <div className="mt-12 mb-12 text-white">
-            Contenido de SkinDrop (por implementar)
+            <SkinDropMarket />
           </div>
         )}
       </div>

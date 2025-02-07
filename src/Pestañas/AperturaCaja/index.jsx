@@ -135,23 +135,13 @@ const AperturaCaja = () => {
 
   const handleWinnerItem = async (item) => {
     try {
-      // Añadir console.log para debug
-      console.log('Item a enviar:', {
-        name: item.name,
-        image_url: item.imgArma,
-        rarity: item.rarity,
-        category: item.category || 'weapon',
-        wear: item.wear || 'Factory New',
-        price: item.price || 0
-      });
-
+      // Obtener los datos de la caja desde location.state
+      const boxData = location.state?.boxData;
+      
       const response = await axios.post(`${API_URL}/api/crates/open`, {
-        name: item.name,
-        image_url: item.imgArma,
-        rarity: item.rarity,
-        category: item.category || 'weapon',
-        wear: item.wear || 'Factory New',
-        price: item.price || 0
+        crateName: boxData.name,    // Nombre de la caja
+        itemName: item.name,        // Nombre del item ganador
+        image_url: boxData.image_url
       }, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -159,22 +149,27 @@ const AperturaCaja = () => {
         }
       });
 
-      // Añadir el nuevo item a los drops recientes
-      const newDrop = {
-        id: Date.now(), // Generamos un ID único usando timestamp
-        name: item.name,
-        price: response.data.price || "0.00", // Asumiendo que el backend devuelve el precio
-        image: item.imgArma
-      };
+      if (response.data.success) {
+        // Añadir el nuevo item a los drops recientes
+        const newDrop = {
+          id: Date.now(),
+          name: item.name,
+          price: response.data.data.price || "0.00",
+          image: item.imgArma
+        };
 
-      // Obtener drops existentes
-      const existingDrops = JSON.parse(localStorage.getItem('recentDrops') || '[]');
-      const updatedDrops = [newDrop, ...existingDrops].slice(0, 10);
-      localStorage.setItem('recentDrops', JSON.stringify(updatedDrops));
+        // Obtener drops existentes
+        const existingDrops = JSON.parse(localStorage.getItem('recentDrops') || '[]');
+        const updatedDrops = [newDrop, ...existingDrops].slice(0, 10);
+        localStorage.setItem('recentDrops', JSON.stringify(updatedDrops));
+      } else {
+        console.error('Error en la respuesta:', response.data.message);
+      }
 
-      console.log('Respuesta:', response.data);
     } catch (error) {
       console.error('Error detallado:', error.response?.data || error.message);
+      // Mostrar el mensaje de error al usuario
+      alert(error.response?.data?.message || 'Error al abrir la caja');
     }
   };
 

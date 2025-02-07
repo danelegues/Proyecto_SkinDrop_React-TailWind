@@ -10,10 +10,6 @@ function SearchBar({
   onTypeChange,
   rarityFilter,
   onRarityChange,
-  minPrice,
-  onMinPriceChange,
-  maxPrice,
-  onMaxPriceChange
 }) {
   const { t } = useTranslation();
 
@@ -46,21 +42,9 @@ function SearchBar({
           <option value="rifle">{t('store.search.filters.rifles')}</option>
           <option value="pistol">{t('store.search.filters.pistols')}</option>
           <option value="knife">{t('store.search.filters.knives')}</option>
+          <option value="gloves">{t('store.search.filters.gloves')}</option>
         </select>
 
-        <select 
-          value={rarityFilter}
-          onChange={(e) => onRarityChange(e.target.value)}
-          className="flex-shrink-0 min-w-[150px] bg-[#2a2a2a] text-white px-3 sm:px-4 py-2 rounded-lg text-sm sm:text-base"
-        >
-          <option value="all">{t('store.search.filters.allRarities')}</option>
-          <option value="Consumer">{t('store.search.filters.consumer')}</option>
-          <option value="Industrial">{t('store.search.filters.industrial')}</option>
-          <option value="Mil-Spec">{t('store.search.filters.milSpec')}</option>
-          <option value="Restricted">{t('store.search.filters.restricted')}</option>
-          <option value="Classified">{t('store.search.filters.classified')}</option>
-          <option value="Covert">{t('store.search.filters.covert')}</option>
-        </select>
       </div>
     </div>
   );

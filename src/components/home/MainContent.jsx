@@ -24,7 +24,12 @@ const MainContent = () => {
     const fetchItems = async () => {
       try {
         const response = await axios.get(`${API_URL}/api/items`);
-        setItems(response.data);
+        const uniqueItems = response.data.filter((item, index, self) =>
+          index === self.findIndex((t) => (
+            t.name === item.name
+          ))
+        );
+        setItems(uniqueItems);
       } catch (error) {
         console.error('Error fetching items:', error);
       }

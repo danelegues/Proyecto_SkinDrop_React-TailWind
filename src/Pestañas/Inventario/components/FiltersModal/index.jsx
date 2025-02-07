@@ -9,12 +9,8 @@ const FiltersModal = ({ isOpen, onClose, filters, onApplyFilters }) => {
   const handleReset = () => {
     onApplyFilters({
       search: '',
-      minPrice: '',
-      maxPrice: '',
-      wear: [],
       type: [],
-      sortBy: '',
-      status: 'all'
+      sortBy: ''
     });
   };
 
@@ -32,53 +28,18 @@ const FiltersModal = ({ isOpen, onClose, filters, onApplyFilters }) => {
 
         <div className="space-y-4">
           <div>
-            <label className="block text-white mb-2">{t('inventory.filters.wear')}</label>
+            <label className="block text-white mb-2">{t('inventory.filters.type')}</label>
             <select 
               className="w-full bg-[#2a2a2a] text-white px-4 py-2 rounded-lg"
-              value={filters.wear}
-              onChange={(e) => onApplyFilters({ ...filters, wear: e.target.value })}
+              value={filters.type}
+              onChange={(e) => onApplyFilters({ ...filters, type: e.target.value })}
             >
-              <option value="">{t('inventory.filters.allWears')}</option>
-              <option value="Factory New">{t('inventory.filters.factoryNew')}</option>
-              <option value="Minimal Wear">{t('inventory.filters.minimalWear')}</option>
-              <option value="Field-Tested">{t('inventory.filters.fieldTested')}</option>
-              <option value="Well-Worn">{t('inventory.filters.wellWorn')}</option>
-              <option value="Battle-Scarred">{t('inventory.filters.battleScarred')}</option>
+              <option value="all">{t('inventory.filters.allTypes')}</option>
+              <option value="knife">{t('inventory.filters.knives')}</option>
+              <option value="rifle">{t('inventory.filters.rifles')}</option>
+              <option value="pistol">{t('inventory.filters.pistols')}</option>
+              <option value="gloves">{t('inventory.filters.gloves')}</option>
             </select>
-          </div>
-
-          <div>
-            <label className="block text-white mb-2">{t('inventory.filters.status')}</label>
-            <select 
-              className="w-full bg-[#2a2a2a] text-white px-4 py-2 rounded-lg"
-              value={filters.status}
-              onChange={(e) => onApplyFilters({ ...filters, status: e.target.value })}
-            >
-              <option value="all">{t('inventory.filters.allStatuses')}</option>
-              <option value="available">{t('inventory.filters.available')}</option>
-              <option value="on_sale">{t('inventory.filters.onSale')}</option>
-              <option value="locked">{t('inventory.filters.locked')}</option>
-            </select>
-          </div>
-
-          <div>
-            <label className="block text-white mb-2">{t('inventory.filters.priceRange')}</label>
-            <div className="flex gap-4">
-              <input
-                type="number"
-                placeholder={t('inventory.filters.min')}
-                className="w-1/2 bg-[#2a2a2a] text-white px-4 py-2 rounded-lg"
-                value={filters.minPrice}
-                onChange={(e) => onApplyFilters({ ...filters, minPrice: e.target.value })}
-              />
-              <input
-                type="number"
-                placeholder={t('inventory.filters.max')}
-                className="w-1/2 bg-[#2a2a2a] text-white px-4 py-2 rounded-lg"
-                value={filters.maxPrice}
-                onChange={(e) => onApplyFilters({ ...filters, maxPrice: e.target.value })}
-              />
-            </div>
           </div>
         </div>
 

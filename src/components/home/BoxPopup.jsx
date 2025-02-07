@@ -129,9 +129,9 @@ const BoxPopup = ({ onClose, boxData }) => {
           
           <div className="mb-6">
             <img 
-              src={boxData.image} 
+              src={boxData.image_url} 
               alt={boxData.name} 
-              className="w-48 h-48 object-contain mx-auto"
+              className="w-48 h-48 object-contain mx-auto transform transition-transform duration-300 hover:scale-125"
             />
           </div>
 

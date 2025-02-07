@@ -185,13 +185,7 @@
         "rifles": "Rifles",
         "pistols": "Pistols",
         "knives": "Knives",
-        "allRarities": "All rarities",
-        "consumer": "Consumer",
-        "industrial": "Industrial",
-        "milSpec": "Mil-Spec",
-        "restricted": "Restricted",
-        "classified": "Classified",
-        "covert": "Covert"
+        "gloves": "Guantes"
       }
     },
     "pagination": {
@@ -303,13 +297,7 @@
       "rifles": "Rifles",
       "pistols": "Pistols",
       "knives": "Knives",
-      "allRarities": "All rarities",
-      "consumer": "Consumer",
-      "industrial": "Industrial",
-      "milSpec": "Mil-Spec",
-      "restricted": "Restricted",
-      "classified": "Classified",
-      "covert": "Covert"
+      "gloves": "Gloves"
     },
     "sell": {
       "title": "Sell Item",
