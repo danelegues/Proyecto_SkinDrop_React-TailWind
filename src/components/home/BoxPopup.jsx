@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../Auth/AuthContext';
@@ -10,6 +10,10 @@ const BoxPopup = ({ onClose, boxData }) => {
   const navigate = useNavigate();
   const { user } = useAuth();
   
+  // Definir los estados al inicio del componente
+  const [userBalance, setUserBalance] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     const handleEscape = (event) => {
       if (event.key === 'Escape') {
@@ -24,19 +28,40 @@ const BoxPopup = ({ onClose, boxData }) => {
     };
   }, [onClose]);
 
+  // Efecto para cargar el balance
+  useEffect(() => {
+    const fetchBalance = async () => {
+      if (user) {
+        try {
+          setIsLoading(true);
+          const response = await axios.get(`${API_URL}/api/profile`, {
+            headers: { 
+              Authorization: `Bearer ${localStorage.getItem('token')}` 
+            }
+          });
+          setUserBalance(response.data.user.balance);
+        } catch (error) {
+          console.error('Error fetching balance:', error);
+        } finally {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    fetchBalance();
+  }, [user]);
+
   const checkAndUpdateBalance = async () => {
     try {
-      // Obtener el balance actual
-      const balanceResponse = await axios.get(`${API_URL}/api/profile`, {
-        headers: { 
-          Authorization: `Bearer ${localStorage.getItem('token')}` 
-        }
-      });
+      // Convertir explícitamente a números
+      const currentBalance = parseFloat(userBalance);
+      const boxPrice = parseFloat(boxData.price);
 
-      const currentBalance = balanceResponse.data.user.balance;
+      console.log('Balance actual:', currentBalance);
+      console.log('Precio de la caja:', boxPrice);
 
       // Verificar si hay suficiente balance
-      if (currentBalance < boxData.price) {
+      if (currentBalance < boxPrice) {
         alert(t('boxPopup.insufficientFunds'));
         return false;
       }
@@ -45,7 +70,7 @@ const BoxPopup = ({ onClose, boxData }) => {
       const updateResponse = await axios.put(
         `${API_URL}/api/profile/balance`,
         { 
-          amount: -parseFloat(boxData.price) // Aseguramos que sea un número
+          amount: -boxPrice
         },
         {
           headers: { 
@@ -56,6 +81,7 @@ const BoxPopup = ({ onClose, boxData }) => {
       );
 
       if (updateResponse.data.balance !== undefined) {
+        setUserBalance(updateResponse.data.balance);
         return true;
       }
 
@@ -90,7 +116,7 @@ const BoxPopup = ({ onClose, boxData }) => {
       window.incrementCasesOpened(boxData.price);
     }
 
-    // Agregar el drop a los recientes con la imagen correcta
+    // Agregar el drop a los recientes
     const newDrop = {
       id: Date.now(),
       name: boxData.name,
@@ -153,15 +179,35 @@ const BoxPopup = ({ onClose, boxData }) => {
               ))}
             </div>
           </div>
-          {/* abrir caja */}
+          
+          {/* Mostrar el balance del usuario y el precio de la caja */}
+          {user && (
+            <div className="mb-4 text-white">
+              {isLoading ? (
+                <p>{t('common.loading')}</p>
+              ) : (
+                <>
+                  <p>{t('boxPopup.yourBalance')}: {parseFloat(userBalance).toFixed(2)}€</p>
+                </>
+              )}
+            </div>
+          )}
+          
           <button
             onClick={handleOpenBox}
             className={`w-full py-3 px-4 rounded-lg transition-colors duration-200 ${
-              user ? 'bg-orange-600 hover:bg-orange-700 text-white' : 'bg-gray-600 cursor-not-allowed text-gray-300'
+              user && parseFloat(userBalance) >= parseFloat(boxData.price)
+                ? 'bg-orange-600 hover:bg-orange-700 text-white' 
+                : 'bg-gray-600 cursor-not-allowed text-gray-300'
             }`}
-            disabled={!user}
+            disabled={!user || parseFloat(userBalance) < parseFloat(boxData.price)}
           >
-            {user ? `${t('boxPopup.openFor')} ${boxData.price}€` : t('boxPopup.loginToOpen')}
+            {!user 
+              ? t('boxPopup.loginToOpen')
+              : parseFloat(userBalance) < parseFloat(boxData.price)
+                ? t('boxPopup.insufficientFunds')
+                : `${t('boxPopup.openFor')} ${parseFloat(boxData.price).toFixed(2)}€`
+            }
           </button>
         </div>
       </div>

@@ -283,7 +283,7 @@
       "wellWorn": "Well-Worn",
       "battleScarred": "Battle-Scarred",
       "status": "Status",
-      "allStatus": "All statuses",
+      "allStatus": "All status",
       "available": "Available",
       "onSale": "On Sale",
       "locked": "Locked",
@@ -338,7 +338,11 @@
   },
   "boxPopup": {
     "possibleRewards": "Possible rewards",
-    "openFor": "Open for"
+    "openFor": "Open for",
+    "yourBalance": "Your balance",
+    "insufficientFunds": "Insufficient funds to open this box",
+    "errorProcessing": "Error processing operation",
+    "loginToOpen": "You must log in to open boxes"
   },
   "profile": {
     "title": "My Profile",

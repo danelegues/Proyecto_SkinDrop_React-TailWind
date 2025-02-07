@@ -346,7 +346,11 @@
   },
   "boxPopup": {
     "possibleRewards": "Posibles recompensas",
-    "openFor": "Abrir por"
+    "openFor": "Abrir por",
+    "yourBalance": "Tu balance",
+    "insufficientFunds": "Fondos insuficientes para abrir esta caja",
+    "errorProcessing": "Error al procesar la operación",
+    "loginToOpen": "Debes iniciar sesión para abrir cajas"
   },
   "common": {
     "cancel": "Cancelar",
