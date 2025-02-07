@@ -107,10 +107,10 @@ const Navbar = () => {
             <div className="menu-container flex justify-between items-center w-full h-[80px] px-5">
               {/* Logo Section */}
               <div className="apartadoLogo flex justify-start items-center flex-1">
-                <Link href="/" className="flex items-center">
+                <a href="/" className="flex items-center">
                   <img src="/img/LogoSkinDrop.png" alt="Logo SkinDrop" className="h-[60px] w-[60px] mr-2" />
                   <span className="text-white text-[30px] font-bold">SkinDrop</span>
-                </Link>
+                </a>
               </div>
               
               {/* Botón Hamburguesa */}

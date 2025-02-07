@@ -171,10 +171,6 @@
       "skindrop": {
         "title": "MARKET",
         "subtitle": "SkinDrop"
-      },
-      "sales": {
-        "title": "YOUR",
-        "subtitle": "SALES"
       }
     },
     "search": {
@@ -209,7 +205,21 @@
       "soldTo": "Sold to:",
       "listedTime": "Listed {{time}} ago",
       "soldTime": "Sold {{time}} ago"
-    }
+    },
+    "buyModal": {
+      "title": "Confirm Purchase",
+      "seller": "Seller",
+      "confirm": "Confirm Purchase",
+      "insufficientFunds": "Insufficient Funds",
+      "errorProcessing": "Error processing purchase"
+    },
+    "errors": {
+      "buyError": "Error making purchase",
+      "invalidItem": "Invalid item",
+      "insufficientFunds": "Insufficient funds to make purchase"
+    },
+    "unknownSeller": "SkinDrop",
+    "noItems": "No items in the market"
   },
   "trade": {
     "title": "Trades",

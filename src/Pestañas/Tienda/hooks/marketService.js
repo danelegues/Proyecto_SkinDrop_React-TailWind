@@ -8,119 +8,182 @@ export const marketService = {
             const token = localStorage.getItem('token');
             
             if (!token) {
-                console.error('No se encontró token');
-                return {
-                    success: false,
-                    message: 'No hay token de autenticación'
-                };
+                throw new Error('No se encontró token de autenticación');
             }
 
-            const response = await axios.get(`${API_URL}/api/market`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                withCredentials: true
-            });
+            const response = await axios.get(
+                `${API_URL}/api/market`,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    withCredentials: true
+                }
+            );
 
-            if (!response.data || !response.data.success) {
-                return {
-                    success: false,
-                    message: 'Error en la respuesta del servidor'
-                };
+            if (!response.data.success) {
+                throw new Error(response.data?.message || 'Error al obtener items del mercado');
             }
 
-            return {
-                success: true,
-                data: response.data.data || []
-            };
+            return response.data;
 
         } catch (error) {
             console.error('Error al obtener items del mercado:', error);
-            return {
-                success: false,
-                message: error.response?.data?.message || 'Error al cargar los items del mercado',
-                error: error
-            };
+            throw error.response?.data?.message || error.message;
         }
     },
 
     async buyItem(itemId) {
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.post(`${API_URL}/api/market/buy/${itemId}`, {}, {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            });
             
+            if (!token) {
+                throw new Error('No se encontró token de autenticación');
+            }
+
+            console.log('Intentando comprar item del Market:', itemId);
+
+            const response = await axios.post(
+                `${API_URL}/api/market/buy/${itemId}`,
+                {},
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    withCredentials: true
+                }
+            );
+
+            console.log('Respuesta de compra Market:', response.data);
+
+            if (!response.data.success) {
+                throw new Error(response.data.message || 'Error al comprar el item');
+            }
+
             return response.data;
+
         } catch (error) {
-            console.error('Error al comprar item:', error.response?.data || error.message);
-            throw error;
+            console.error('Error al comprar item del Market:', error);
+            throw error.response?.data?.message || 'Error del servidor al procesar la compra';
         }
     },
 
     async listItemForSale(itemId, price) {
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.post(`${API_URL}/api/market/items`, {
-                item_id: itemId,
-                price: price
-            }, {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
+            
+            const response = await axios.post(
+                `${API_URL}/api/market/items`,
+                {
+                    item_id: itemId,
+                    price: parseFloat(price)
+                },
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
                 }
-            });
+            );
+
             return response.data;
         } catch (error) {
-            throw error;
+            console.error('Error al listar item:', error);
+            throw error.response?.data?.message || error.message;
         }
     },
 
     async addToMarket(itemId, price) {
         try {
+            console.log('Enviando datos al servidor:', { itemId, price }); // Debug log
             const token = localStorage.getItem('token');
-            const response = await axios({
-                method: 'POST',
-                url: `${API_URL}/api/market/items`,
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                },
-                data: {
+            
+            if (!token) {
+                throw new Error('No se encontró token de autenticación');
+            }
+
+            const response = await axios.post(
+                `${API_URL}/api/market/items`,
+                {
                     item_id: itemId,
-                    price: price
+                    price: parseFloat(price)
+                },
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
                 }
-            });
+            );
+
+            if (!response.data.success) {
+                throw new Error(response.data.message || 'Error al poner el item en venta');
+            }
 
             return response.data;
         } catch (error) {
-            console.error('Error in addToMarket:', error);
-            throw error;
+            console.error('Error detallado en addToMarket:', {
+                message: error.message,
+                response: error.response?.data,
+                status: error.response?.status
+            });
+            throw error.response?.data?.message || error.message || 'Error al poner el item en venta';
         }
     },
 
     async removeFromMarket(itemId) {
         try {
             const token = localStorage.getItem('token');
-            const response = await axios({
-                method: 'DELETE',
-                url: `${API_URL}/api/market/remove/${itemId}`,
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
+            
+            const response = await axios.delete(
+                `${API_URL}/api/market/remove/${itemId}`,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
                 }
-            });
+            );
 
             return response.data;
         } catch (error) {
-            console.error('Error in removeFromMarket:', error);
-            throw error;
+            console.error('Error al remover item del mercado:', error);
+            throw error.response?.data?.message || error.message;
+        }
+    },
+
+    async buyMarketItem(listingId) {
+        try {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                throw new Error('No se encontró token de autenticación');
+            }
+
+            const response = await axios.post(
+                `${API_URL}/api/market/buy/${listingId}`,
+                {},
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                }
+            );
+
+            if (!response.data.success) {
+                throw new Error(response.data.message || 'Error al comprar el item');
+            }
+
+            return response.data;
+        } catch (error) {
+            console.error('Error en buyMarketItem:', error);
+            throw error.response?.data?.message || error.message;
         }
     }
 };

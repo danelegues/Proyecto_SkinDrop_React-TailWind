@@ -152,10 +152,6 @@
       "skindrop": {
         "title": "MERCADO",
         "subtitle": "SkinDrop"
-      },
-      "sales": {
-        "title": "TUS",
-        "subtitle": "VENTAS"
       }
     },
     "search": {
@@ -190,7 +186,21 @@
       "soldTo": "Vendido a:",
       "listedTime": "Listado hace {{time}}",
       "soldTime": "Vendido hace {{time}}"
-    }
+    },
+    "buyModal": {
+      "title": "Confirmar Compra",
+      "seller": "Vendedor",
+      "confirm": "Confirmar Compra",
+      "insufficientFunds": "Saldo insuficiente",
+      "errorProcessing": "Error al procesar la compra"
+    },
+    "errors": {
+      "buyError": "Error al realizar la compra",
+      "invalidItem": "Item no válido",
+      "insufficientFunds": "Saldo insuficiente para realizar la compra"
+    },
+    "unknownSeller": "SkinDrop",
+    "noItems": "No hay items en el mercado"
   },
   "trade": {
     "title": "Intercambios",

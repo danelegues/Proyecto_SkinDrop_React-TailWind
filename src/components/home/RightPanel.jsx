@@ -48,7 +48,7 @@ const RightPanel = () => {
       <div className="bg-[#141414] rounded-lg p-4">
         <h3 className="text-white text-xl font-bold mb-4">{t('lastDrops.title')}</h3>
         <div className="space-y-2">
-          {recentDrops.map((drop) => (
+          {recentDrops.slice(0, 6).map((drop) => (
             <div 
               key={drop.id} 
               className="bg-[#1a1a1a] rounded-lg p-3 flex items-center gap-3 hover:bg-[#222] transition-all duration-300"

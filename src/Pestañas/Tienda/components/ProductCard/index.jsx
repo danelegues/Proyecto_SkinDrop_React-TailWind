@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import React, { useState } from 'react';
 
-function ProductCard({ name = 'Sin nombre', price = 0, image = '/img/default.png', user = 'Desconocido' }) {
+function ProductCard({ name = 'Sin nombre', price = 0, image = '/img/default.png', user = ' SkinDrop' }) {
   const { t } = useTranslation();
   const [showPopup, setShowPopup] = useState(false);
 

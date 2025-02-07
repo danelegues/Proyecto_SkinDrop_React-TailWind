@@ -16,27 +16,23 @@ export function useSkinsFilter() {
 
   const fetchMarketItems = useCallback(async () => {
     try {
-      const response = await marketService.getMarketItems()
-      console.log('Respuesta del servidor:', response) // Debug log
-      
+      setLoading(true);
+      const response = await marketService.getMarketItems();
       if (response && response.success && Array.isArray(response.data)) {
-        setItems(response.data)
-        console.log('Items guardados:', response.data) // Debug log
-      } else {
-        console.warn('Formato de respuesta inválido:', response)
-        setItems([])
+        setItems(response.data);
       }
     } catch (error) {
-      console.error('Error al cargar items:', error)
-      setError(error)
+      console.error('Error al cargar items:', error);
+      setError(error.toString());
+      setItems([]);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
-    fetchMarketItems()
-  }, [fetchMarketItems])
+    fetchMarketItems();
+  }, [fetchMarketItems]);
 
   const filteredSkins = useMemo(() => {
     console.log('Items en filteredSkins:', items) // Debug log
@@ -82,6 +78,32 @@ export function useSkinsFilter() {
     return result
   }, [filteredSkins, currentPage])
 
+  const refreshItems = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await marketService.getMarketItems();
+      
+      if (response.success) {
+        setItems(response.data);
+        // Resetear a la primera página después de una compra
+        setCurrentPage(1);
+      } else {
+        throw new Error(response.message || 'Error al cargar los items');
+      }
+    } catch (error) {
+      console.error('Error al refrescar items:', error);
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  // Cargar items inicialmente
+  useEffect(() => {
+    refreshItems();
+  }, [refreshItems]);
+
   return {
     searchQuery,
     setSearchQuery,
@@ -101,6 +123,7 @@ export function useSkinsFilter() {
     paginatedSkins,
     totalItems,
     loading,
-    error
+    error,
+    refreshItems
   }
 }

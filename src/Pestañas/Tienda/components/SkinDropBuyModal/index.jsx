@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { marketService } from '../../hooks/marketService';
 import { skinDropMarketService } from '../../hooks/skinDropMarketService';
 
-function BuyModal({ isOpen, onClose, item, onSuccess, isSkinDrop = false }) {
+function SkinDropBuyModal({ isOpen, onClose, item, onSuccess }) {
     const { t } = useTranslation();
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -15,31 +14,25 @@ function BuyModal({ isOpen, onClose, item, onSuccess, isSkinDrop = false }) {
             setIsLoading(true);
             setError(null);
             
-            console.log('Iniciando compra del item:', item, 'Es SkinDrop:', isSkinDrop);
+            console.log('Iniciando compra en SkinDrop Market:', item);
 
             if (!item.id) {
                 throw new Error('ID de item no válido');
             }
 
-            let response;
-            if (isSkinDrop) {
-                console.log('Comprando de SkinDrop Market');
-                response = await skinDropMarketService.purchaseItem(item.id);
-            } else {
-                console.log('Comprando de Market Online');
-                response = await marketService.buyItem(item.id);
-            }
+            const response = await skinDropMarketService.purchaseItem(item.id);
             
-            console.log('Respuesta de compra:', response);
+            console.log('Respuesta de compra SkinDrop Market:', response);
             
             if (response.success) {
+                console.log('Compra exitosa en SkinDrop Market');
                 onSuccess?.();
                 onClose();
             } else {
                 throw new Error(response.message || 'Error al comprar el item');
             }
         } catch (error) {
-            console.error('Error en la compra:', error);
+            console.error('Error en la compra SkinDrop Market:', error);
             setError(error.message || t('store.errors.buyError'));
         } finally {
             setIsLoading(false);
@@ -50,7 +43,9 @@ function BuyModal({ isOpen, onClose, item, onSuccess, isSkinDrop = false }) {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-[#1a1a1a] rounded-lg p-6 w-[500px]">
                 <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-white text-xl font-bold">{t('store.buyModal.title')}</h2>
+                    <h2 className="text-white text-xl font-bold">
+                        {t('store.skinDropBuyModal.title')}
+                    </h2>
                     <button 
                         onClick={onClose}
                         className="text-gray-400 hover:text-white"
@@ -69,8 +64,10 @@ function BuyModal({ isOpen, onClose, item, onSuccess, isSkinDrop = false }) {
                     />
                     <div>
                         <h3 className="text-white text-lg font-bold">{item.name}</h3>
-                        <p className="text-gray-400">{t('store.buyModal.seller')}: {item.username || t('store.unknownSeller')}</p>
-                        <p className="text-[#ff6b00] text-xl font-bold mt-2">{Number(item.price).toFixed(2)}€</p>
+                        <p className="text-gray-400">{t('store.skinDropBuyModal.official')}</p>
+                        <p className="text-[#ff6b00] text-xl font-bold mt-2">
+                            {Number(item.price).toFixed(2)}€
+                        </p>
                     </div>
                 </div>
 
@@ -101,7 +98,7 @@ function BuyModal({ isOpen, onClose, item, onSuccess, isSkinDrop = false }) {
                                 </svg>
                                 {t('common.processing')}
                             </span>
-                        ) : t('store.buyModal.confirm')}
+                        ) : t('store.skinDropBuyModal.confirm')}
                     </button>
                 </div>
             </div>
@@ -109,4 +106,4 @@ function BuyModal({ isOpen, onClose, item, onSuccess, isSkinDrop = false }) {
     );
 }
 
-export default BuyModal;
+export default SkinDropBuyModal;
