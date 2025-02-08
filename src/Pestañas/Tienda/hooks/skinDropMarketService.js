@@ -22,11 +22,26 @@ export const skinDropMarketService = {
                 }
             );
 
+            console.log('Respuesta del servidor:', response.data);
+
             if (!response.data.success) {
                 throw new Error(response.data?.message || 'Error al obtener items del SkinDrop Market');
             }
 
-            return response.data;
+            // Modificar la verificación de items
+            const items = response.data.items || [];
+            console.log('Items recibidos:', items);
+            
+            // Añadir la propiedad isSkinDrop a cada item
+            const itemsWithSkinDropFlag = items.map(item => ({
+                ...item,
+                isSkinDrop: true
+            }));
+
+            return {
+                ...response.data,
+                items: itemsWithSkinDropFlag
+            };
 
         } catch (error) {
             console.error('Error al obtener items del SkinDrop Market:', error);
@@ -70,4 +85,4 @@ export const skinDropMarketService = {
             throw error.response?.data?.message || 'Error del servidor al procesar la compra';
         }
     }
-}; 
+};

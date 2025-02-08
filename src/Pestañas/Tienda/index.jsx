@@ -100,6 +100,7 @@ function Shop() {
                   <ProductGrid 
                     skins={paginatedSkins} 
                     onItemClick={handleItemClick}
+                    isSkinDrop={false}
                   />
                   <div className="mt-8">
                     <Pagination 
@@ -115,10 +116,11 @@ function Shop() {
 
             {/* Modal para Market */}
             <BuyModal
-              isOpen={isModalOpen && currentTab === 'market'}
+              isOpen={isModalOpen}
               onClose={handleModalClose}
               item={selectedItem}
               onSuccess={handlePurchaseSuccess}
+              isSkinDrop={false}
             />
           </div>
         )}
@@ -127,13 +129,15 @@ function Shop() {
           <div className="mt-12 mb-12 text-white">
             <SkinDropMarket 
               onItemClick={handleItemClick}
+              isSkinDrop={true}
             />
             {/* Modal para SkinDrop */}
-            <SkinDropBuyModal
-              isOpen={isModalOpen && currentTab === 'skindrop'}
+            <BuyModal
+              isOpen={isModalOpen}
               onClose={handleModalClose}
               item={selectedItem}
               onSuccess={handlePurchaseSuccess}
+              isSkinDrop={true}
             />
           </div>
         )}

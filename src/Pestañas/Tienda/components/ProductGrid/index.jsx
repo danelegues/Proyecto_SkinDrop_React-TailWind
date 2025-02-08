@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import ProductCard from '../ProductCard';
 import BuyModal from '../BuyModal';
+import SkinDropBuyModal from '../SkinDropBuyModal';
 
-function ProductGrid({ skins, onRefresh }) {
+function ProductGrid({ skins, onRefresh, isSkinDrop = false }) {
     const { t } = useTranslation();
     const [selectedItem, setSelectedItem] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -56,9 +57,16 @@ function ProductGrid({ skins, onRefresh }) {
                                 <span className="text-sm text-gray-400 font-medium truncate">
                                     {skin.username || t('store.unknownSeller')}
                                 </span>
-                                <span className="text-[#ff6b00] font-bold">
-                                    {Number(skin.price).toFixed(2)}€
-                                </span>
+                                <div className="text-right">
+                                    {isSkinDrop && skin.originalPrice && (
+                                        <span className="text-gray-400 text-xs line-through mr-2">
+                                            {Number(skin.originalPrice).toFixed(2)}€
+                                        </span>
+                                    )}
+                                    <span className="text-[#ff6b00] font-bold">
+                                        {Number(skin.price).toFixed(2)}€
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -70,6 +78,7 @@ function ProductGrid({ skins, onRefresh }) {
                 onClose={handleModalClose}
                 item={selectedItem}
                 onSuccess={handlePurchaseSuccess}
+                isSkinDrop={isSkinDrop}
             />
         </>
     );

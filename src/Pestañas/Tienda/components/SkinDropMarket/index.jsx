@@ -101,6 +101,8 @@ function SkinDropMarket({ onItemClick }) {
             <ProductGrid 
                 skins={paginatedItems} 
                 onItemClick={handleItemClick}
+                onRefresh={loadItems}
+                isSkinDrop={true}
             />
             <div className="mt-8">
                 <Pagination 
@@ -118,13 +120,7 @@ function SkinDropMarket({ onItemClick }) {
                 onSuccess={handlePurchaseSuccess}
             />
 
-            <BuyModal
-                isOpen={isModalOpen}
-                onClose={handleModalClose}
-                item={selectedItem}
-                onSuccess={handlePurchaseSuccess}
-                isSkinDrop={true}
-            />
+           
         </div>
     );
 }
