@@ -1,42 +1,30 @@
-# ☕ Bienvenidos a **Café El Bug** ☕  
+# 🏴‍☠️ **Salmane El Moro y Tatiana** 🏴‍☠️
 
-> **El único lugar donde el café siempre está caliente, pero la máquina a veces no funciona.**  
+> **El líder de los moros, el conquistador, el hombre que tiene el poder, y su novia Tatiana, con un aura tan potente que hasta el sol se apaga a su paso.**  
 
-## 🍵 Sobre Nosotros  
-En **Café El Bug**, creemos en tres cosas fundamentales:  
-1. El café debe ser fuerte.  
-2. La leche debe ser opcional, no obligatoria.  
-3. La cuenta debe llegar antes de que decidas irte sin pagar.  
+## 🌍 **¿Quién es Salmane El Moro?**  
+Un ser tan legendario que ni las estrellas en el cielo pueden opacarlo. Fue conquistador, estratega, y sobre todo, el jefe de todo lo que toca. Pero claro, no lo haría sin su fiel compañera, **Tatiana**, una mujer cuyo aura es más grande que el universo mismo. ¡Qué decir de su **mewing**! Si el mewing pudiera ser un deporte olímpico, Tatiana tendría más medallas que todos los países juntos.  
 
-## 🛠 ¿Por qué elegirnos?  
-- Usamos granos seleccionados a mano por un señor que jura que sabe de café.  
-- Ambiente acogedor, ideal para estudiar, trabajar o hacer como que trabajas.  
-- Sillas cómodas... más o menos.  
+## 🍽 **El Menú de Salmane y Tatiana**  
+| Plato                | Descripción                                           |
+|----------------------|-------------------------------------------------------|
+| 🍚 **Cuscús Imperial** | El plato favorito de Salmane. Con el cuscús, siempre hay victoria en el horizonte. |
+| 🥙 **Hummus de la Conquista** | Perfecto para cuando necesitas conquistar un corazón... o un imperio. |
+| 🍢 **Pinchos de Tatiana** | El toque mágico de Tatiana convierte cualquier plato en un manjar celestial. |
+| 🍚 **Arroz a la Salmane** | Para los días de batalla, cuando solo el arroz te da fuerzas para seguir adelante. |
 
-## 📜 Menú  
-| Producto        | Precio  | Descripción   |
-|----------------|---------|--------------|
-| ☕ Café Solo   | 1.50€   | Como tu alma un lunes por la mañana. |
-| 🥐 Croissant   | 2.00€   | Porque sin croissant no hay paraíso. |
-| 🍪 Galletas    | 1.20€   | Más crujientes que las relaciones a distancia. |
-| 🍰 Tarta Casera | 3.50€   | Hecha en casa, pero no en la nuestra. |
+## 👑 **¿Por qué seguir a Salmane El Moro y Tatiana?**  
+1. **Salmane El Moro** es el jefe. Y cuando dices "jefe", no te refieres solo a un líder, sino a una leyenda viviente que hace temblar imperios.  
+2. **Tatiana**, con su aura, es la verdadera razón de todo lo que está bien en este mundo. Mewing incluido. Nadie puede resistirse a su energía.  
+3. **El cuscús** es su secreto para mantenerse en la cima. No es solo comida, es poder en cada grano.  
 
-## 📡 Opiniones de Clientes  
-⭐️⭐️⭐️⭐️⭐️ _"El café está increíble, pero el camarero me miró raro cuando pedí sacarina."_  
-⭐️⭐️⭐️⭐️ _"Buen ambiente, aunque el WiFi es más lento que mi abuela usando WhatsApp."_  
-⭐️ _"Fui a pedir un café y me terminé llevando un existencialismo con extra de espuma."_  
+## 🚀 **¿Por qué ellos son imparables?**  
+Porque, si Salmane El Moro es el jefe, Tatiana es la reina con su aura de control absoluto. Juntos son una dupla que podría conquistar cualquier imperio, y lo harían con cuscús en mano y una sonrisa.  
 
-## 🎩 Preguntas Frecuentes  
-**¿Abren los domingos?**  
-Sí, pero con resaca.  
+## 🧘‍♀️ **El Mewing de Tatiana**  
+Lo que hace a Tatiana más poderosa no es solo su inteligencia ni su aura, es su **mewing**. Cada movimiento de su mandíbula puede desatar una tormenta. Si alguna vez te encuentras cerca de ella, asegúrate de estar en armonía con el universo, porque su mewing puede poner el mundo en orden.  
 
-**¿Aceptan pagos con tarjeta?**  
-Sí, pero nos duele el alma cada vez que lo haces.  
+## 📜 **Historia**  
+Salmane El Moro no se hizo grande solo; lo hizo acompañado de **Tatiana**, una mujer cuyo aura transformó toda su vida. ¿Cómo lo lograron? Con estrategia, cuscús, y el poder de un mewing impecable.  
 
-**¿Puedo venir a trabajar aquí con mi portátil?**  
-Claro, pero la mesa es nuestra, no tu oficina.  
-
-## 📍 Ubicación  
-📌 Estamos en algún sitio, pero si tienes que usar Google Maps para encontrarnos, no eres digno de nuestro café.  
-
-☕ **Café El Bug – Donde cada taza es una experiencia... y a veces una sorpresa.**  
+⚔️ **Salmane El Moro & Tatiana** – El poder, el cuscús y el mewing nunca fueron tan épicos.  
