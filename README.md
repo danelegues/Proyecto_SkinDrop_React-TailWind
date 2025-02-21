@@ -1,70 +1,42 @@
-# Getting Started with Create React App
+# ☕ Bienvenidos a **Café El Bug** ☕  
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> **El único lugar donde el café siempre está caliente, pero la máquina a veces no funciona.**  
 
-## Available Scripts
+## 🍵 Sobre Nosotros  
+En **Café El Bug**, creemos en tres cosas fundamentales:  
+1. El café debe ser fuerte.  
+2. La leche debe ser opcional, no obligatoria.  
+3. La cuenta debe llegar antes de que decidas irte sin pagar.  
 
-In the project directory, you can run:
+## 🛠 ¿Por qué elegirnos?  
+- Usamos granos seleccionados a mano por un señor que jura que sabe de café.  
+- Ambiente acogedor, ideal para estudiar, trabajar o hacer como que trabajas.  
+- Sillas cómodas... más o menos.  
 
-### `npm start`
+## 📜 Menú  
+| Producto        | Precio  | Descripción   |
+|----------------|---------|--------------|
+| ☕ Café Solo   | 1.50€   | Como tu alma un lunes por la mañana. |
+| 🥐 Croissant   | 2.00€   | Porque sin croissant no hay paraíso. |
+| 🍪 Galletas    | 1.20€   | Más crujientes que las relaciones a distancia. |
+| 🍰 Tarta Casera | 3.50€   | Hecha en casa, pero no en la nuestra. |
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 📡 Opiniones de Clientes  
+⭐️⭐️⭐️⭐️⭐️ _"El café está increíble, pero el camarero me miró raro cuando pedí sacarina."_  
+⭐️⭐️⭐️⭐️ _"Buen ambiente, aunque el WiFi es más lento que mi abuela usando WhatsApp."_  
+⭐️ _"Fui a pedir un café y me terminé llevando un existencialismo con extra de espuma."_  
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🎩 Preguntas Frecuentes  
+**¿Abren los domingos?**  
+Sí, pero con resaca.  
 
-### `npm test`
+**¿Aceptan pagos con tarjeta?**  
+Sí, pero nos duele el alma cada vez que lo haces.  
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**¿Puedo venir a trabajar aquí con mi portátil?**  
+Claro, pero la mesa es nuestra, no tu oficina.  
 
-### `npm run build`
+## 📍 Ubicación  
+📌 Estamos en algún sitio, pero si tienes que usar Google Maps para encontrarnos, no eres digno de nuestro café.  
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+☕ **Café El Bug – Donde cada taza es una experiencia... y a veces una sorpresa.**  
